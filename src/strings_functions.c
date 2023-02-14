@@ -1,7 +1,7 @@
 /**
  * @file strings_functions.c
- * @brief
- * @copyright 2022 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
+ * @brief strings manipulation functions
+ * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
  * @note This is based on https://github.com/alcover/buf. Please contact their authors for more information.
  *
@@ -28,23 +28,36 @@
  *
  */
 
+#include <string.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <ctype.h>
 
 #include "strings_buf.h"
 #include "strings_functions.h"
 
+/**
+ * @fn size_t string_len(const String buf)
+ * @brief
+ *
+ * @param buf
+ * @return
+ */
 size_t string_len(const String buf) {
-    if (buf == NULL)
-        return 0;
+    if (buf == NULL) return 0;
 
     return buf->len;
 }
 
+/**
+ * @fn String string_left(const String buf, uint32_t pos)
+ * @brief
+ *
+ * @param buf
+ * @param pos
+ * @return
+ */
 String string_left(const String buf, uint32_t pos) {
-    if (buf == NULL || pos > buf->len)
-        return NULL;
+    if (buf == NULL || pos > buf->len) return NULL;
 
     String new = string_buf_new(pos);
     memcpy(new->data, buf->data, pos + 1);
@@ -53,9 +66,16 @@ String string_left(const String buf, uint32_t pos) {
     return new;
 }
 
+/**
+ * @fn String string_right(const String buf, uint32_t pos)
+ * @brief
+ *
+ * @param buf
+ * @param pos
+ * @return
+ */
 String string_right(const String buf, uint32_t pos) {
-    if (buf == NULL || pos > buf->len)
-        return NULL;
+    if (buf == NULL || pos > buf->len) return NULL;
 
     String new = string_buf_new(buf->len - pos);
     memcpy(new->data, buf->data + pos, buf->len - pos + 1);
@@ -64,20 +84,35 @@ String string_right(const String buf, uint32_t pos) {
     return new;
 }
 
+/**
+ * @fn String string_mid(const String buf, uint32_t left, uint32_t right)
+ * @brief
+ *
+ * @param buf
+ * @param left
+ * @param right
+ * @return
+ */
 String string_mid(const String buf, uint32_t left, uint32_t right) {
-    if (buf == NULL || right > buf->len || left > buf->len || left > right)
-        return NULL;
+    if (buf == NULL || right > buf->len || left > buf->len || left > right) return NULL;
 
     String new = string_buf_new(right - left);
-    memcpy(new->data, buf->data + left -1, right - left + 1);
+    memcpy(new->data, buf->data + left - 1, right - left + 1);
     new->len = right - left + 1;
 
     return new;
 }
 
+/**
+ * @fn String string_concat(const String str1, const String str2)
+ * @brief
+ *
+ * @param str1
+ * @param str2
+ * @return
+ */
 String string_concat(const String str1, const String str2) {
-    if (str1 == NULL || str2 == NULL)
-        return NULL;
+    if (str1 == NULL || str2 == NULL) return NULL;
 
     String new = string_buf_new(str1->len + str2->len);
     memcpy(new->data, str1->data, str1->len);
@@ -87,9 +122,17 @@ String string_concat(const String str1, const String str2) {
     return new;
 }
 
+/**
+ * @fn String string_insert(const String buf, const String str, uint32_t pos)
+ * @brief
+ *
+ * @param buf
+ * @param str
+ * @param pos
+ * @return
+ */
 String string_insert(const String buf, const String str, uint32_t pos) {
-    if (buf == NULL || str == NULL || pos > buf->len)
-        return NULL;
+    if (buf == NULL || str == NULL || pos > buf->len) return NULL;
 
     String new = string_buf_new(buf->len + str->len);
     memcpy(new->data, buf->data, pos);
@@ -101,6 +144,15 @@ String string_insert(const String buf, const String str, uint32_t pos) {
     return new;
 }
 
+/**
+ * @fn String string_delete(const String buf, uint32_t pos1, uint32_t pos2)
+ * @brief
+ *
+ * @param buf
+ * @param pos1
+ * @param pos2
+ * @return
+ */
 String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
     if (buf == NULL || pos1 > buf->len || pos2 > buf->len || pos1 > pos2) {
         return NULL;
@@ -115,13 +167,20 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
     return new;
 }
 
+/**
+ * @fn String string_replace(const String buf, const String search, String replace)
+ * @brief
+ *
+ * @param buf
+ * @param search
+ * @param replace
+ * @return
+ */
 String string_replace(const String buf, const String search, String replace) {
-    if (buf == NULL || search == NULL || replace == NULL)
-        return NULL;
+    if (buf == NULL || search == NULL || replace == NULL) return NULL;
 
     uint32_t pos = string_find(buf, search);
-    if (pos == STR_ERROR)
-        return NULL;
+    if (pos == STR_ERROR) return NULL;
 
     String new = string_buf_new(buf->len - search->len + replace->len);
     memcpy(new->data, buf->data, pos);
@@ -133,27 +192,37 @@ String string_replace(const String buf, const String search, String replace) {
     return new;
 }
 
+/**
+ * @fn uint32_t string_find(const String buf, const String search)
+ * @brief
+ *
+ * @param buf
+ * @param search
+ * @return
+ */
 uint32_t string_find(const String buf, const String search) {
-    if (buf == NULL || search == NULL || search->len > buf->len)
-        return STR_ERROR;
+    if (buf == NULL || search == NULL || search->len > buf->len) return STR_ERROR;
 
     char *p;
-    if ((p = strstr(buf->data, search->data)) != NULL)
-        return p - buf->data;
+    if ((p = strstr(buf->data, search->data)) != NULL) return p - buf->data;
 
     return STR_ERROR;
 }
 
+/**
+ * @fn String string_toupper(const String buf)
+ * @brief
+ *
+ * @param buf
+ * @return
+ */
 String string_toupper(const String buf) {
-    if (buf == NULL)
-        return NULL;
+    if (buf == NULL) return NULL;
 
     String new = string_buf_new(buf->len);
     for (int i = 0; i < buf->len; i++) {
-        if (buf->data[i] >= 97 && buf->data[i] <= 122)
-            new->data[i] = buf->data[i] - 32;
-        else
-            new->data[i] = buf->data[i];
+        if (buf->data[i] >= 97 && buf->data[i] <= 122) new->data[i] = buf->data[i] - 32;
+        else new->data[i] = buf->data[i];
     }
 
     new->len = buf->len;
@@ -161,16 +230,20 @@ String string_toupper(const String buf) {
     return new;
 }
 
+/**
+ * @fn String string_tolower(const String buf)
+ * @brief
+ *
+ * @param buf
+ * @return
+ */
 String string_tolower(const String buf) {
-    if (buf == NULL)
-        return NULL;
+    if (buf == NULL) return NULL;
 
     String new = string_buf_new(buf->len);
     for (int i = 0; i < buf->len; i++) {
-        if (buf->data[i] >= 65 && buf->data[i] <= 90)
-            new->data[i] = buf->data[i] + 32;
-        else
-            new->data[i] = buf->data[i];
+        if (buf->data[i] >= 65 && buf->data[i] <= 90) new->data[i] = buf->data[i] + 32;
+        else new->data[i] = buf->data[i];
     }
 
     new->len = buf->len;
@@ -178,9 +251,15 @@ String string_tolower(const String buf) {
     return new;
 }
 
+/**
+ * @fn String string_trim(const String buf)
+ * @brief
+ *
+ * @param buf
+ * @return
+ */
 String string_trim(const String buf) {
-    if (buf == NULL)
-        return NULL;
+    if (buf == NULL) return NULL;
 
     uint32_t pos1 = 0, pos2 = buf->len - 1;
 

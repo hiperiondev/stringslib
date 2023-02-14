@@ -1,7 +1,7 @@
 /**
  * @file test.c
- * @brief
- * @copyright 2022 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
+ * @brief strings library test
+ * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
  * @note This is based on https://github.com/alcover/buf. Please contact their authors for more information.
  *
@@ -28,6 +28,7 @@
  *
  */
 
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -50,7 +51,7 @@ int main(void) {
 #define check(buf, cap, data)                                 \
             do {                                              \
                 assert (string_buf_cap(buf) == cap);          \
-                assert (string_len(buf) == strlen(data)); \
+                assert (string_len(buf) == strlen(data));     \
                 assert (!strcmp(string_buf_data(buf), data)); \
             } while(0)
 

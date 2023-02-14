@@ -1,7 +1,7 @@
 /**
  * @file strings_functions.h
- * @brief
- * @copyright 2022 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
+ * @brief strings manipulation functions
+ * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
  * @note This is based on https://github.com/alcover/buf. Please contact their authors for more information.
  *
@@ -36,7 +36,8 @@
 #include "strings_buf.h"
 
 enum STRING_ERROR {
-    STR_OK, STR_ERROR = UINT32_MAX,
+    STR_OK,
+    STR_ERROR = UINT32_MAX,
 };
 
   size_t string_len(const String buf);
