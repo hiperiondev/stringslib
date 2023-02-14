@@ -37,10 +37,10 @@
 
 /**
  * @fn size_t string_len(const String buf)
- * @brief
+ * @brief Buffered string length
  *
- * @param buf
- * @return
+ * @param buf Buffered string
+ * @return Size
  */
 size_t string_len(const String buf) {
     if (buf == NULL) return 0;
@@ -50,11 +50,11 @@ size_t string_len(const String buf) {
 
 /**
  * @fn String string_left(const String buf, uint32_t pos)
- * @brief
+ * @brief Substring left from position
  *
- * @param buf
- * @param pos
- * @return
+ * @param buf Buffered string
+ * @param pos Position
+ * @return Buffered string
  */
 String string_left(const String buf, uint32_t pos) {
     if (buf == NULL || pos > buf->len) return NULL;
@@ -68,11 +68,11 @@ String string_left(const String buf, uint32_t pos) {
 
 /**
  * @fn String string_right(const String buf, uint32_t pos)
- * @brief
+ * @brief Substring right from position
  *
- * @param buf
- * @param pos
- * @return
+ * @param buf Buffered string
+ * @param pos Position
+ * @return Buffered string
  */
 String string_right(const String buf, uint32_t pos) {
     if (buf == NULL || pos > buf->len) return NULL;
@@ -86,12 +86,12 @@ String string_right(const String buf, uint32_t pos) {
 
 /**
  * @fn String string_mid(const String buf, uint32_t left, uint32_t right)
- * @brief
+ * @brief Substring left from position left to position right
  *
- * @param buf
- * @param left
- * @param right
- * @return
+ * @param buf Buffered string
+ * @param left Position
+ * @param right Position
+ * @return Buffered string
  */
 String string_mid(const String buf, uint32_t left, uint32_t right) {
     if (buf == NULL || right > buf->len || left > buf->len || left > right) return NULL;
@@ -105,11 +105,11 @@ String string_mid(const String buf, uint32_t left, uint32_t right) {
 
 /**
  * @fn String string_concat(const String str1, const String str2)
- * @brief
+ * @brief Concatenation of strings
  *
- * @param str1
- * @param str2
- * @return
+ * @param str1 Buffered string
+ * @param str2 Buffered string
+ * @return Buffered string
  */
 String string_concat(const String str1, const String str2) {
     if (str1 == NULL || str2 == NULL) return NULL;
@@ -124,12 +124,12 @@ String string_concat(const String str1, const String str2) {
 
 /**
  * @fn String string_insert(const String buf, const String str, uint32_t pos)
- * @brief
+ * @brief Insert string on position
  *
- * @param buf
- * @param str
- * @param pos
- * @return
+ * @param buf Buffered string
+ * @param str Buffered string
+ * @param pos Position
+ * @return Buffered string
  */
 String string_insert(const String buf, const String str, uint32_t pos) {
     if (buf == NULL || str == NULL || pos > buf->len) return NULL;
@@ -146,12 +146,12 @@ String string_insert(const String buf, const String str, uint32_t pos) {
 
 /**
  * @fn String string_delete(const String buf, uint32_t pos1, uint32_t pos2)
- * @brief
+ * @brief Delete substring from pos1 to pos2
  *
- * @param buf
- * @param pos1
- * @param pos2
- * @return
+ * @param buf Buffered string
+ * @param pos1 Position
+ * @param pos2 Position
+ * @return Buffered string
  */
 String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
     if (buf == NULL || pos1 > buf->len || pos2 > buf->len || pos1 > pos2) {
@@ -169,12 +169,12 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
 
 /**
  * @fn String string_replace(const String buf, const String search, String replace)
- * @brief
+ * @brief Replace string
  *
- * @param buf
- * @param search
- * @param replace
- * @return
+ * @param buf Buffered string
+ * @param search Buffered string
+ * @param replace Buffered string
+ * @return Buffered string
  */
 String string_replace(const String buf, const String search, String replace) {
     if (buf == NULL || search == NULL || replace == NULL) return NULL;
@@ -194,11 +194,11 @@ String string_replace(const String buf, const String search, String replace) {
 
 /**
  * @fn uint32_t string_find(const String buf, const String search)
- * @brief
+ * @brief Find substring
  *
- * @param buf
- * @param search
- * @return
+ * @param buf Buffered string
+ * @param search Buffered string
+ * @return Position
  */
 uint32_t string_find(const String buf, const String search) {
     if (buf == NULL || search == NULL || search->len > buf->len) return STR_ERROR;
@@ -211,10 +211,10 @@ uint32_t string_find(const String buf, const String search) {
 
 /**
  * @fn String string_toupper(const String buf)
- * @brief
+ * @brief To upper string
  *
- * @param buf
- * @return
+ * @param buf Buffered string
+ * @return Buffered string
  */
 String string_toupper(const String buf) {
     if (buf == NULL) return NULL;
@@ -232,10 +232,10 @@ String string_toupper(const String buf) {
 
 /**
  * @fn String string_tolower(const String buf)
- * @brief
+ * @brief To lower string
  *
- * @param buf
- * @return
+ * @param buf Buffered string
+ * @return Buffered string
  */
 String string_tolower(const String buf) {
     if (buf == NULL) return NULL;
@@ -253,10 +253,10 @@ String string_tolower(const String buf) {
 
 /**
  * @fn String string_trim(const String buf)
- * @brief
+ * @brief Trim string
  *
- * @param buf
- * @return
+ * @param buf Buffered string
+ * @return Buffered string
  */
 String string_trim(const String buf) {
     if (buf == NULL) return NULL;

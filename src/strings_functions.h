@@ -35,9 +35,14 @@
 
 #include "strings_buf.h"
 
+/**
+ * @enum STRING_ERROR
+ * @brief Strings errors
+ *
+ */
 enum STRING_ERROR {
-    STR_OK,
-    STR_ERROR = UINT32_MAX,
+    STR_OK,                 /**< Ok >**/
+    STR_ERROR = UINT32_MAX, /**< Generic error >**/
 };
 
   size_t string_len(const String buf);

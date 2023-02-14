@@ -37,15 +37,15 @@
 
 /**
  * @struct string_s
- * @brief
+ * @brief Buffered string structure
  *
  */
 typedef struct string_s {
-    uint32_t cap;    // capacity
-    uint32_t len;    // current length
-        char data[]; // null-terminated string
-} string_t;
-typedef string_t *String; // string main
+    uint32_t cap;         /**< capacity >**/
+    uint32_t len;         /**< current length >**/
+        char data[];      /**< null-terminated string >**/
+} string_t;               /**< Buffered string internal type >**/
+typedef string_t *String; /**< Buffered string main type >**/
 
      String string_buf_new(const size_t cap);
      String string_buf_init(const char *str);

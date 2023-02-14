@@ -55,8 +55,8 @@
  * @fn String string_buf_new(const size_t cap)
  * @brief Allocate a new Buffer of capacity `cap`.
  *
- * @param cap capacity
- * @return buffer
+ * @param cap Capacity
+ * @return  Buffered string
  */
 String string_buf_new(const size_t cap) {
     String buf = malloc(BUF_MEM(cap));
@@ -75,8 +75,8 @@ String string_buf_new(const size_t cap) {
  * @fn String string_buf_init(const char *str)
  * @brief Allocate a new Buffer of capacity `cap` and copy string
  *
- * @param str string
- * @return buffer|NULL
+ * @param str String
+ * @return  Buffered string|NULL
  */
 String string_buf_init(const char *str) {
     if (str == NULL) return NULL;
@@ -93,9 +93,9 @@ String string_buf_init(const char *str) {
  * @brief Append a formatted c-string to `buf`.
  *        If new data would exceed capacity, `buf` stays unmodified.
  *
- * @param buf buffer
- * @param fmt format
- * @return change in length.
+ * @param buf  Buffered string
+ * @param fmt Format
+ * @return Change in length.
  */
 int string_buf_append(String buf, const char *fmt, ...) {
     if (!fmt) return 0;
@@ -140,9 +140,9 @@ int string_buf_append(String buf, const char *fmt, ...) {
  * @brief Write a formatted c-string at beginning of `buf`.
  *        If new data would exceed capacity, `buf` stays unmodified.
  *
- * @param buf buffer
- * @param fmt format
- * @return new length or zero on failure.
+ * @param buf  Buffered string
+ * @param fmt Format
+ * @return New length or zero on failure.
  */
 int string_buf_write(String buf, const char *fmt, ...) {
     if (!fmt) return 0;
@@ -176,11 +176,11 @@ int string_buf_write(String buf, const char *fmt, ...) {
 
 /**
  * @fn bool string_buf_equal(const String a, const String b)
- * @brief
+ * @brief Compare strings equality
  *
- * @param a
- * @param b
- * @return
+ * @param a  Buffered string
+ * @param b  Buffered string
+ * @return Boolean
  */
 bool string_buf_equal(const String a, const String b) {
     if (!a && !b) return true; //?
@@ -196,11 +196,11 @@ bool string_buf_equal(const String a, const String b) {
 
 /**
  * @fn bool string_buf_equal_const(const String a, const char *b)
- * @brief
+ * @brief Compare strings equality
  *
- * @param a
- * @param b
- * @return
+ * @param a Buffered string
+ * @param b String
+ * @return Boolean
  */
 bool string_buf_equal_const(const String a, const char *b) {
     if (a == NULL || b == NULL) return false;
@@ -215,10 +215,10 @@ bool string_buf_equal_const(const String a, const char *b) {
 
 /**
  * @fn String string_buf_dup(const String buf)
- * @brief
+ * @brief Duplicate string
  *
- * @param buf
- * @return
+ * @param buf Buffered string
+ * @return Buffer
  */
 String string_buf_dup(const String buf) {
     String ret = string_buf_new(buf->cap);
@@ -233,11 +233,11 @@ String string_buf_dup(const String buf) {
 
 /**
  * @fn bool string_buf_resize(String *pbuf, const size_t newcap)
- * @brief
+ * @brief Resize capacity
  *
- * @param pbuf
- * @param newcap
- * @return
+ * @param pbuf  Buffered string
+ * @param newcap New capacity
+ * @return Boolean
  */
 bool string_buf_resize(String *pbuf, const size_t newcap) {
     String buf = *pbuf;
@@ -264,10 +264,10 @@ bool string_buf_resize(String *pbuf, const size_t newcap) {
 }
 /**
  * @fn size_t string_buf_cap(const String buf)
- * @brief
+ * @brief Return capacity
  *
- * @param buf
- * @return
+ * @param buf Buffered string
+ * @return Capacity
  */
 size_t string_buf_cap(const String buf) {
     return buf->cap;
@@ -275,10 +275,10 @@ size_t string_buf_cap(const String buf) {
 
 /**
  * @fn const char* string_buf_data(const String buf)
- * @brief
+ * @brief Return Data of Buffered string
  *
- * @param buf
- * @return
+ * @param buf Buffered string
+ * @return String
  */
 const char* string_buf_data(const String buf) {
     return buf->data;
@@ -286,9 +286,9 @@ const char* string_buf_data(const String buf) {
 
 /**
  * @fn void string_buf_reset(String buf)
- * @brief
+ * @brief Reset Buffered string content
  *
- * @param buf
+ * @param buf Buffered string
  */
 void string_buf_reset(String buf) {
     buf->len = 0;
