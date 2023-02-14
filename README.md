@@ -11,9 +11,9 @@ Buffered string structure.
 
 |                | Name           |
 | -------------- | -------------- |
-| uint32_t | **cap**  |
-| uint32_t | **len**  |
-| char[] | **data**  |
+| uint32_t       | **cap**        |
+| uint32_t       | **len**        |
+| char[]         | **data**       |
 
 ## Public Attributes Documentation
 
@@ -45,10 +45,10 @@ null-terminated string
 
 ## Types
 
-|                | Name           |
-| -------------- | -------------- |
-| typedef struct string_s | **string_t**  |
-| typedef string_t * | **String**  |
+|                         | Name           |
+| ----------------------- | -------------- |
+| typedef struct string_s | **string_t**   |
+| typedef string_t *      | **String**     |
 
 ## Types Documentation
 
@@ -77,17 +77,17 @@ Buffered string main type
 
 |                | Name           |
 | -------------- | -------------- |
-| String | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.  |
-| String | **string_buf_init**(const char * str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
-| int | **string_buf_append**(String buf, const char * fmt, ... )<br>Append a formatted c-string to `buf`. If new data would exceed capacity, `buf` stays unmodified.  |
-| int | **string_buf_write**(String buf, const char * fmt, ... )<br>Write a formatted c-string at beginning of `buf`. If new data would exceed capacity, `buf` stays unmodified.  |
-| bool | **string_buf_equal**(const String a, const String b)<br>Compare strings equality.  |
-| bool | **string_buf_equal_const**(const String a, const char * b)<br>Compare strings equality.  |
-| String | **string_buf_dup**(const String buf)<br>Duplicate string.  |
-| bool | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
-| size_t | **string_buf_cap**(const String buf)<br>Return capacity.  |
-| const char * | **string_buf_data**(const String buf)<br>Return Data of Buffered string.  |
-| void | **string_buf_reset**(String buf)<br>Reset Buffered string content.  |
+| String         | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.  |
+| String         | **string_buf_init**(const char * str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
+| int            | **string_buf_append**(String buf, const char * fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
+| int            | **string_buf_write**(String buf, const char * fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
+| bool           | **string_buf_equal**(const String a, const String b)<br>Compare strings equality.  |
+| bool           | **string_buf_equal_const**(const String a, const char * b)<br>Compare strings equality.  |
+| String         | **string_buf_dup**(const String buf)<br>Duplicate string.  |
+| bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
+| size_t         | **string_buf_cap**(const String buf)<br>Return capacity.  |
+| const char *   | **string_buf_data**(const String buf)<br>Return Data of Buffered string.  |
+| void           | **string_buf_reset**(String buf)<br>Reset Buffered string content.  |
 
 ## Functions Documentation
 
@@ -293,20 +293,20 @@ Reset Buffered string content.
 
 ## Functions
 
-|                | Name           |
-| -------------- | -------------- |
-| size_t | **string_len**(const String buf)<br>Buffered string length.  |
-| String | **string_left**(const String buf, uint32_t pos)<br>Substring left from position.  |
-| String | **string_right**(const String buf, uint32_t pos)<br>Substring right from position.  |
-| String | **string_mid**(const String buf, uint32_t left, uint32_t right)<br>Substring left from position left to position right.  |
-| String | **string_concat**(const String str1, const String str2)<br>Concatenation of strings.  |
-| String | **string_insert**(const String buf, const String str, uint32_t pos)<br>Insert string on position.  |
-| String | **string_delete**(const String buf, uint32_t pos1, uint32_t pos2)<br>Delete substring from pos1 to pos2.  |
-| String | **string_replace**(const String buf, const String search, String replace)<br>Replace string.  |
-| uint32_t | **string_find**(const String buf, const String search)<br>Find substring.  |
-| String | **string_toupper**(const String buf)<br>To upper string.  |
-| String | **string_tolower**(const String buf)<br>To lower string.  |
-| String | **string_trim**(const String buf)<br>Trim string.  |
+|                | Name                                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| size_t         | **string_len**(const String buf)<br>Buffered string length.                                                              |
+| String         | **string_left**(const String buf, uint32_t pos)<br>Substring left from position.                                         |
+| String         | **string_right**(const String buf, uint32_t pos)<br>Substring right from position.                                       |
+| String         | **string_mid**(const String buf, uint32_t left, uint32_t right)<br>Substring left from position left to position right.  |
+| String         | **string_concat**(const String str1, const String str2)<br>Concatenation of strings.                                     |
+| String         | **string_insert**(const String buf, const String str, uint32_t pos)<br>Insert string on position.                        |
+| String         | **string_delete**(const String buf, uint32_t pos1, uint32_t pos2)<br>Delete substring from pos1 to pos2.                 |
+| String         | **string_replace**(const String buf, const String search, String replace)<br>Replace string.                             |
+| uint32_t       | **string_find**(const String buf, const String search)<br>Find substring.                                                |
+| String         | **string_toupper**(const String buf)<br>To upper string.                                                                 |
+| String         | **string_tolower**(const String buf)<br>To lower string.                                                                 |
+| String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
 
 ## Functions Documentation
 
