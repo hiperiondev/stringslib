@@ -11,9 +11,9 @@ Buffered string structure.
 
 |                | Name           |
 | -------------- | -------------- |
-| uint32_t | **[cap](Classes/structstring__s.md#variable-cap)**  |
-| uint32_t | **[len](Classes/structstring__s.md#variable-len)**  |
-| char[] | **[data](Classes/structstring__s.md#variable-data)**  |
+| uint32_t | **cap**  |
+| uint32_t | **len**  |
+| char[] | **data**  |
 
 ## Public Attributes Documentation
 
@@ -47,8 +47,8 @@ null-terminated string
 
 |                | Name           |
 | -------------- | -------------- |
-| typedef struct [string_s](Classes/structstring__s.md) | **[string_t](Files/strings__buf_8h.md#typedef-string-t)**  |
-| typedef [string_t](Files/strings__buf_8h.md#typedef-string-t) * | **[String](Files/strings__buf_8h.md#typedef-string)**  |
+| typedef struct string_s | **string_t**  |
+| typedef string_t * | **String**  |
 
 ## Types Documentation
 
@@ -77,17 +77,17 @@ Buffered string main type
 
 |                | Name           |
 | -------------- | -------------- |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_buf_new](Files/strings__buf_8c.md#function-string-buf-new)**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_buf_init](Files/strings__buf_8c.md#function-string-buf-init)**(const char * str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
-| int | **[string_buf_append](Files/strings__buf_8c.md#function-string-buf-append)**([String](Files/strings__buf_8h.md#typedef-string) buf, const char * fmt, ... )<br>Append a formatted c-string to `buf`. If new data would exceed capacity, `buf` stays unmodified.  |
-| int | **[string_buf_write](Files/strings__buf_8c.md#function-string-buf-write)**([String](Files/strings__buf_8h.md#typedef-string) buf, const char * fmt, ... )<br>Write a formatted c-string at beginning of `buf`. If new data would exceed capacity, `buf` stays unmodified.  |
-| bool | **[string_buf_equal](Files/strings__buf_8c.md#function-string-buf-equal)**(const [String](Files/strings__buf_8h.md#typedef-string) a, const [String](Files/strings__buf_8h.md#typedef-string) b)<br>Compare strings equality.  |
-| bool | **[string_buf_equal_const](Files/strings__buf_8c.md#function-string-buf-equal-const)**(const [String](Files/strings__buf_8h.md#typedef-string) a, const char * b)<br>Compare strings equality.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_buf_dup](Files/strings__buf_8c.md#function-string-buf-dup)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>Duplicate string.  |
-| bool | **[string_buf_resize](Files/strings__buf_8c.md#function-string-buf-resize)**([String](Files/strings__buf_8h.md#typedef-string) * pbuf, const size_t newcap)<br>Resize capacity.  |
-| size_t | **[string_buf_cap](Files/strings__buf_8c.md#function-string-buf-cap)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>Return capacity.  |
-| const char * | **[string_buf_data](Files/strings__buf_8c.md#function-string-buf-data)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>Return Data of Buffered string.  |
-| void | **[string_buf_reset](Files/strings__buf_8c.md#function-string-buf-reset)**([String](Files/strings__buf_8h.md#typedef-string) buf)<br>Reset Buffered string content.  |
+| String | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.  |
+| String | **string_buf_init**(const char * str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
+| int | **string_buf_append**(String buf, const char * fmt, ... )<br>Append a formatted c-string to `buf`. If new data would exceed capacity, `buf` stays unmodified.  |
+| int | **string_buf_write**(String buf, const char * fmt, ... )<br>Write a formatted c-string at beginning of `buf`. If new data would exceed capacity, `buf` stays unmodified.  |
+| bool | **string_buf_equal**(const String a, const String b)<br>Compare strings equality.  |
+| bool | **string_buf_equal_const**(const String a, const char * b)<br>Compare strings equality.  |
+| String | **string_buf_dup**(const String buf)<br>Duplicate string.  |
+| bool | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
+| size_t | **string_buf_cap**(const String buf)<br>Return capacity.  |
+| const char * | **string_buf_data**(const String buf)<br>Return Data of Buffered string.  |
+| void | **string_buf_reset**(String buf)<br>Reset Buffered string content.  |
 
 ## Functions Documentation
 
@@ -287,27 +287,6 @@ Reset Buffered string content.
 
   * **buf** Buffered string 
 
-
-
-
-## Macros Documentation
-
-### define BUF_CHR
-
-```cpp
-#define BUF_CHR (sizeof ((string_t){0}).data[0])
-```
-
-size of buffered string structure 
-
-### define BUF_MEM
-
-```cpp
-#define BUF_MEM(
-    cap
-)
-(sizeof(string_t) + (cap + 1) * BUF_CHR)
-```
 -------------------------------
 
 # Strings Manipulation Functions
@@ -316,18 +295,18 @@ size of buffered string structure
 
 |                | Name           |
 | -------------- | -------------- |
-| size_t | **[string_len](Files/strings__functions_8c.md#function-string-len)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>Buffered string length.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_left](Files/strings__functions_8c.md#function-string-left)**(const [String](Files/strings__buf_8h.md#typedef-string) buf, uint32_t pos)<br>Substring left from position.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_right](Files/strings__functions_8c.md#function-string-right)**(const [String](Files/strings__buf_8h.md#typedef-string) buf, uint32_t pos)<br>Substring right from position.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_mid](Files/strings__functions_8c.md#function-string-mid)**(const [String](Files/strings__buf_8h.md#typedef-string) buf, uint32_t left, uint32_t right)<br>Substring left from position left to position right.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_concat](Files/strings__functions_8c.md#function-string-concat)**(const [String](Files/strings__buf_8h.md#typedef-string) str1, const [String](Files/strings__buf_8h.md#typedef-string) str2)<br>Concatenation of strings.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_insert](Files/strings__functions_8c.md#function-string-insert)**(const [String](Files/strings__buf_8h.md#typedef-string) buf, const [String](Files/strings__buf_8h.md#typedef-string) str, uint32_t pos)<br>Insert string on position.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_delete](Files/strings__functions_8c.md#function-string-delete)**(const [String](Files/strings__buf_8h.md#typedef-string) buf, uint32_t pos1, uint32_t pos2)<br>Delete substring from pos1 to pos2.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_replace](Files/strings__functions_8c.md#function-string-replace)**(const [String](Files/strings__buf_8h.md#typedef-string) buf, const [String](Files/strings__buf_8h.md#typedef-string) search, [String](Files/strings__buf_8h.md#typedef-string) replace)<br>Replace string.  |
-| uint32_t | **[string_find](Files/strings__functions_8c.md#function-string-find)**(const [String](Files/strings__buf_8h.md#typedef-string) buf, const [String](Files/strings__buf_8h.md#typedef-string) search)<br>Find substring.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_toupper](Files/strings__functions_8c.md#function-string-toupper)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>To upper string.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_tolower](Files/strings__functions_8c.md#function-string-tolower)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>To lower string.  |
-| [String](Files/strings__buf_8h.md#typedef-string) | **[string_trim](Files/strings__functions_8c.md#function-string-trim)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>Trim string.  |
+| size_t | **string_len**(const String buf)<br>Buffered string length.  |
+| String | **string_left**(const String buf, uint32_t pos)<br>Substring left from position.  |
+| String | **string_right**(const String buf, uint32_t pos)<br>Substring right from position.  |
+| String | **string_mid**(const String buf, uint32_t left, uint32_t right)<br>Substring left from position left to position right.  |
+| String | **string_concat**(const String str1, const String str2)<br>Concatenation of strings.  |
+| String | **string_insert**(const String buf, const String str, uint32_t pos)<br>Insert string on position.  |
+| String | **string_delete**(const String buf, uint32_t pos1, uint32_t pos2)<br>Delete substring from pos1 to pos2.  |
+| String | **string_replace**(const String buf, const String search, String replace)<br>Replace string.  |
+| uint32_t | **string_find**(const String buf, const String search)<br>Find substring.  |
+| String | **string_toupper**(const String buf)<br>To upper string.  |
+| String | **string_tolower**(const String buf)<br>To lower string.  |
+| String | **string_trim**(const String buf)<br>Trim string.  |
 
 ## Functions Documentation
 
