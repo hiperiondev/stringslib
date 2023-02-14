@@ -58,4 +58,7 @@ uint32_t string_find(const String buf, const String search);
   String string_tolower(const String buf);
   String string_trim(const String buf);
 
+    bool string_isinteger(const String buf);
+    bool string_isfloat(const String buf);
+
 #endif /* STRINGS_FUNCTIONS_H_ */

@@ -275,3 +275,49 @@ String string_trim(const String buf) {
 
     return new;
 }
+
+/**
+ * @fn bool string_isinteger(const String buf)
+ * @brief Check if string is a valid integer
+ *
+ * @param buf Buffered string
+ * @return boolean
+ */
+bool string_isinteger(const String buf) {
+    int n = 0;
+
+    if(buf->data[0] == '-')
+        ++n;
+
+    for (; n < buf->len; n++) {
+        if (!isdigit(buf->data[n]))
+            return false;
+    }
+
+    return true;
+}
+
+/**
+ * @fn bool string_isfloat(const String buf)
+ * @brief Check if string is a valid float
+ *
+ * @param buf Buffered string
+ * @return Boolean
+ */
+bool string_isfloat(const String buf) {
+    int n = 0;
+    bool dot = false;
+
+    if (buf->data[0] == '-')
+        ++n;
+
+    for (; n < buf->len; n++) {
+        if (!isdigit(buf->data[n]) && !((buf->data[n] == '.') && !dot))
+            return false;
+
+        if (buf->data[n] == '.')
+            dot = true;
+    }
+
+    return true;
+}
