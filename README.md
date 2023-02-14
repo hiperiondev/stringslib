@@ -89,13 +89,6 @@ Buffered string main type
 | const char * | **[string_buf_data](Files/strings__buf_8c.md#function-string-buf-data)**(const [String](Files/strings__buf_8h.md#typedef-string) buf)<br>Return Data of Buffered string.  |
 | void | **[string_buf_reset](Files/strings__buf_8c.md#function-string-buf-reset)**([String](Files/strings__buf_8h.md#typedef-string) buf)<br>Reset Buffered string content.  |
 
-## Defines
-
-|                | Name           |
-| -------------- | -------------- |
-|  | **[BUF_CHR](Files/strings__buf_8c.md#define-buf-chr)** <br>size of buffered string structure  |
-|  | **[BUF_MEM](Files/strings__buf_8c.md#define-buf-mem)**(cap) <br>size of buffered string  |
-
 ## Functions Documentation
 
 ### function string_buf_new
