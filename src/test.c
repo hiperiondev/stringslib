@@ -229,8 +229,19 @@ int main(void) {
     bres = string_equals(a, b);
     assert(bres);
     string_buf_write(b, "otracosa");
-    res = string_equals(a, b);
-    assert(!res);
+    bres = string_equals(a, b);
+    assert(!bres);
+    free(a);
+    free(b);
+
+    a = string_buf_init("-124");
+    b = string_buf_init("-23.89");
+    bres = string_isinteger(a);
+    assert(bres);
+    bres = string_isinteger(b);
+    assert(!bres);
+    bres = string_isfloat(b);
+    assert(bres);
     free(a);
     free(b);
 
