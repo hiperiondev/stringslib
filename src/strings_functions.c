@@ -385,7 +385,7 @@ bool string_isfloat(const String buf) {
     return true;
 }
 
-////////////////////////////////
+////////////////////////////////////////////////////////////
 
 /**
  * @fn string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16])

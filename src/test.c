@@ -131,15 +131,6 @@ int main(void) {
     check(buf, needsz, cat);
     free(buf);
 
-    // equal
-    a = string_buf_new(cap);
-    b = string_buf_new(cap);
-    string_buf_append(a, foo);
-    string_buf_append(b, foo);
-    assert(string_buf_equal(a, b));
-    free(a);
-    free(b);
-
     printf("string_buf tests OK\n");
 
     a = string_buf_init("es un test");
