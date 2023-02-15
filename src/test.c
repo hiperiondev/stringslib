@@ -46,6 +46,7 @@ int main(void) {
     char cat[100];
     int rc;
     uint32_t res;
+    bool bres;
     string_hash_t hash;
 
 #define string_test_end(str) (str->data[str->len + 1] != '\0') ? 0 : 1;
@@ -222,6 +223,16 @@ int main(void) {
     assert(string_buf_equal_const(buf, "es un test"));
     free(a);
     free(buf);
+
+    a = string_buf_init("es un test");
+    b = string_buf_init("es un test");
+    bres = string_equals(a, b);
+    assert(bres);
+    string_buf_write(b, "otracosa");
+    res = string_equals(a, b);
+    assert(!res);
+    free(a);
+    free(b);
 
     uint8_t key[16] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
     a = string_buf_init("Esto es un Test para hash");

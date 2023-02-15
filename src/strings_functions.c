@@ -316,6 +316,23 @@ String string_trim(const String buf) {
 }
 
 /**
+ * @fn string_equals(const String str1, const String str2)
+ * @brief Compares two strings.
+ *
+ * @param str1
+ * @param str2
+ * @return Returns true if the strings are equal, and false if not.
+ */
+bool string_equals(const String str1, const String str2) {
+    if (str1 == NULL || str2 == NULL || str1->len != str2->len)
+        return false;
+
+    return (strcmp(str1->data, str2->data) == 0);
+}
+
+////////////////////////////////////////////////////////////
+
+/**
  * @fn bool string_isinteger(const String buf)
  * @brief Check if string is a valid integer
  *
@@ -366,6 +383,8 @@ bool string_isfloat(const String buf) {
 
     return true;
 }
+
+////////////////////////////////
 
 /**
  * @fn string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16])
