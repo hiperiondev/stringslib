@@ -307,6 +307,8 @@ Reset Buffered string content.
 | String         | **string_toupper**(const String buf)<br>To upper string.                                                                 |
 | String         | **string_tolower**(const String buf)<br>To lower string.                                                                 |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
+| bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
+| bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
 
 ## Functions Documentation
 
@@ -537,6 +539,40 @@ Trim string.
 
 
 **Return**: Buffered string 
+
+### function string_isinteger
+
+```cpp
+bool string_isinteger(
+    const String buf
+)
+```
+
+Check if string is a valid integer.
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+
+
+**Return**: Boolean
+
+### function string_isfloat
+
+```cpp
+bool string_isfloat(
+    const String buf
+)
+```
+
+Check if string is a valid float.
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+
+
+**Return**: Boolean 
 
 -------------------------------
 
