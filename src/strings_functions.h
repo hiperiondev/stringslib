@@ -45,20 +45,45 @@ enum STRING_ERROR {
     STR_ERROR = UINT32_MAX, /**< Generic error >**/
 };
 
-  size_t string_len(const String buf);
-  String string_left(const String buf, uint32_t pos);
-  String string_right(const String buf, uint32_t pos);
-  String string_mid(const String buf, uint32_t left, uint32_t right);
-  String string_concat(const String str1, const String str2);
-  String string_insert(const String buf, const String str, uint32_t pos);
-  String string_delete(const String buf, uint32_t pos1, uint32_t pos2);
-  String string_replace(const String buf, const String search, String replace);
-uint32_t string_find(const String buf, const String search);
-  String string_toupper(const String buf);
-  String string_tolower(const String buf);
-  String string_trim(const String buf);
+/**
+ * @enum STRING_HASH_VERSION
+ * @brief String hash version
+ *
+ */
+enum STRING_HASH_VERSION {
+    SIP64,  /**< SIP64 >**/
+    SIP128, /**< SIP128 >**/
+    HSIP32, /**< HSIP32 >**/
+    HSIP64  /**< HSIP64 >**/
+};
 
-    bool string_isinteger(const String buf);
-    bool string_isfloat(const String buf);
+/**
+ * @struct string_hash_s
+ * @brief String hash result
+ *
+ */
+struct string_hash_s {
+        uint8_t out[16]; /**< hash result >**/
+         size_t outlen;  /**< hash result length >**/
+};
+typedef struct string_hash_s string_hash_t; /**< hash result type >**/
+
+        size_t string_len(const String buf);
+        String string_left(const String buf, uint32_t pos);
+        String string_right(const String buf, uint32_t pos);
+        String string_mid(const String buf, uint32_t left, uint32_t right);
+        String string_concat(const String str1, const String str2);
+        String string_insert(const String buf, const String str, uint32_t pos);
+        String string_delete(const String buf, uint32_t pos1, uint32_t pos2);
+        String string_replace(const String buf, const String search, String replace);
+      uint32_t string_find(const String buf, const String search);
+        String string_toupper(const String buf);
+        String string_tolower(const String buf);
+        String string_trim(const String buf);
+
+          bool string_isinteger(const String buf);
+          bool string_isfloat(const String buf);
+
+string_hash_t* string_hash(const String buf, uint8_t version, uint8_t key[16]);
 
 #endif /* STRINGS_FUNCTIONS_H_ */

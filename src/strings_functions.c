@@ -28,12 +28,15 @@
  *
  */
 
+#include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
 #include <ctype.h>
 
 #include "strings_buf.h"
 #include "strings_functions.h"
+#include "siphash.h"
+#include "halfsiphash.h"
 
 /**
  * @fn size_t string_len(const String buf)
@@ -320,4 +323,28 @@ bool string_isfloat(const String buf) {
     }
 
     return true;
+}
+
+/**
+ * @fn string_hash_t* string_hash(const String buf, uint8_t version, uint8_t key[16])
+ * @brief String hash
+ *
+ * @param buf Buffered string
+ * @param version enum STRING_HASH_VERSION
+ * @param key Key
+ * @return String hash result
+ */
+string_hash_t* string_hash(const String buf, uint8_t version, uint8_t key[16]) {
+    const size_t lengths[4] = { 8, 16, 4, 8 };
+    string_hash_t *result = malloc(sizeof(string_hash_t));
+
+    int len = lengths[version];
+    result->outlen = len;
+
+    if (version < 2)
+        siphash(buf->data, buf->len, key, result->out, len);
+    else
+        halfsiphash(buf->data, buf->len, key, result->out, len);
+
+    return result;
 }
