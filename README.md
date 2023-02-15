@@ -304,6 +304,7 @@ Reset Buffered string content.
 | String         | **string_delete**(const String buf, uint32_t pos1, uint32_t pos2)<br>Delete substring from pos1 to pos2.                 |
 | String         | **string_replace**(const String buf, const String search, String replace)<br>Replace string.                             |
 | uint32_t       | **string_find**(const String buf, const String search)<br>Find substring.                                                |
+| uint32_t       | **string_find_c**(const String buf, char c, uint32_t pos)<br>Find character starting at position                         |
 | String         | **string_toupper**(const String buf)<br>To upper string.                                                                 |
 | String         | **string_tolower**(const String buf)<br>To lower string.                                                                 |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
@@ -487,6 +488,26 @@ Find substring.
   * **buf** Buffered string 
   * **search** Buffered string 
 
+
+**Return**: Position 
+
+### function string_find_c
+
+```cpp
+uint32_t string_find(
+    const String buf,
+    char c,
+    uint32_t pos
+)
+```
+
+Find character starting at position. 
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+  * **c** Searched char 
+  * **pos** Start position
 
 **Return**: Position 
 
