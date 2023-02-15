@@ -79,7 +79,7 @@ String string_buf_new(const size_t cap) {
  * @return  Buffered string|NULL
  */
 String string_buf_init(const char *str) {
-    if (str == NULL)
+    if (str == NULL || strlen(str) > UINT32_MAX - 1)
         return NULL;
 
     String buf = string_buf_new(strlen(str));
@@ -99,7 +99,7 @@ String string_buf_init(const char *str) {
  * @return Change in length.
  */
 int string_buf_append(String buf, const char *fmt, ...) {
-    if (!fmt)
+    if (buf == NULL || fmt == NULL)
         return 0;
 
     const size_t spc = buf->cap - buf->len;
@@ -149,7 +149,7 @@ int string_buf_append(String buf, const char *fmt, ...) {
  * @return New length or zero on failure.
  */
 int string_buf_write(String buf, const char *fmt, ...) {
-    if (!fmt)
+    if (buf == NULL || fmt == NULL)
         return 0;
 
     const size_t cap = buf->cap;
@@ -210,6 +210,9 @@ bool string_buf_equal_const(const String a, const char *b) {
  * @return Buffer
  */
 String string_buf_dup(const String buf) {
+    if (buf == NULL)
+        return NULL;
+
     String ret = string_buf_new(buf->cap);
 
     if (ret) {
@@ -229,6 +232,9 @@ String string_buf_dup(const String buf) {
  * @return Boolean
  */
 bool string_buf_resize(String *pbuf, const size_t newcap) {
+    if (pbuf == NULL || *pbuf == NULL)
+        return false;
+
     String buf = *pbuf;
 
     if (newcap == buf->cap)
@@ -260,6 +266,9 @@ bool string_buf_resize(String *pbuf, const size_t newcap) {
  * @return Capacity
  */
 size_t string_buf_cap(const String buf) {
+    if (buf == NULL)
+        return UINT32_MAX;
+
     return buf->cap;
 }
 
@@ -271,6 +280,9 @@ size_t string_buf_cap(const String buf) {
  * @return String
  */
 const char* string_buf_data(const String buf) {
+    if (buf == NULL)
+        return NULL;
+
     return buf->data;
 }
 
@@ -281,6 +293,9 @@ const char* string_buf_data(const String buf) {
  * @param buf Buffered string
  */
 void string_buf_reset(String buf) {
+    if (buf == NULL)
+        return;
+
     buf->len = 0;
     buf->data[0] = 0;
 }
