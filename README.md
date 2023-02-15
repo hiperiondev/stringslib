@@ -12,7 +12,7 @@
 | String         | **string_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.                    |
 | String         | **string_new_c**(const char *str)<br>Allocate a new Buffer and copy string.   |
 | String         | **string_dup**(const String buf)<br>Duplicate string.                                           |
-| bool           | **string_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.                       |
+| bool           | **string_resize**(String *pbuf, const size_t newcap)<br>Resize capacity.                       |
 | const char*    | **string_data**(const String buf)<br>Return Data of Buffered string.                            |
 | void           | **string_reset**(String buf)<br>Reset Buffered string content.                                  |
 
@@ -38,7 +38,7 @@ Allocate a new Buffer of capacity `cap`.
 
 ```cpp
 String string_new_c(
-    const char * str
+    const char *str
 )
 ```
 
@@ -70,7 +70,7 @@ Duplicate string.
 
 ```cpp
 bool string_resize(
-    String * pbuf,
+    String *pbuf,
     const size_t newcap
 )
 ```
@@ -87,7 +87,7 @@ Resize capacity.
 ### function string_data
 
 ```cpp
-const char * string_data(
+const char *string_data(
     const String buf
 )
 ```
@@ -441,7 +441,7 @@ Trim string.
 ```cpp
 int string_append(
     String buf,
-    const char * fmt,
+    const char *fmt,
     ... 
 )
 ```
@@ -460,7 +460,7 @@ Append a formatted c-string to `buf`. If new data would exceed capacity, `buf` s
 ```cpp
 int string_write(
     String buf,
-    const char * fmt,
+    const char *fmt,
     ... 
 )
 ```
