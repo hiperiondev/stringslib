@@ -240,6 +240,7 @@ Reset Buffered string content.
 | String         | **string_toupper**(const String buf)<br>To upper string.                                                                 |
 | String         | **string_tolower**(const String buf)<br>To lower string.                                                                 |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
+| bool           | **string_equals**(const String str1, const String str2)<br>Compares two strings.                                         |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
 | bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
 | string_hash_t  | **string_hash**(const String buf, uint8_t version, uint8_t key[16])<br>String hash                                       |
@@ -494,6 +495,24 @@ Trim string.
 
 
 **Return**: Buffered string 
+
+### function string_equals
+
+```cpp
+bool string_equals(
+    const String str1,
+    const String str2
+)
+```
+
+Compares two strings. 
+
+**Parameters**: 
+
+  * **str1** Buffered string
+  * **str2** Buffered string
+
+**Return**: Returns true if the strings are equal, and false if not.
 
 ### function string_isinteger
 
