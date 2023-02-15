@@ -309,6 +309,7 @@ Reset Buffered string content.
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
 | bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
+| string_hash_t* | **string_hash**(const String buf, uint8_t version, uint8_t key[16])<br>String hash                                       |
 
 ## Functions Documentation
 
@@ -573,6 +574,26 @@ Check if string is a valid float.
 
 
 **Return**: Boolean 
+
+### function string_hash
+
+```cpp
+string_hash_t* string_hash(
+    const String buf,
+    uint8_t version,
+    uint8_t key[16]
+)
+```
+
+String hash.
+
+**Parameters**:
+
+  * **buf** Buffered string 
+  * **version** enum STRING_HASH_VERSION
+  * **key** Key
+
+**Return**: String hash result 
 
 -------------------------------
 
