@@ -11,8 +11,6 @@
 | -------------- | -------------- |
 | String         | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.  |
 | String         | **string_buf_init**(const char *str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
-| int            | **string_buf_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
-| int            | **string_buf_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | String         | **string_buf_dup**(const String buf)<br>Duplicate string.  |
 | bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
 | size_t         | **string_buf_cap**(const String buf)<br>Return capacity.  |
@@ -52,44 +50,6 @@ Allocate a new Buffer of capacity `cap` and copy string.
   * **str** String 
 
 **Return**: Buffered string|NULL 
-
-### function string_buf_append
-
-```cpp
-int string_buf_append(
-    String buf,
-    const char * fmt,
-    ... 
-)
-```
-
-Append a formatted c-string to `buf`. If new data would exceed capacity, `buf` stays unmodified. 
-
-**Parameters**: 
-
-  * **buf** Buffered string 
-  * **fmt** Format 
-
-**Return**: Change in length. 
-
-### function string_buf_write
-
-```cpp
-int string_buf_write(
-    String buf,
-    const char * fmt,
-    ... 
-)
-```
-
-Write a formatted c-string at beginning of `buf`. If new data would exceed capacity, `buf` stays unmodified. 
-
-**Parameters**: 
-
-  * **buf** Buffered string 
-  * **fmt** Format 
-
-**Return**: New length or zero on failure. 
 
 ### function string_buf_dup
 
@@ -192,6 +152,8 @@ Reset Buffered string content.
 | String         | **string_toupper**(const String buf)<br>To upper string.                                                                 |
 | String         | **string_tolower**(const String buf)<br>To lower string.                                                                 |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
+| int            | **string_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
+| int            | **string_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | bool           | **string_equals**(const String str1, const String str2)<br>Compares two strings.                                         |
 | bool           | **string_equals_c**(const String a, const char *b)<br>Compare strings equality.                                          |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
@@ -439,6 +401,44 @@ Trim string.
   * **buf** Buffered string 
 
 **Return**: Buffered string 
+
+### function string_append
+
+```cpp
+int string_append(
+    String buf,
+    const char * fmt,
+    ... 
+)
+```
+
+Append a formatted c-string to `buf`. If new data would exceed capacity, `buf` stays unmodified. 
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+  * **fmt** Format 
+
+**Return**: Change in length. 
+
+### function string_write
+
+```cpp
+int string_write(
+    String buf,
+    const char * fmt,
+    ... 
+)
+```
+
+Write a formatted c-string at beginning of `buf`. If new data would exceed capacity, `buf` stays unmodified. 
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+  * **fmt** Format 
+
+**Return**: New length or zero on failure. 
 
 ### function string_equals
 
