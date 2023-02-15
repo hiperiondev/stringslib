@@ -177,7 +177,7 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
 }
 
 /**
- * @fn String string_replace(const String buf, const String search, String replace)
+ * @fn String string_replace(const String buf, const String search, String replace, uint32_t pos)
  * @brief Replace string
  *
  * @param buf Buffered string
@@ -185,18 +185,18 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
  * @param replace Buffered string
  * @return Buffered string
  */
-String string_replace(const String buf, const String search, String replace) {
+String string_replace(const String buf, const String search, String replace, uint32_t pos) {
     if (buf == NULL || search == NULL || replace == NULL)
         return NULL;
 
-    uint32_t pos = string_find(buf, search, 0);
-    if (pos == STR_ERROR)
+    uint32_t fpos = string_find(buf, search, pos);
+    if (fpos == STR_ERROR)
         return NULL;
 
     String new = string_buf_new(buf->len - search->len + replace->len);
-    memcpy(new->data, buf->data, pos);
-    memcpy(new->data + pos, replace->data, replace->len);
-    memcpy(new->data + pos + replace->len, buf->data + search->len + pos, buf->len - pos - search->len);
+    memcpy(new->data, buf->data, fpos);
+    memcpy(new->data + fpos, replace->data, replace->len);
+    memcpy(new->data + fpos + replace->len, buf->data + search->len + fpos, buf->len - fpos - search->len);
 
     new->len = buf->len - search->len + replace->len;
 

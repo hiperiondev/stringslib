@@ -194,7 +194,7 @@ int main(void) {
     a = string_buf_init("es un test");
     b = string_buf_init("un");
     c = string_buf_init("otro");
-    buf = string_replace(a, b, c);
+    buf = string_replace(a, b, c, 2);
     assert(string_buf_equal_const(buf, "es otro test"));
     free(a);
     free(b);
