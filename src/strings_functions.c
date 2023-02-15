@@ -262,7 +262,8 @@ String string_toupper(const String buf) {
     for (int i = 0; i < buf->len; i++) {
         if (buf->data[i] >= 97 && buf->data[i] <= 122)
             new->data[i] = buf->data[i] - 32;
-        else new->data[i] = buf->data[i];
+        else
+            new->data[i] = buf->data[i];
     }
 
     new->len = buf->len;
@@ -285,7 +286,8 @@ String string_tolower(const String buf) {
     for (int i = 0; i < buf->len; i++) {
         if (buf->data[i] >= 65 && buf->data[i] <= 90)
             new->data[i] = buf->data[i] + 32;
-        else new->data[i] = buf->data[i];
+        else
+            new->data[i] = buf->data[i];
     }
 
     new->len = buf->len;
@@ -520,7 +522,8 @@ string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]) {
 
     if (version < 2)
         siphash(buf->data, buf->len, key, result.out, len);
-    else halfsiphash(buf->data, buf->len, key, result.out, len);
+    else
+        halfsiphash(buf->data, buf->len, key, result.out, len);
 
     return result;
 }
