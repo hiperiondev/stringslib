@@ -423,7 +423,7 @@ bool string_equals(const String str1, const String str2) {
     if (str1 == NULL || str2 == NULL || str1->len != str2->len)
         return false;
 
-    return (strcmp(str1->data, str2->data) == 0);
+    return !memcmp(str1->data, str2->data, str1->len);
 }
 
 /**
@@ -435,16 +435,10 @@ bool string_equals(const String str1, const String str2) {
  * @return Boolean
  */
 bool string_equals_c(const String a, const char *b) {
-    if (a == NULL || b == NULL)
+    if (a == NULL || b == NULL || a->len != strlen(b))
         return false;
 
-    const size_t lena = a->len;
-    const size_t lenb = strlen(b);
-
-    if (lena != lenb)
-        return false;
-
-    return !memcmp(a->data, b, lena);
+    return !memcmp(a->data, b, a->len);
 }
 
 ////////////////////////////////////////////////////////////
