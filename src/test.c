@@ -135,26 +135,26 @@ int main(void) {
 
     a = string_buf_init("es un test");
     buf = string_left(a, 4);
-    assert(string_buf_equal_const(buf, "es un"));
+    assert(string_equals_c(buf, "es un"));
     free(a);
     free(buf);
 
     a = string_buf_init("es un test");
     buf = string_right(a, 6);
-    assert(string_buf_equal_const(buf, "test"));
+    assert(string_equals_c(buf, "test"));
     free(a);
     free(buf);
 
     a = string_buf_init("es un test");
     buf = string_mid(a, 4, 5);
-    assert(string_buf_equal_const(buf, "un"));
+    assert(string_equals_c(buf, "un"));
     free(a);
     free(buf);
 
     a = string_buf_init("es un test");
     b = string_buf_init(" y mas cosas");
     buf = string_concat(a, b);
-    assert(string_buf_equal_const(buf, "es un test y mas cosas"));
+    assert(string_equals_c(buf, "es un test y mas cosas"));
     free(a);
     free(b);
     free(buf);
@@ -162,14 +162,14 @@ int main(void) {
     a = string_buf_init("es un test");
     b = string_buf_init(" hermoso");
     buf = string_insert(a, b, 5);
-    assert(string_buf_equal_const(buf, "es un hermoso test"));
+    assert(string_equals_c(buf, "es un hermoso test"));
     free(a);
     free(b);
     free(buf);
 
     a = string_buf_init("es un test");
     buf = string_delete(a, 3, 5);
-    assert(string_buf_equal_const(buf, "es test"));
+    assert(string_equals_c(buf, "es test"));
     free(a);
     free(buf);
 
@@ -186,7 +186,7 @@ int main(void) {
     b = string_buf_init("un");
     c = string_buf_init("otro");
     buf = string_replace(a, b, c, 2);
-    assert(string_buf_equal_const(buf, "es otro test"));
+    assert(string_equals_c(buf, "es otro test"));
     free(a);
     free(b);
     free(c);
@@ -194,13 +194,13 @@ int main(void) {
 
     a = string_buf_init("es Un test");
     buf = string_toupper(a);
-    assert(string_buf_equal_const(buf, "ES UN TEST"));
+    assert(string_equals_c(buf, "ES UN TEST"));
     free(a);
     free(buf);
 
     a = string_buf_init("ES un TEST");
     buf = string_tolower(a);
-    assert(string_buf_equal_const(buf, "es un test"));
+    assert(string_equals_c(buf, "es un test"));
     free(a);
     free(buf);
 
@@ -211,7 +211,7 @@ int main(void) {
 
     a = string_buf_init("   es un test   ");
     buf = string_trim(a);
-    assert(string_buf_equal_const(buf, "es un test"));
+    assert(string_equals_c(buf, "es un test"));
     free(a);
     free(buf);
 
@@ -242,7 +242,7 @@ int main(void) {
     hash = string_hash(a, SIP128, key);
     for (int n = 0; n < hash.outlen; n++)
         string_buf_append(b, "%02x", hash.out[n]);
-    assert(string_buf_equal_const(b, "1882ec9b9f416a6330aecc8b1bfafd13"));
+    assert(string_equals_c(b, "1882ec9b9f416a6330aecc8b1bfafd13"));
     free(a);
     free(b);
 
@@ -251,7 +251,7 @@ int main(void) {
     hash = string_hash(a, HSIP64, key);
     for (int n = 0; n < hash.outlen; n++)
         string_buf_append(b, "%02x", hash.out[n]);
-    assert(string_buf_equal_const(b, "eac1d8508e6a7f5a"));
+    assert(string_equals_c(b, "eac1d8508e6a7f5a"));
     free(a);
     free(b);
 

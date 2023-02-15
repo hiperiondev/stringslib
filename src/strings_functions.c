@@ -331,6 +331,27 @@ bool string_equals(const String str1, const String str2) {
     return (strcmp(str1->data, str2->data) == 0);
 }
 
+/**
+ * @fn bool string_equal_const(const String a, const char *b)
+ * @brief Compare strings equality
+ *
+ * @param a Buffered string
+ * @param b String
+ * @return Boolean
+ */
+bool string_equals_c(const String a, const char *b) {
+    if (a == NULL || b == NULL)
+        return false;
+
+    const size_t lena = a->len;
+    const size_t lenb = strlen(b);
+
+    if (lena != lenb)
+        return false;
+
+    return !memcmp(a->data, b, lena);
+}
+
 ////////////////////////////////////////////////////////////
 
 /**

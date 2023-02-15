@@ -182,27 +182,6 @@ int string_buf_write(String buf, const char *fmt, ...) {
 }
 
 /**
- * @fn bool string_buf_equal_const(const String a, const char *b)
- * @brief Compare strings equality
- *
- * @param a Buffered string
- * @param b String
- * @return Boolean
- */
-bool string_buf_equal_const(const String a, const char *b) {
-    if (a == NULL || b == NULL)
-        return false;
-
-    const size_t lena = a->len;
-    const size_t lenb = strlen(b);
-
-    if (lena != lenb)
-        return false;
-
-    return !memcmp(a->data, b, lena);
-}
-
-/**
  * @fn String string_buf_dup(const String buf)
  * @brief Duplicate string
  *
