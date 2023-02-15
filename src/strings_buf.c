@@ -69,13 +69,13 @@ String string_buf_new(const size_t cap) {
 }
 
 /**
- * @fn String string_buf_init(const char *str)
+ * @fn String string_buf_new_c(const char *str)
  * @brief Allocate a new Buffer of capacity `cap` and copy string
  *
  * @param str String
  * @return  Buffered string|NULL
  */
-String string_buf_init(const char *str) {
+String string_buf_new_c(const char *str) {
     if (str == NULL || strlen(str) > UINT32_MAX - 1)
         return NULL;
 

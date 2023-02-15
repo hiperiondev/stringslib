@@ -48,7 +48,7 @@ typedef struct string_s {
 typedef string_t *String; /**< Buffered string main type >**/
 
      String string_buf_new(const size_t cap);
-     String string_buf_init(const char *str);
+     String string_buf_new_c(const char *str);
      String string_buf_dup(const String buf);
        bool string_buf_resize(String *pbuf, const size_t newcap);
        void string_buf_reset(String buf);
