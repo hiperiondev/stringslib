@@ -183,7 +183,9 @@ int main(void) {
 
     a = string_buf_init("es un test");
     b = string_buf_init("un");
-    res = string_find(a, b);
+    res = string_find(a, b, 0);
+    assert(res == 3);
+    res = string_find(a, b, 2);
     assert(res == 3);
     free(a);
     free(b);
@@ -216,10 +218,10 @@ int main(void) {
     free(a);
 
     a = string_buf_init("   es un test   ");
-        buf = string_trim(a);
-        assert(string_buf_equal_const(buf, "es un test"));
-        free(a);
-        free(buf);
+    buf = string_trim(a);
+    assert(string_buf_equal_const(buf, "es un test"));
+    free(a);
+    free(buf);
 
     uint8_t key[16] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
     a = string_buf_init("Esto es un Test para hash");

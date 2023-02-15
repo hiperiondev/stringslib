@@ -46,7 +46,8 @@
  * @return Size
  */
 size_t string_len(const String buf) {
-    if (buf == NULL) return 0;
+    if (buf == NULL)
+        return 0;
 
     return buf->len;
 }
@@ -60,7 +61,8 @@ size_t string_len(const String buf) {
  * @return Buffered string
  */
 String string_left(const String buf, uint32_t pos) {
-    if (buf == NULL || pos > buf->len) return NULL;
+    if (buf == NULL || pos > buf->len)
+        return NULL;
 
     String new = string_buf_new(pos);
     memcpy(new->data, buf->data, pos + 1);
@@ -78,7 +80,8 @@ String string_left(const String buf, uint32_t pos) {
  * @return Buffered string
  */
 String string_right(const String buf, uint32_t pos) {
-    if (buf == NULL || pos > buf->len) return NULL;
+    if (buf == NULL || pos > buf->len)
+        return NULL;
 
     String new = string_buf_new(buf->len - pos);
     memcpy(new->data, buf->data + pos, buf->len - pos + 1);
@@ -97,7 +100,8 @@ String string_right(const String buf, uint32_t pos) {
  * @return Buffered string
  */
 String string_mid(const String buf, uint32_t left, uint32_t right) {
-    if (buf == NULL || right > buf->len || left > buf->len || left > right) return NULL;
+    if (buf == NULL || right > buf->len || left > buf->len || left > right)
+        return NULL;
 
     String new = string_buf_new(right - left);
     memcpy(new->data, buf->data + left - 1, right - left + 1);
@@ -115,7 +119,8 @@ String string_mid(const String buf, uint32_t left, uint32_t right) {
  * @return Buffered string
  */
 String string_concat(const String str1, const String str2) {
-    if (str1 == NULL || str2 == NULL) return NULL;
+    if (str1 == NULL || str2 == NULL)
+        return NULL;
 
     String new = string_buf_new(str1->len + str2->len);
     memcpy(new->data, str1->data, str1->len);
@@ -135,7 +140,8 @@ String string_concat(const String str1, const String str2) {
  * @return Buffered string
  */
 String string_insert(const String buf, const String str, uint32_t pos) {
-    if (buf == NULL || str == NULL || pos > buf->len) return NULL;
+    if (buf == NULL || str == NULL || pos > buf->len)
+        return NULL;
 
     String new = string_buf_new(buf->len + str->len);
     memcpy(new->data, buf->data, pos);
@@ -180,10 +186,12 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
  * @return Buffered string
  */
 String string_replace(const String buf, const String search, String replace) {
-    if (buf == NULL || search == NULL || replace == NULL) return NULL;
+    if (buf == NULL || search == NULL || replace == NULL)
+        return NULL;
 
-    uint32_t pos = string_find(buf, search);
-    if (pos == STR_ERROR) return NULL;
+    uint32_t pos = string_find(buf, search, 0);
+    if (pos == STR_ERROR)
+        return NULL;
 
     String new = string_buf_new(buf->len - search->len + replace->len);
     memcpy(new->data, buf->data, pos);
@@ -196,18 +204,21 @@ String string_replace(const String buf, const String search, String replace) {
 }
 
 /**
- * @fn uint32_t string_find(const String buf, const String search)
+ * @fn uint32_t string_find(const String buf, const String search, uint32_t pos)
  * @brief Find substring.
  *
  * @param buf Buffered string
  * @param search Buffered string
+ * @param pos Start position
  * @return Position
  */
-uint32_t string_find(const String buf, const String search) {
-    if (buf == NULL || search == NULL || search->len > buf->len) return STR_ERROR;
+uint32_t string_find(const String buf, const String search, uint32_t pos) {
+    if (buf == NULL || search == NULL || search->len > buf->len || pos > buf->len)
+        return STR_ERROR;
 
     char *p;
-    if ((p = strstr(buf->data, search->data)) != NULL) return p - buf->data;
+    if ((p = strstr(buf->data + pos, search->data)) != NULL)
+        return (p - buf->data);
 
     return STR_ERROR;
 }
@@ -225,7 +236,7 @@ uint32_t string_find_c(const String buf, char c, uint32_t pos) {
     if (buf == NULL || pos > buf->len)
         return false;
     for (int p = pos; p < buf->len; p++) {
-        if(buf->data[p] == c)
+        if (buf->data[p] == c)
             return p;
     }
 
@@ -240,11 +251,13 @@ uint32_t string_find_c(const String buf, char c, uint32_t pos) {
  * @return Buffered string
  */
 String string_toupper(const String buf) {
-    if (buf == NULL) return NULL;
+    if (buf == NULL)
+        return NULL;
 
     String new = string_buf_new(buf->len);
     for (int i = 0; i < buf->len; i++) {
-        if (buf->data[i] >= 97 && buf->data[i] <= 122) new->data[i] = buf->data[i] - 32;
+        if (buf->data[i] >= 97 && buf->data[i] <= 122)
+            new->data[i] = buf->data[i] - 32;
         else new->data[i] = buf->data[i];
     }
 
@@ -261,11 +274,13 @@ String string_toupper(const String buf) {
  * @return Buffered string
  */
 String string_tolower(const String buf) {
-    if (buf == NULL) return NULL;
+    if (buf == NULL)
+        return NULL;
 
     String new = string_buf_new(buf->len);
     for (int i = 0; i < buf->len; i++) {
-        if (buf->data[i] >= 65 && buf->data[i] <= 90) new->data[i] = buf->data[i] + 32;
+        if (buf->data[i] >= 65 && buf->data[i] <= 90)
+            new->data[i] = buf->data[i] + 32;
         else new->data[i] = buf->data[i];
     }
 
@@ -282,7 +297,8 @@ String string_tolower(const String buf) {
  * @return Buffered string
  */
 String string_trim(const String buf) {
-    if (buf == NULL) return NULL;
+    if (buf == NULL)
+        return NULL;
 
     uint32_t pos1 = 0, pos2 = buf->len - 1;
 
@@ -312,7 +328,7 @@ bool string_isinteger(const String buf) {
 
     int n = 0;
 
-    if(buf->data[0] == '-')
+    if (buf->data[0] == '-')
         ++n;
 
     for (; n < buf->len; n++) {
@@ -369,15 +385,12 @@ string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]) {
     }
 
     const size_t lengths[4] = { 8, 16, 4, 8 };
-    //string_hash_t *result = malloc(sizeof(string_hash_t));
-
     int len = lengths[version];
     result.outlen = len;
 
     if (version < 2)
         siphash(buf->data, buf->len, key, result.out, len);
-    else
-        halfsiphash(buf->data, buf->len, key, result.out, len);
+    else halfsiphash(buf->data, buf->len, key, result.out, len);
 
     return result;
 }

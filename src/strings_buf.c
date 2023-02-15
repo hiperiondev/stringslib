@@ -67,7 +67,7 @@ String string_buf_new(const size_t cap) {
         buf->data[0] = 0;
         buf->data[cap] = 0;
     }
-    
+
     return buf;
 }
 
@@ -79,7 +79,8 @@ String string_buf_new(const size_t cap) {
  * @return  Buffered string|NULL
  */
 String string_buf_init(const char *str) {
-    if (str == NULL) return NULL;
+    if (str == NULL)
+        return NULL;
 
     String buf = string_buf_new(strlen(str));
     memcpy(buf->data, str, strlen(str));
@@ -98,11 +99,13 @@ String string_buf_init(const char *str) {
  * @return Change in length.
  */
 int string_buf_append(String buf, const char *fmt, ...) {
-    if (!fmt) return 0;
+    if (!fmt)
+        return 0;
 
     const size_t spc = buf->cap - buf->len;
-    
-    if (!spc) return 0;
+
+    if (!spc)
+        return 0;
 
     // get potential write length
     va_list args;
@@ -110,7 +113,8 @@ int string_buf_append(String buf, const char *fmt, ...) {
     const int len = vsnprintf(NULL, 0, fmt, args); //rem: end null not counted
     va_end(args);
 
-    if (len > spc) return 0;
+    if (len > spc)
+        return 0;
 
     char *end = buf->data + buf->len;
 
@@ -145,11 +149,13 @@ int string_buf_append(String buf, const char *fmt, ...) {
  * @return New length or zero on failure.
  */
 int string_buf_write(String buf, const char *fmt, ...) {
-    if (!fmt) return 0;
+    if (!fmt)
+        return 0;
 
     const size_t cap = buf->cap;
 
-    if (!cap) return 0;
+    if (!cap)
+        return 0;
 
     // get potential write length
     va_list args;
@@ -157,13 +163,14 @@ int string_buf_write(String buf, const char *fmt, ...) {
     const int len = vsnprintf(NULL, 0, fmt, args);
     va_end(args);
 
-    if (len > cap) return 0;
+    if (len > cap)
+        return 0;
 
     errno = 0;
     va_start(args, fmt);
     const int written = vsnprintf(buf->data, cap + 1, fmt, args);
     va_end(args);
-    
+
     if (written < 0) {
         perror("buf_write");
         return 0;
@@ -183,13 +190,16 @@ int string_buf_write(String buf, const char *fmt, ...) {
  * @return Boolean
  */
 bool string_buf_equal(const String a, const String b) {
-    if (!a && !b) return true; //?
-    if (!a || !b) return false; //?
+    if (!a && !b)
+        return true; //?
+    if (!a || !b)
+        return false; //?
 
     const size_t lena = a->len;
     const size_t lenb = b->len;
 
-    if (lena != lenb) return false;
+    if (lena != lenb)
+        return false;
 
     return !memcmp(a->data, b->data, lena);
 }
@@ -203,12 +213,14 @@ bool string_buf_equal(const String a, const String b) {
  * @return Boolean
  */
 bool string_buf_equal_const(const String a, const char *b) {
-    if (a == NULL || b == NULL) return false;
+    if (a == NULL || b == NULL)
+        return false;
 
     const size_t lena = a->len;
     const size_t lenb = strlen(b);
 
-    if (lena != lenb) return false;
+    if (lena != lenb)
+        return false;
 
     return !memcmp(a->data, b, lena);
 }
@@ -241,16 +253,17 @@ String string_buf_dup(const String buf) {
  */
 bool string_buf_resize(String *pbuf, const size_t newcap) {
     String buf = *pbuf;
-    
-    if (newcap == buf->cap) return true;
+
+    if (newcap == buf->cap)
+        return true;
 
     uint32_t buflen = buf->len;
 
     String tmp = realloc(buf, BUF_MEM(newcap));
-    
+
     if (!tmp)
         return false;
-    
+
     // truncated
     if (newcap < buflen) {
         tmp->data[newcap] = 0;
@@ -259,7 +272,7 @@ bool string_buf_resize(String *pbuf, const size_t newcap) {
 
     tmp->cap = newcap;
     *pbuf = tmp;
-    
+
     return true;
 }
 /**
