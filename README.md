@@ -13,7 +13,6 @@
 | String         | **string_new_c**(const char *str)<br>Allocate a new Buffer and copy string.   |
 | String         | **string_dup**(const String buf)<br>Duplicate string.                                           |
 | bool           | **string_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.                       |
-| size_t         | **string_cap**(const String buf)<br>Return capacity.                                            |
 | const char*    | **string_data**(const String buf)<br>Return Data of Buffered string.                            |
 | void           | **string_reset**(String buf)<br>Reset Buffered string content.                                  |
 
@@ -85,22 +84,6 @@ Resize capacity.
 
 **Return**: Boolean 
 
-### function string_cap
-
-```cpp
-size_t string_cap(
-    const String buf
-)
-```
-
-Return capacity. 
-
-**Parameters**: 
-
-  * **buf** Buffered string 
-
-**Return**: Capacity 
-
 ### function string_data
 
 ```cpp
@@ -140,6 +123,7 @@ Reset Buffered string content.
 |                | Name                                                                                                                     |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | size_t         | **string_len**(const String buf)<br>Buffered string length.                                                              |
+| size_t         | **string_cap**(const String buf)<br>Return capacity.                                                                     |
 | String         | **string_left**(const String buf, uint32_t pos)<br>Substring left from position.                                         |
 | String         | **string_right**(const String buf, uint32_t pos)<br>Substring right from position.                                       |
 | String         | **string_mid**(const String buf, uint32_t left, uint32_t right)<br>Substring left from position left to position right.  |
@@ -178,7 +162,23 @@ Buffered string length.
 
   * **buf** Buffered string 
 
-**Return**: Size 
+**Return**: Size
+
+### function string_cap
+
+```cpp
+size_t string_cap(
+    const String buf
+)
+```
+
+Return capacity. 
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+
+**Return**: Capacity 
 
 ### function string_left
 
