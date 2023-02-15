@@ -10,15 +10,15 @@
 |                | Name           |
 | -------------- | -------------- |
 | String         | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.  |
-| String         | **string_buf_init**(const char * str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
-| int            | **string_buf_append**(String buf, const char * fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
-| int            | **string_buf_write**(String buf, const char * fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
+| String         | **string_buf_init**(const char *str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
+| int            | **string_buf_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
+| int            | **string_buf_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | bool           | **string_buf_equal**(const String a, const String b)<br>Compare strings equality.  |
-| bool           | **string_buf_equal_const**(const String a, const char * b)<br>Compare strings equality.  |
+| bool           | **string_buf_equal_const**(const String a, const char *b)<br>Compare strings equality.  |
 | String         | **string_buf_dup**(const String buf)<br>Duplicate string.  |
 | bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
 | size_t         | **string_buf_cap**(const String buf)<br>Return capacity.  |
-| const char *   | **string_buf_data**(const String buf)<br>Return Data of Buffered string.  |
+| const char*    | **string_buf_data**(const String buf)<br>Return Data of Buffered string.  |
 | void           | **string_buf_reset**(String buf)<br>Reset Buffered string content.  |
 
 ## Functions Documentation
