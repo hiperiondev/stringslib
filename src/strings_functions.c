@@ -213,6 +213,26 @@ uint32_t string_find(const String buf, const String search) {
 }
 
 /**
+ * @fn string_find_c(const String buf, char c, uint32_t pos)
+ * @brief Find character starting at position
+ *
+ * @param buf Buffered string
+ * @param c Searched char
+ * @param pos Start position
+ * @return Position
+ */
+uint32_t string_find_c(const String buf, char c, uint32_t pos) {
+    if (buf == NULL || pos > buf->len)
+        return false;
+    for (int p = pos; p < buf->len; p++) {
+        if(buf->data[p] == c)
+            return p;
+    }
+
+    return STR_ERROR;
+}
+
+/**
  * @fn String string_toupper(const String buf)
  * @brief To upper string
  *
@@ -277,26 +297,6 @@ String string_trim(const String buf) {
     new->len = pos2 - pos1 + 1;
 
     return new;
-}
-
-/**
- * @fn  string_search_c(const String buf, char c, uint32_t pos)
- * @brief
- *
- * @param buf Buffered string
- * @param c Searched char
- * @param pos Start position
- * @return Position
- */
-uint32_t string_search_c(const String buf, char c, uint32_t pos) {
-    if (buf == NULL || pos > buf->len)
-        return false;
-    for (int p = pos; p < buf->len; p++) {
-        if(buf->data[p] == c)
-            return p;
-    }
-
-    return STR_ERROR;
 }
 
 /**

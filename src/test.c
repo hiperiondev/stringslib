@@ -211,7 +211,7 @@ int main(void) {
     free(buf);
 
     a = string_buf_init("es un@test");
-    uint32_t r = string_search_c(a, '@', 0);
+    uint32_t r = string_find_c(a, '@', 0);
     assert(r == 5);
     free(a);
 

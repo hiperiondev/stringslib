@@ -77,10 +77,10 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
         String string_delete(const String buf, uint32_t pos1, uint32_t pos2);
         String string_replace(const String buf, const String search, String replace);
       uint32_t string_find(const String buf, const String search);
+      uint32_t string_find_c(const String buf, char c, uint32_t pos);
         String string_toupper(const String buf);
         String string_tolower(const String buf);
         String string_trim(const String buf);
-      uint32_t string_search_c(const String buf, char c, uint32_t pos);
 
           bool string_isinteger(const String buf);
           bool string_isfloat(const String buf);
