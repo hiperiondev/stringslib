@@ -151,6 +151,8 @@ Reset Buffered string content.
 | uint32_t       | **string_find_c**(const String buf, char c, uint32_t pos)<br>Find character starting at position.                        |
 | String         | **string_toupper**(const String buf)<br>To upper string.                                                                 |
 | String         | **string_tolower**(const String buf)<br>To lower string.                                                                 |
+| String         | **string_ltrim**(const String buf)<br>Left trim string                                                                   |
+| String         | **string_rtrim**(const String buf)<br>Right trim string                                                                  |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
 | int            | **string_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | int            | **string_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
@@ -379,6 +381,38 @@ String string_tolower(
 ```
 
 To lower string. 
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+
+**Return**: Buffered string 
+
+### function string_ltrim
+
+```cpp
+String string_ltrim(
+    const String buf
+)
+```
+
+Left trim string. 
+
+**Parameters**: 
+
+  * **buf** Buffered string 
+
+**Return**: Buffered string 
+
+### function string_rtrim
+
+```cpp
+String string_rtrim(
+    const String buf
+)
+```
+
+Right trim string. 
 
 **Parameters**: 
 
