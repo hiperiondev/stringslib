@@ -85,6 +85,6 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
           bool string_isinteger(const String buf);
           bool string_isfloat(const String buf);
 
-string_hash_t* string_hash(const String buf, uint8_t version, uint8_t key[16]);
+string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]);
 
 #endif /* STRINGS_FUNCTIONS_H_ */

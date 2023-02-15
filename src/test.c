@@ -46,7 +46,7 @@ int main(void) {
     char cat[100];
     int rc;
     uint32_t res;
-    string_hash_t *hash;
+    string_hash_t hash;
 
 #define string_test_end(str) (str->data[str->len + 1] != '\0') ? 0 : 1;
 #define check(buf, cap, data)                                 \
@@ -225,22 +225,20 @@ int main(void) {
     a = string_buf_init("Esto es un Test para hash");
     b = string_buf_new(32);
     hash = string_hash(a, SIP128, key);
-    for (int n = 0; n < hash->outlen; n++)
-        string_buf_append(b, "%02x", hash->out[n]);
+    for (int n = 0; n < hash.outlen; n++)
+        string_buf_append(b, "%02x", hash.out[n]);
     assert(string_buf_equal_const(b, "1882ec9b9f416a6330aecc8b1bfafd13"));
     free(a);
     free(b);
-    free(hash);
 
     a = string_buf_init("Esto es un Test para hash");
     b = string_buf_new(32);
     hash = string_hash(a, HSIP64, key);
-    for (int n = 0; n < hash->outlen; n++)
-        string_buf_append(b, "%02x", hash->out[n]);
+    for (int n = 0; n < hash.outlen; n++)
+        string_buf_append(b, "%02x", hash.out[n]);
     assert(string_buf_equal_const(b, "eac1d8508e6a7f5a"));
     free(a);
     free(b);
-    free(hash);
 
     printf("string_functions tests OK\n");
 

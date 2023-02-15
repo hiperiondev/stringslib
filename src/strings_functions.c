@@ -197,7 +197,7 @@ String string_replace(const String buf, const String search, String replace) {
 
 /**
  * @fn uint32_t string_find(const String buf, const String search)
- * @brief Find substring
+ * @brief Find substring.
  *
  * @param buf Buffered string
  * @param search Buffered string
@@ -214,7 +214,7 @@ uint32_t string_find(const String buf, const String search) {
 
 /**
  * @fn string_find_c(const String buf, char c, uint32_t pos)
- * @brief Find character starting at position
+ * @brief Find character starting at position.
  *
  * @param buf Buffered string
  * @param c Searched char
@@ -352,7 +352,7 @@ bool string_isfloat(const String buf) {
 }
 
 /**
- * @fn string_hash_t* string_hash(const String buf, uint8_t version, uint8_t key[16])
+ * @fn string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16])
  * @brief String hash
  *
  * @param buf Buffered string
@@ -360,20 +360,24 @@ bool string_isfloat(const String buf) {
  * @param key Key
  * @return String hash result
  */
-string_hash_t* string_hash(const String buf, uint8_t version, uint8_t key[16]) {
-    if (buf == NULL)
-        return false;
+string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]) {
+    string_hash_t result;
+
+    if (buf == NULL) {
+        result.outlen = 0;
+        return result;
+    }
 
     const size_t lengths[4] = { 8, 16, 4, 8 };
-    string_hash_t *result = malloc(sizeof(string_hash_t));
+    //string_hash_t *result = malloc(sizeof(string_hash_t));
 
     int len = lengths[version];
-    result->outlen = len;
+    result.outlen = len;
 
     if (version < 2)
-        siphash(buf->data, buf->len, key, result->out, len);
+        siphash(buf->data, buf->len, key, result.out, len);
     else
-        halfsiphash(buf->data, buf->len, key, result->out, len);
+        halfsiphash(buf->data, buf->len, key, result.out, len);
 
     return result;
 }
