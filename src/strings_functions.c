@@ -183,10 +183,11 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
  * @param buf Buffered string
  * @param search Buffered string
  * @param replace Buffered string
+ * @param pos Start position
  * @return Buffered string
  */
 String string_replace(const String buf, const String search, String replace, uint32_t pos) {
-    if (buf == NULL || search == NULL || replace == NULL)
+    if (buf == NULL || search == NULL || replace == NULL || pos > buf->len)
         return NULL;
 
     uint32_t fpos = string_find(buf, search, pos);
