@@ -7,15 +7,15 @@
 
 ## Functions
 
-|                | Name           |
-| -------------- | -------------- |
-| String         | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.  |
-| String         | **string_buf_init**(const char *str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
-| String         | **string_buf_dup**(const String buf)<br>Duplicate string.  |
-| bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
-| size_t         | **string_buf_cap**(const String buf)<br>Return capacity.  |
-| const char*    | **string_buf_data**(const String buf)<br>Return Data of Buffered string.  |
-| void           | **string_buf_reset**(String buf)<br>Reset Buffered string content.  |
+|                | Name                                                                                                |
+| -------------- | --------------------------------------------------------------------------------------------------- |
+| String         | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.                    |
+| String         | **string_buf_new_c**(const char *str)<br>Allocate a new Buffer of capacity `cap` and copy string.   |
+| String         | **string_buf_dup**(const String buf)<br>Duplicate string.                                           |
+| bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.                       |
+| size_t         | **string_buf_cap**(const String buf)<br>Return capacity.                                            |
+| const char*    | **string_buf_data**(const String buf)<br>Return Data of Buffered string.                            |
+| void           | **string_buf_reset**(String buf)<br>Reset Buffered string content.                                  |
 
 ## Functions Documentation
 
@@ -35,7 +35,7 @@ Allocate a new Buffer of capacity `cap`.
 
 **Return**: Buffered string 
 
-### function string_buf_init
+### function string_buf_new_c
 
 ```cpp
 String string_buf_init(
