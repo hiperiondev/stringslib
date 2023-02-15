@@ -3,7 +3,7 @@
  * @brief strings manipulation functions
  * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
- * @note This is based on https://github.com/alcover/buf. Please contact their authors for more information.
+ * @note This is based on https://github.com/alcover/buf and others. Please contact their authors for more information.
  *
  * The MIT License (MIT)
  *
@@ -80,6 +80,7 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
         String string_toupper(const String buf);
         String string_tolower(const String buf);
         String string_trim(const String buf);
+      uint32_t string_search_c(const String buf, char c, uint32_t pos);
 
           bool string_isinteger(const String buf);
           bool string_isfloat(const String buf);

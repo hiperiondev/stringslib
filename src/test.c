@@ -3,7 +3,7 @@
  * @brief strings library test
  * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
- * @note This is based on https://github.com/alcover/buf. Please contact their authors for more information.
+ * @note This is based on https://github.com/alcover/buf and others. Please contact their authors for more information.
  *
  * The MIT License (MIT)
  *
@@ -210,11 +210,16 @@ int main(void) {
     free(a);
     free(buf);
 
-    a = string_buf_init("   es un test   ");
-    buf = string_trim(a);
-    assert(string_buf_equal_const(buf, "es un test"));
+    a = string_buf_init("es un@test");
+    uint32_t r = string_search_c(a, '@', 0);
+    assert(r == 5);
     free(a);
-    free(buf);
+
+    a = string_buf_init("   es un test   ");
+        buf = string_trim(a);
+        assert(string_buf_equal_const(buf, "es un test"));
+        free(a);
+        free(buf);
 
     uint8_t key[16] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
     a = string_buf_init("Esto es un Test para hash");

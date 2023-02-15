@@ -3,7 +3,7 @@
  * @brief strings buffer functions
  * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
- * @note This is based on https://github.com/alcover/buf. Please contact their authors for more information.
+ * @note This is based on https://github.com/alcover/buf and others. Please contact their authors for more information.
  *
  * The MIT License (MIT)
  *

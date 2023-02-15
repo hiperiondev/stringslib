@@ -3,7 +3,7 @@
  * @brief strings manipulation functions
  * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
- * @note This is based on https://github.com/alcover/buf. Please contact their authors for more information.
+ * @note This is based on https://github.com/alcover/buf and others. Please contact their authors for more information.
  *
  * The MIT License (MIT)
  *
@@ -280,6 +280,26 @@ String string_trim(const String buf) {
 }
 
 /**
+ * @fn  string_search_c(const String buf, char c, uint32_t pos)
+ * @brief
+ *
+ * @param buf Buffered string
+ * @param c Searched char
+ * @param pos Start position
+ * @return Position
+ */
+uint32_t string_search_c(const String buf, char c, uint32_t pos) {
+    if (buf == NULL || pos > buf->len)
+        return false;
+    for (int p = pos; p < buf->len; p++) {
+        if(buf->data[p] == c)
+            return p;
+    }
+
+    return STR_ERROR;
+}
+
+/**
  * @fn bool string_isinteger(const String buf)
  * @brief Check if string is a valid integer
  *
@@ -287,6 +307,9 @@ String string_trim(const String buf) {
  * @return boolean
  */
 bool string_isinteger(const String buf) {
+    if (buf == NULL)
+        return false;
+
     int n = 0;
 
     if(buf->data[0] == '-')
@@ -308,6 +331,9 @@ bool string_isinteger(const String buf) {
  * @return Boolean
  */
 bool string_isfloat(const String buf) {
+    if (buf == NULL)
+        return false;
+
     int n = 0;
     bool dot = false;
 
@@ -335,6 +361,9 @@ bool string_isfloat(const String buf) {
  * @return String hash result
  */
 string_hash_t* string_hash(const String buf, uint8_t version, uint8_t key[16]) {
+    if (buf == NULL)
+        return false;
+
     const size_t lengths[4] = { 8, 16, 4, 8 };
     string_hash_t *result = malloc(sizeof(string_hash_t));
 
