@@ -3,7 +3,7 @@
 
 -------------------------------
 
-# Strings Buffer Functions
+# Strings Core Functions
 
 ## Functions
 
