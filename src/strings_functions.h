@@ -33,7 +33,7 @@
 
 #include <stdint.h>
 
-#include "strings_buf.h"
+#include "strings_core.h"
 
 /**
  * @enum STRING_ERROR

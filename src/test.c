@@ -33,7 +33,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "strings_buf.h"
+#include "strings_core.h"
 #include "strings_functions.h"
 
 int main(void) {
@@ -52,13 +52,13 @@ int main(void) {
 #define string_test_end(str) (str->data[str->len + 1] != '\0') ? 0 : 1;
 #define check(buf, cap, data)                                 \
             do {                                              \
-                assert (string_buf_cap(buf) == cap);          \
+                assert (string_cap(buf) == cap);          \
                 assert (string_len(buf) == strlen(data));     \
-                assert (!strcmp(string_buf_data(buf), data)); \
+                assert (!strcmp(string_data(buf), data)); \
             } while(0)
 
     // init
-    buf = string_buf_new(cap);
+    buf = string_new(cap);
     check(buf, cap, "");
 
     // basic append
@@ -72,12 +72,12 @@ int main(void) {
     check(buf, cap, cat);
 
     // reset
-    string_buf_reset(buf);
+    string_reset(buf);
     check(buf, cap, "");
     free(buf);
 
     // format append
-    buf = string_buf_new(cap);
+    buf = string_new(cap);
     rc = string_append(buf, "%s%s%d", foo, bar, i);
     sprintf(cat, "%s%s%d", foo, bar, i);
     assert(rc == strlen(cat));
@@ -85,14 +85,14 @@ int main(void) {
     free(buf);
 
     // append too large
-    buf = string_buf_new(strlen(big) - 1);
+    buf = string_new(strlen(big) - 1);
     rc = string_append(buf, big);
     assert(rc == 0);
     assert(string_len(buf) == 0);
     free(buf);
 
     // write
-    buf = string_buf_new(cap);
+    buf = string_new(cap);
     rc = string_write(buf, foo);
     assert(rc == strlen(foo));
     check(buf, cap, foo);
@@ -106,16 +106,16 @@ int main(void) {
 
     // write too large
     assert(strlen(foo) + strlen(big) > cap);
-    buf = string_buf_new(cap);
+    buf = string_new(cap);
     string_write(buf, foo);
     string_write(buf, big);
     check(buf, cap, foo);
     free(buf);
 
     // dup
-    buf = string_buf_new(cap);
+    buf = string_new(cap);
     string_append(buf, foo);
-    cpy = string_buf_dup(buf);
+    cpy = string_dup(buf);
     check(cpy, cap, foo);
     free(buf);
     free(cpy);
@@ -123,9 +123,9 @@ int main(void) {
     // resize
     const size_t needsz = strlen(foo) + strlen(big);
     assert(needsz > cap);
-    buf = string_buf_new(cap);
+    buf = string_new(cap);
     string_append(buf, foo);
-    string_buf_resize(&buf, needsz);
+    string_resize(&buf, needsz);
     string_append(buf, big);
     sprintf(cat, "%s%s", foo, big);
     check(buf, needsz, cat);
@@ -133,48 +133,48 @@ int main(void) {
 
     printf("string_buf tests OK\n");
 
-    a = string_buf_new_c("es un test");
+    a = string_new_c("es un test");
     buf = string_left(a, 4);
     assert(string_equals_c(buf, "es un"));
     free(a);
     free(buf);
 
-    a = string_buf_new_c("es un test");
+    a = string_new_c("es un test");
     buf = string_right(a, 6);
     assert(string_equals_c(buf, "test"));
     free(a);
     free(buf);
 
-    a = string_buf_new_c("es un test");
+    a = string_new_c("es un test");
     buf = string_mid(a, 4, 5);
     assert(string_equals_c(buf, "un"));
     free(a);
     free(buf);
 
-    a = string_buf_new_c("es un test");
-    b = string_buf_new_c(" y mas cosas");
+    a = string_new_c("es un test");
+    b = string_new_c(" y mas cosas");
     buf = string_concat(a, b);
     assert(string_equals_c(buf, "es un test y mas cosas"));
     free(a);
     free(b);
     free(buf);
 
-    a = string_buf_new_c("es un test");
-    b = string_buf_new_c(" hermoso");
+    a = string_new_c("es un test");
+    b = string_new_c(" hermoso");
     buf = string_insert(a, b, 5);
     assert(string_equals_c(buf, "es un hermoso test"));
     free(a);
     free(b);
     free(buf);
 
-    a = string_buf_new_c("es un test");
+    a = string_new_c("es un test");
     buf = string_delete(a, 3, 5);
     assert(string_equals_c(buf, "es test"));
     free(a);
     free(buf);
 
-    a = string_buf_new_c("es un test");
-    b = string_buf_new_c("un");
+    a = string_new_c("es un test");
+    b = string_new_c("un");
     res = string_find(a, b, 0);
     assert(res == 3);
     res = string_find(a, b, 2);
@@ -182,9 +182,9 @@ int main(void) {
     free(a);
     free(b);
 
-    a = string_buf_new_c("es un test");
-    b = string_buf_new_c("un");
-    c = string_buf_new_c("otro");
+    a = string_new_c("es un test");
+    b = string_new_c("un");
+    c = string_new_c("otro");
     buf = string_replace(a, b, c, 2);
     assert(string_equals_c(buf, "es otro test"));
     free(a);
@@ -192,31 +192,31 @@ int main(void) {
     free(c);
     free(buf);
 
-    a = string_buf_new_c("es Un test");
+    a = string_new_c("es Un test");
     buf = string_toupper(a);
     assert(string_equals_c(buf, "ES UN TEST"));
     free(a);
     free(buf);
 
-    a = string_buf_new_c("ES un TEST");
+    a = string_new_c("ES un TEST");
     buf = string_tolower(a);
     assert(string_equals_c(buf, "es un test"));
     free(a);
     free(buf);
 
-    a = string_buf_new_c("es un@test");
+    a = string_new_c("es un@test");
     uint32_t r = string_find_c(a, '@', 0);
     assert(r == 5);
     free(a);
 
-    a = string_buf_new_c("   es un test   ");
+    a = string_new_c("   es un test   ");
     buf = string_trim(a);
     assert(string_equals_c(buf, "es un test"));
     free(a);
     free(buf);
 
-    a = string_buf_new_c("es un test");
-    b = string_buf_new_c("es un test");
+    a = string_new_c("es un test");
+    b = string_new_c("es un test");
     bres = string_equals(a, b);
     assert(bres);
     string_write(b, "otracosa");
@@ -225,8 +225,8 @@ int main(void) {
     free(a);
     free(b);
 
-    a = string_buf_new_c("-124");
-    b = string_buf_new_c("-23.89");
+    a = string_new_c("-124");
+    b = string_new_c("-23.89");
     bres = string_isinteger(a);
     assert(bres);
     bres = string_isinteger(b);
@@ -237,8 +237,8 @@ int main(void) {
     free(b);
 
     uint8_t key[16] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
-    a = string_buf_new_c("Esto es un Test para hash");
-    b = string_buf_new(32);
+    a = string_new_c("Esto es un Test para hash");
+    b = string_new(32);
     hash = string_hash(a, SIP128, key);
     for (int n = 0; n < hash.outlen; n++)
         string_append(b, "%02x", hash.out[n]);
@@ -246,8 +246,8 @@ int main(void) {
     free(a);
     free(b);
 
-    a = string_buf_new_c("Esto es un Test para hash");
-    b = string_buf_new(32);
+    a = string_new_c("Esto es un Test para hash");
+    b = string_new(32);
     hash = string_hash(a, HSIP64, key);
     for (int n = 0; n < hash.outlen; n++)
         string_append(b, "%02x", hash.out[n]);

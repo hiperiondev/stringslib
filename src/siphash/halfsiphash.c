@@ -1,15 +1,15 @@
-/*
- SipHash reference C implementation
-
- Copyright (c) 2012-2021 Jean-Philippe Aumasson <jeanphilippe.aumasson@gmail.com>
- Copyright (c) 2012-2014 Daniel J. Bernstein <djb@cr.yp.to>
-
- To the extent possible under law, the author(s) have dedicated all copyright
- and related and neighboring rights to this software to the public domain
- worldwide. This software is distributed without any warranty.
-
- You should have received a copy of the CC0 Public Domain Dedication along with this software.
- If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+/**
+ * SipHash reference C implementation
+ *
+ * Copyright (c) 2012-2021 Jean-Philippe Aumasson <jeanphilippe.aumasson@gmail.com>
+ * Copyright (c) 2012-2014 Daniel J. Bernstein <djb@cr.yp.to>
+ *
+ * To the extent possible under law, the author(s) have dedicated all copyright
+ * and related and neighboring rights to this software to the public domain
+ * worldwide. This software is distributed without any warranty.
+ *
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software.
+ * If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
 
 #include "halfsiphash.h"
@@ -17,7 +17,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/* default: SipHash-2-4 */
+// default: SipHash-2-4
 #ifndef cROUNDS
 #define cROUNDS 2
 #endif
@@ -27,58 +27,60 @@
 
 #define ROTL(x, b) (uint32_t)(((x) << (b)) | ((x) >> (32 - (b))))
 
-#define U32TO8_LE(p, v)                                                        \
-    (p)[0] = (uint8_t)((v));                                                   \
-    (p)[1] = (uint8_t)((v) >> 8);                                              \
-    (p)[2] = (uint8_t)((v) >> 16);                                             \
+#define U32TO8_LE(p, v)                                           \
+    (p)[0] = (uint8_t)((v));                                      \
+    (p)[1] = (uint8_t)((v) >> 8);                                 \
+    (p)[2] = (uint8_t)((v) >> 16);                                \
     (p)[3] = (uint8_t)((v) >> 24);
 
-#define U8TO32_LE(p)                                                           \
-    (((uint32_t)((p)[0])) | ((uint32_t)((p)[1]) << 8) |                        \
+#define U8TO32_LE(p)                                              \
+    (((uint32_t)((p)[0])) | ((uint32_t)((p)[1]) << 8) |           \
      ((uint32_t)((p)[2]) << 16) | ((uint32_t)((p)[3]) << 24))
 
-#define SIPROUND                                                               \
-    do {                                                                       \
-        v0 += v1;                                                              \
-        v1 = ROTL(v1, 5);                                                      \
-        v1 ^= v0;                                                              \
-        v0 = ROTL(v0, 16);                                                     \
-        v2 += v3;                                                              \
-        v3 = ROTL(v3, 8);                                                      \
-        v3 ^= v2;                                                              \
-        v0 += v3;                                                              \
-        v3 = ROTL(v3, 7);                                                      \
-        v3 ^= v0;                                                              \
-        v2 += v1;                                                              \
-        v1 = ROTL(v1, 13);                                                     \
-        v1 ^= v2;                                                              \
-        v2 = ROTL(v2, 16);                                                     \
+#define SIPROUND                                                  \
+    do {                                                          \
+        v0 += v1;                                                 \
+        v1 = ROTL(v1, 5);                                         \
+        v1 ^= v0;                                                 \
+        v0 = ROTL(v0, 16);                                        \
+        v2 += v3;                                                 \
+        v3 = ROTL(v3, 8);                                         \
+        v3 ^= v2;                                                 \
+        v0 += v3;                                                 \
+        v3 = ROTL(v3, 7);                                         \
+        v3 ^= v0;                                                 \
+        v2 += v1;                                                 \
+        v1 = ROTL(v1, 13);                                        \
+        v1 ^= v2;                                                 \
+        v2 = ROTL(v2, 16);                                        \
     } while (0)
 
 #ifdef DEBUG_SIPHASH
 #include <stdio.h>
 
-#define TRACE                                                                  \
-    do {                                                                       \
-        printf("(%3zu) v0 %08" PRIx32 "\n", inlen, v0);                        \
-        printf("(%3zu) v1 %08" PRIx32 "\n", inlen, v1);                        \
-        printf("(%3zu) v2 %08" PRIx32 "\n", inlen, v2);                        \
-        printf("(%3zu) v3 %08" PRIx32 "\n", inlen, v3);                        \
+#define TRACE                                                     \
+    do {                                                          \
+        printf("(%3zu) v0 %08" PRIx32 "\n", inlen, v0);           \
+        printf("(%3zu) v1 %08" PRIx32 "\n", inlen, v1);           \
+        printf("(%3zu) v2 %08" PRIx32 "\n", inlen, v2);           \
+        printf("(%3zu) v3 %08" PRIx32 "\n", inlen, v3);           \
     } while (0)
 #else
 #define TRACE
 #endif
 
-/*
- Computes a SipHash value
- *in: pointer to input data (read-only)
- inlen: input data length in bytes (any size_t value)
- *k: pointer to the key data (read-only), must be 8 bytes
- *out: pointer to output data (write-only), outlen bytes must be allocated
- outlen: length of the output in bytes, must be 4 or 8
+/**
+ * @fn int halfsiphash(const void *in, const size_t inlen, const void *k, uint8_t *out, const size_t outlen)
+ * @brief Computes a Half SipHash value
+ *
+ * @param in Pointer to input data (read-only)
+ * @param inlen Input data length in bytes (any size_t value)
+ * @param k Pointer to the key data (read-only), must be 8 bytes
+ * @param out Pointer to output data (write-only), outlen bytes must be allocated
+ * @param outlen Length of the output in bytes, must be 4 or 8
+ * @return Hash
  */
 int halfsiphash(const void *in, const size_t inlen, const void *k, uint8_t *out, const size_t outlen) {
-
     const unsigned char *ni = (const unsigned char*) in;
     const unsigned char *kk = (const unsigned char*) k;
 

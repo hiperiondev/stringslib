@@ -1,15 +1,15 @@
-/*
- SipHash reference C implementation
-
- Copyright (c) 2012-2021 Jean-Philippe Aumasson <jeanphilippe.aumasson@gmail.com>
- Copyright (c) 2012-2014 Daniel J. Bernstein <djb@cr.yp.to>
-
- To the extent possible under law, the author(s) have dedicated all copyright
- and related and neighboring rights to this software to the public domain
- worldwide. This software is distributed without any warranty.
-
- You should have received a copy of the CC0 Public Domain Dedication along with this software.
- If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+/**
+ * SipHash reference C implementation
+ *
+ * Copyright (c) 2012-2021 Jean-Philippe Aumasson <jeanphilippe.aumasson@gmail.com>
+ * Copyright (c) 2012-2014 Daniel J. Bernstein <djb@cr.yp.to>
+ *
+ * To the extent possible under law, the author(s) have dedicated all copyright
+ * and related and neighboring rights to this software to the public domain
+ * worldwide. This software is distributed without any warranty.
+ *
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software.
+ * If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
  */
 
 #include "siphash.h"
@@ -17,7 +17,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/* default: SipHash-2-4 */
+// default: SipHash-2-4
 #ifndef cROUNDS
 #define cROUNDS 2
 #endif
@@ -75,13 +75,16 @@
 #define TRACE
 #endif
 
-/*
- Computes a SipHash value
- *in: pointer to input data (read-only)
- inlen: input data length in bytes (any size_t value)
- *k: pointer to the key data (read-only), must be 16 bytes
- *out: pointer to output data (write-only), outlen bytes must be allocated
- outlen: length of the output in bytes, must be 8 or 16
+/**
+ * @fn int siphash(const void *in, const size_t inlen, const void *k, uint8_t *out, const size_t outlen)
+ * @brief Computes a SipHash value
+ *
+ * @param in Pointer to input data (read-only)
+ * @param inlen Input data length in bytes (any size_t value)
+ * @param k Pointer to the key data (read-only), must be 8 bytes
+ * @param out Pointer to output data (write-only), outlen bytes must be allocated
+ * @param outlen Length of the output in bytes, must be 4 or 8
+ * @return Hash
  */
 int siphash(const void *in, const size_t inlen, const void *k, uint8_t *out, const size_t outlen) {
 

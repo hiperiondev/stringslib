@@ -32,7 +32,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "strings_buf.h"
+#include "strings_core.h"
 
 /**
  * @def BUF_CHR
@@ -55,7 +55,7 @@
  * @param cap Capacity
  * @return  Buffered string
  */
-String string_buf_new(const size_t cap) {
+String string_new(const size_t cap) {
     String buf = malloc(BUF_MEM(cap));
 
     if (buf) {
@@ -75,11 +75,11 @@ String string_buf_new(const size_t cap) {
  * @param str String
  * @return  Buffered string|NULL
  */
-String string_buf_new_c(const char *str) {
+String string_new_c(const char *str) {
     if (str == NULL || strlen(str) > UINT32_MAX - 1)
         return NULL;
 
-    String buf = string_buf_new(strlen(str));
+    String buf = string_new(strlen(str));
     memcpy(buf->data, str, strlen(str));
     buf->len = strlen(str);
 
@@ -93,11 +93,11 @@ String string_buf_new_c(const char *str) {
  * @param buf Buffered string
  * @return Buffer
  */
-String string_buf_dup(const String buf) {
+String string_dup(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    String ret = string_buf_new(buf->cap);
+    String ret = string_new(buf->cap);
 
     if (ret) {
         // copies only up to current length
@@ -115,7 +115,7 @@ String string_buf_dup(const String buf) {
  * @param newcap New capacity
  * @return Boolean
  */
-bool string_buf_resize(String *pbuf, const size_t newcap) {
+bool string_resize(String *pbuf, const size_t newcap) {
     if (pbuf == NULL || *pbuf == NULL)
         return false;
 
@@ -149,7 +149,7 @@ bool string_buf_resize(String *pbuf, const size_t newcap) {
  * @param buf Buffered string
  * @return Capacity
  */
-size_t string_buf_cap(const String buf) {
+size_t string_cap(const String buf) {
     if (buf == NULL)
         return UINT32_MAX;
 
@@ -163,7 +163,7 @@ size_t string_buf_cap(const String buf) {
  * @param buf Buffered string
  * @return String
  */
-const char* string_buf_data(const String buf) {
+const char* string_data(const String buf) {
     if (buf == NULL)
         return NULL;
 
@@ -176,7 +176,7 @@ const char* string_buf_data(const String buf) {
  *
  * @param buf Buffered string
  */
-void string_buf_reset(String buf) {
+void string_reset(String buf) {
     if (buf == NULL)
         return;
 

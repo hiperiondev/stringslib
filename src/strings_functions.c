@@ -36,7 +36,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include "strings_buf.h"
+#include "strings_core.h"
 #include "strings_functions.h"
 #include "siphash.h"
 #include "halfsiphash.h"
@@ -67,7 +67,7 @@ String string_left(const String buf, uint32_t pos) {
     if (buf == NULL || pos > buf->len)
         return NULL;
 
-    String new = string_buf_new(pos);
+    String new = string_new(pos);
     memcpy(new->data, buf->data, pos + 1);
     new->len = pos + 1;
 
@@ -86,7 +86,7 @@ String string_right(const String buf, uint32_t pos) {
     if (buf == NULL || pos > buf->len)
         return NULL;
 
-    String new = string_buf_new(buf->len - pos);
+    String new = string_new(buf->len - pos);
     memcpy(new->data, buf->data + pos, buf->len - pos + 1);
     new->len = buf->len - pos;
 
@@ -106,7 +106,7 @@ String string_mid(const String buf, uint32_t left, uint32_t right) {
     if (buf == NULL || right > buf->len || left > buf->len || left > right)
         return NULL;
 
-    String new = string_buf_new(right - left);
+    String new = string_new(right - left);
     memcpy(new->data, buf->data + left - 1, right - left + 1);
     new->len = right - left + 1;
 
@@ -125,7 +125,7 @@ String string_concat(const String str1, const String str2) {
     if (str1 == NULL || str2 == NULL)
         return NULL;
 
-    String new = string_buf_new(str1->len + str2->len);
+    String new = string_new(str1->len + str2->len);
     memcpy(new->data, str1->data, str1->len);
     memcpy(new->data + str1->len, str2->data, str2->len + 1);
     new->len = str1->len + str2->len;
@@ -146,7 +146,7 @@ String string_insert(const String buf, const String str, uint32_t pos) {
     if (buf == NULL || str == NULL || pos > buf->len)
         return NULL;
 
-    String new = string_buf_new(buf->len + str->len);
+    String new = string_new(buf->len + str->len);
     memcpy(new->data, buf->data, pos);
     memcpy(new->data + pos, str->data, str->len);
     memcpy(new->data + pos + str->len, buf->data + pos, (buf->len - pos) + 1);
@@ -170,7 +170,7 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
         return NULL;
     }
 
-    String new = string_buf_new(buf->len - pos2 + pos1);
+    String new = string_new(buf->len - pos2 + pos1);
     memcpy(new->data, buf->data, pos1);
     memcpy(new->data + pos1, buf->data + pos2 + 1, buf->len - pos2);
 
@@ -197,7 +197,7 @@ String string_replace(const String buf, const String search, String replace, uin
     if (fpos == STR_ERROR)
         return NULL;
 
-    String new = string_buf_new(buf->len - search->len + replace->len);
+    String new = string_new(buf->len - search->len + replace->len);
     memcpy(new->data, buf->data, fpos);
     memcpy(new->data + fpos, replace->data, replace->len);
     memcpy(new->data + fpos + replace->len, buf->data + search->len + fpos, buf->len - fpos - search->len);
@@ -258,7 +258,7 @@ String string_toupper(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    String new = string_buf_new(buf->len);
+    String new = string_new(buf->len);
     for (int i = 0; i < buf->len; i++) {
         if (buf->data[i] >= 97 && buf->data[i] <= 122)
             new->data[i] = buf->data[i] - 32;
@@ -281,7 +281,7 @@ String string_tolower(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    String new = string_buf_new(buf->len);
+    String new = string_new(buf->len);
     for (int i = 0; i < buf->len; i++) {
         if (buf->data[i] >= 65 && buf->data[i] <= 90)
             new->data[i] = buf->data[i] + 32;
@@ -311,7 +311,7 @@ String string_trim(const String buf) {
     while (isspace(buf->data[pos2]))
         --pos2;
 
-    String new = string_buf_new(pos1 + pos2 + 1);
+    String new = string_new(pos1 + pos2 + 1);
     memcpy(new->data, buf->data + pos1, pos2 - pos1 + 1);
 
     new->len = pos2 - pos1 + 1;
