@@ -13,7 +13,6 @@
 | String         | **string_buf_init**(const char *str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
 | int            | **string_buf_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | int            | **string_buf_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
-| bool           | **string_buf_equal**(const String a, const String b)<br>Compare strings equality.  |
 | bool           | **string_buf_equal_const**(const String a, const char *b)<br>Compare strings equality.  |
 | String         | **string_buf_dup**(const String buf)<br>Duplicate string.  |
 | bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
@@ -37,7 +36,6 @@ Allocate a new Buffer of capacity `cap`.
 
   * **cap** Capacity 
 
-
 **Return**: Buffered string 
 
 ### function string_buf_init
@@ -53,7 +51,6 @@ Allocate a new Buffer of capacity `cap` and copy string.
 **Parameters**: 
 
   * **str** String 
-
 
 **Return**: Buffered string|NULL 
 
@@ -74,7 +71,6 @@ Append a formatted c-string to `buf`. If new data would exceed capacity, `buf` s
   * **buf** Buffered string 
   * **fmt** Format 
 
-
 **Return**: Change in length. 
 
 ### function string_buf_write
@@ -94,27 +90,7 @@ Write a formatted c-string at beginning of `buf`. If new data would exceed capac
   * **buf** Buffered string 
   * **fmt** Format 
 
-
 **Return**: New length or zero on failure. 
-
-### function string_buf_equal
-
-```cpp
-bool string_buf_equal(
-    const String a,
-    const String b
-)
-```
-
-Compare strings equality. 
-
-**Parameters**: 
-
-  * **a** Buffered string 
-  * **b** Buffered string 
-
-
-**Return**: Boolean 
 
 ### function string_buf_equal_const
 
@@ -132,7 +108,6 @@ Compare strings equality.
   * **a** Buffered string 
   * **b** String 
 
-
 **Return**: Boolean 
 
 ### function string_buf_dup
@@ -148,7 +123,6 @@ Duplicate string.
 **Parameters**: 
 
   * **buf** Buffered string 
-
 
 **Return**: Buffer 
 
@@ -168,7 +142,6 @@ Resize capacity.
   * **pbuf** Buffered string 
   * **newcap** New capacity 
 
-
 **Return**: Boolean 
 
 ### function string_buf_cap
@@ -185,7 +158,6 @@ Return capacity.
 
   * **buf** Buffered string 
 
-
 **Return**: Capacity 
 
 ### function string_buf_data
@@ -201,7 +173,6 @@ Return Data of Buffered string.
 **Parameters**: 
 
   * **buf** Buffered string 
-
 
 **Return**: String 
 
@@ -261,7 +232,6 @@ Buffered string length.
 
   * **buf** Buffered string 
 
-
 **Return**: Size 
 
 ### function string_left
@@ -280,7 +250,6 @@ Substring left from position.
   * **buf** Buffered string 
   * **pos** Position 
 
-
 **Return**: Buffered string 
 
 ### function string_right
@@ -298,7 +267,6 @@ Substring right from position.
 
   * **buf** Buffered string 
   * **pos** Position 
-
 
 **Return**: Buffered string 
 
@@ -320,7 +288,6 @@ Substring left from position left to position right.
   * **left** Position 
   * **right** Position 
 
-
 **Return**: Buffered string 
 
 ### function string_concat
@@ -338,7 +305,6 @@ Concatenation of strings.
 
   * **str1** Buffered string 
   * **str2** Buffered string 
-
 
 **Return**: Buffered string 
 
@@ -360,7 +326,6 @@ Insert string on position.
   * **str** Buffered string 
   * **pos** Position 
 
-
 **Return**: Buffered string 
 
 ### function string_delete
@@ -380,7 +345,6 @@ Delete substring from pos1 to pos2.
   * **buf** Buffered string 
   * **pos1** Position 
   * **pos2** Position 
-
 
 **Return**: Buffered string 
 
@@ -460,7 +424,6 @@ To upper string.
 
   * **buf** Buffered string 
 
-
 **Return**: Buffered string 
 
 ### function string_tolower
@@ -477,7 +440,6 @@ To lower string.
 
   * **buf** Buffered string 
 
-
 **Return**: Buffered string 
 
 ### function string_trim
@@ -493,7 +455,6 @@ Trim string.
 **Parameters**: 
 
   * **buf** Buffered string 
-
 
 **Return**: Buffered string 
 
@@ -529,7 +490,6 @@ Check if string is a valid integer.
 
   * **buf** Buffered string 
 
-
 **Return**: Boolean
 
 ### function string_isfloat
@@ -545,7 +505,6 @@ Check if string is a valid float.
 **Parameters**: 
 
   * **buf** Buffered string 
-
 
 **Return**: Boolean 
 
