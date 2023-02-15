@@ -62,11 +62,11 @@ int main(void) {
     check(buf, cap, "");
 
     // basic append
-    rc = string_buf_append(buf, foo);
+    rc = string_append(buf, foo);
     assert(rc == strlen(foo));
     check(buf, cap, foo);
 
-    rc = string_buf_append(buf, bar);
+    rc = string_append(buf, bar);
     assert(rc == strlen(bar));
     sprintf(cat, "%s%s", foo, bar);
     check(buf, cap, cat);
@@ -78,7 +78,7 @@ int main(void) {
 
     // format append
     buf = string_buf_new(cap);
-    rc = string_buf_append(buf, "%s%s%d", foo, bar, i);
+    rc = string_append(buf, "%s%s%d", foo, bar, i);
     sprintf(cat, "%s%s%d", foo, bar, i);
     assert(rc == strlen(cat));
     check(buf, cap, cat);
@@ -86,19 +86,19 @@ int main(void) {
 
     // append too large
     buf = string_buf_new(strlen(big) - 1);
-    rc = string_buf_append(buf, big);
+    rc = string_append(buf, big);
     assert(rc == 0);
     assert(string_len(buf) == 0);
     free(buf);
 
     // write
     buf = string_buf_new(cap);
-    rc = string_buf_write(buf, foo);
+    rc = string_write(buf, foo);
     assert(rc == strlen(foo));
     check(buf, cap, foo);
 
     // format write
-    rc = string_buf_write(buf, "%s%s%d", foo, bar, i);
+    rc = string_write(buf, "%s%s%d", foo, bar, i);
     sprintf(cat, "%s%s%d", foo, bar, i);
     assert(rc == strlen(cat));
     check(buf, cap, cat);
@@ -107,14 +107,14 @@ int main(void) {
     // write too large
     assert(strlen(foo) + strlen(big) > cap);
     buf = string_buf_new(cap);
-    string_buf_write(buf, foo);
-    string_buf_write(buf, big);
+    string_write(buf, foo);
+    string_write(buf, big);
     check(buf, cap, foo);
     free(buf);
 
     // dup
     buf = string_buf_new(cap);
-    string_buf_append(buf, foo);
+    string_append(buf, foo);
     cpy = string_buf_dup(buf);
     check(cpy, cap, foo);
     free(buf);
@@ -124,9 +124,9 @@ int main(void) {
     const size_t needsz = strlen(foo) + strlen(big);
     assert(needsz > cap);
     buf = string_buf_new(cap);
-    string_buf_append(buf, foo);
+    string_append(buf, foo);
     string_buf_resize(&buf, needsz);
-    string_buf_append(buf, big);
+    string_append(buf, big);
     sprintf(cat, "%s%s", foo, big);
     check(buf, needsz, cat);
     free(buf);
@@ -219,7 +219,7 @@ int main(void) {
     b = string_buf_init("es un test");
     bres = string_equals(a, b);
     assert(bres);
-    string_buf_write(b, "otracosa");
+    string_write(b, "otracosa");
     bres = string_equals(a, b);
     assert(!bres);
     free(a);
@@ -241,7 +241,7 @@ int main(void) {
     b = string_buf_new(32);
     hash = string_hash(a, SIP128, key);
     for (int n = 0; n < hash.outlen; n++)
-        string_buf_append(b, "%02x", hash.out[n]);
+        string_append(b, "%02x", hash.out[n]);
     assert(string_equals_c(b, "1882ec9b9f416a6330aecc8b1bfafd13"));
     free(a);
     free(b);
@@ -250,7 +250,7 @@ int main(void) {
     b = string_buf_new(32);
     hash = string_hash(a, HSIP64, key);
     for (int n = 0; n < hash.outlen; n++)
-        string_buf_append(b, "%02x", hash.out[n]);
+        string_append(b, "%02x", hash.out[n]);
     assert(string_equals_c(b, "eac1d8508e6a7f5a"));
     free(a);
     free(b);

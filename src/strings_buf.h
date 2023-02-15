@@ -49,8 +49,6 @@ typedef string_t *String; /**< Buffered string main type >**/
 
      String string_buf_new(const size_t cap);
      String string_buf_init(const char *str);
-        int string_buf_append(String buf, const char *fmt, ...);
-        int string_buf_write(String buf, const char *fmt, ...);
      String string_buf_dup(const String buf);
        bool string_buf_resize(String *pbuf, const size_t newcap);
        void string_buf_reset(String buf);

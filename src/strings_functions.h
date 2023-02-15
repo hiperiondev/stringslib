@@ -81,6 +81,9 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_toupper(const String buf);
        String string_tolower(const String buf);
        String string_trim(const String buf);
+          int string_append(String buf, const char *fmt, ...);
+          int string_write(String buf, const char *fmt, ...);
+
          bool string_equals(const String str1, const String str2);
          bool string_equals_c(const String a, const char *b);
 
