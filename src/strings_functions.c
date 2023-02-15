@@ -356,9 +356,9 @@ String string_trim(const String buf) {
 
     uint32_t pos1 = 0, pos2 = buf->len - 1;
 
-    while (isspace(buf->data[pos1]))
+    while (pos1 < buf->len && isspace(buf->data[pos1]))
         ++pos1;
-    while (isspace(buf->data[pos2]))
+    while (pos2 >= 0 && isspace(buf->data[pos2]))
         --pos2;
 
     String new = string_new(pos1 + pos2 + 1);
