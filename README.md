@@ -13,7 +13,6 @@
 | String         | **string_buf_init**(const char *str)<br>Allocate a new Buffer of capacity `cap` and copy string.  |
 | int            | **string_buf_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | int            | **string_buf_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
-| bool           | **string_buf_equal_const**(const String a, const char *b)<br>Compare strings equality.  |
 | String         | **string_buf_dup**(const String buf)<br>Duplicate string.  |
 | bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.  |
 | size_t         | **string_buf_cap**(const String buf)<br>Return capacity.  |
@@ -91,24 +90,6 @@ Write a formatted c-string at beginning of `buf`. If new data would exceed capac
   * **fmt** Format 
 
 **Return**: New length or zero on failure. 
-
-### function string_buf_equal_const
-
-```cpp
-bool string_buf_equal_const(
-    const String a,
-    const char * b
-)
-```
-
-Compare strings equality. 
-
-**Parameters**: 
-
-  * **a** Buffered string 
-  * **b** String 
-
-**Return**: Boolean 
 
 ### function string_buf_dup
 
@@ -212,6 +193,7 @@ Reset Buffered string content.
 | String         | **string_tolower**(const String buf)<br>To lower string.                                                                 |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
 | bool           | **string_equals**(const String str1, const String str2)<br>Compares two strings.                                         |
+| bool           | **string_equals_c**(const String a, const char *b)<br>Compare strings equality.                                          |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
 | bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
 | string_hash_t  | **string_hash**(const String buf, uint8_t version, uint8_t key[16])<br>String hash                                       |
@@ -475,6 +457,24 @@ Compares two strings.
   * **str2** Buffered string
 
 **Return**: Returns true if the strings are equal, and false if not.
+
+### function string_equals_c
+
+```cpp
+bool string_equals_c(
+    const String a,
+    const char * b
+)
+```
+
+Compare strings equality. 
+
+**Parameters**: 
+
+  * **a** Buffered string 
+  * **b** String 
+
+**Return**: Boolean 
 
 ### function string_isinteger
 
