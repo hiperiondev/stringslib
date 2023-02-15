@@ -10,7 +10,7 @@
 |                | Name                                                                                                |
 | -------------- | --------------------------------------------------------------------------------------------------- |
 | String         | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.                    |
-| String         | **string_buf_new_c**(const char *str)<br>Allocate a new Buffer of capacity `cap` and copy string.   |
+| String         | **string_buf_new_c**(const char *str)<br>Allocate a new Buffer and copy string.   |
 | String         | **string_buf_dup**(const String buf)<br>Duplicate string.                                           |
 | bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.                       |
 | size_t         | **string_buf_cap**(const String buf)<br>Return capacity.                                            |
@@ -43,7 +43,7 @@ String string_buf_init(
 )
 ```
 
-Allocate a new Buffer of capacity `cap` and copy string. 
+Allocate a new Buffer and copy string. 
 
 **Parameters**: 
 
