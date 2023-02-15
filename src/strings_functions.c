@@ -296,6 +296,54 @@ String string_tolower(const String buf) {
 }
 
 /**
+ * @fn String string_ltrim(const String buf)
+ * @brief Left trim string
+ *
+ * @param buf Buffered string
+ * @return Buffered string
+ */
+String string_ltrim(const String buf) {
+    if (buf == NULL)
+        return NULL;
+
+    uint32_t pos1 = 0;
+
+    while (pos1 < buf->len && isspace(buf->data[pos1]))
+        ++pos1;
+
+    String new = string_new(pos1 + (buf->len - 1) + 1);
+    memcpy(new->data, buf->data + pos1, (buf->len - 1) - pos1 + 1);
+
+    new->len = (buf->len - 1) - pos1 + 1;
+
+    return new;
+}
+
+/**
+ * @fn String string_rtrim(const String buf)
+ * @brief Right trim string
+ *
+ * @param buf Buffered string
+ * @return Buffered string
+ */
+String string_rtrim(const String buf) {
+    if (buf == NULL)
+        return NULL;
+
+    uint32_t pos2 = buf->len - 1;
+
+    while (pos2 >= 0 && isspace(buf->data[pos2]))
+        --pos2;
+
+    String new = string_new(pos2 + 1);
+    memcpy(new->data, buf->data, pos2 + 1);
+
+    new->len = pos2 + 1;
+
+    return new;
+}
+
+/**
  * @fn String string_trim(const String buf)
  * @brief Trim string
  *

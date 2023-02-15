@@ -80,6 +80,8 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
      uint32_t string_find_c(const String buf, char c, uint32_t pos);
        String string_toupper(const String buf);
        String string_tolower(const String buf);
+       String string_ltrim(const String buf);
+       String string_rtrim(const String buf);
        String string_trim(const String buf);
           int string_append(String buf, const char *fmt, ...);
           int string_write(String buf, const char *fmt, ...);

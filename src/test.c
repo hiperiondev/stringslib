@@ -210,6 +210,18 @@ int main(void) {
     free(a);
 
     a = string_new_c("   es un test   ");
+    buf = string_ltrim(a);
+    assert(string_equals_c(buf, "es un test   "));
+    free(a);
+    free(buf);
+
+    a = string_new_c("   es un test   ");
+    buf = string_rtrim(a);
+    assert(string_equals_c(buf, "   es un test"));
+    free(a);
+    free(buf);
+
+    a = string_new_c("   es un test   ");
     buf = string_trim(a);
     assert(string_equals_c(buf, "es un test"));
     free(a);
