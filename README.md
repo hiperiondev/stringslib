@@ -234,7 +234,7 @@ Reset Buffered string content.
 | String         | **string_concat**(const String str1, const String str2)<br>Concatenation of strings.                                     |
 | String         | **string_insert**(const String buf, const String str, uint32_t pos)<br>Insert string on position.                        |
 | String         | **string_delete**(const String buf, uint32_t pos1, uint32_t pos2)<br>Delete substring from pos1 to pos2.                 |
-| String         | **string_replace**(const String buf, const String search, String replace)<br>Replace string.                             |
+| String         | **string_replace**(const String buf, const String search, String replace, uint32_t pos)<br>Replace string.                             |
 | uint32_t       | **string_find**(const String buf, const String search, uint32_t pos)<br>Find substring starting at position.             |
 | uint32_t       | **string_find_c**(const String buf, char c, uint32_t pos)<br>Find character starting at position.                        |
 | String         | **string_toupper**(const String buf)<br>To upper string.                                                                 |
@@ -390,7 +390,8 @@ Delete substring from pos1 to pos2.
 String string_replace(
     const String buf,
     const String search,
-    String replace
+    String replace,
+    uint32_t pos
 )
 ```
 
@@ -400,8 +401,8 @@ Replace string.
 
   * **buf** Buffered string 
   * **search** Buffered string 
-  * **replace** Buffered string 
-
+  * **replace** Buffered string
+  * **pos** Start position
 
 **Return**: Buffered string 
 
