@@ -69,6 +69,7 @@ struct string_hash_s {
 typedef struct string_hash_s string_hash_t; /**< hash result type >**/
 
        size_t string_len(const String buf);
+       size_t string_cap(const String buf);
        String string_left(const String buf, uint32_t pos);
        String string_right(const String buf, uint32_t pos);
        String string_mid(const String buf, uint32_t left, uint32_t right);

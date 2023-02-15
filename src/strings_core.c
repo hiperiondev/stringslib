@@ -142,19 +142,6 @@ bool string_resize(String *pbuf, const size_t newcap) {
 
     return true;
 }
-/**
- * @fn size_t string_buf_cap(const String buf)
- * @brief Return capacity
- *
- * @param buf Buffered string
- * @return Capacity
- */
-size_t string_cap(const String buf) {
-    if (buf == NULL)
-        return UINT32_MAX;
-
-    return buf->cap;
-}
 
 /**
  * @fn const char* string_buf_data(const String buf)
