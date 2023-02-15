@@ -9,20 +9,20 @@
 
 |                | Name                                                                                                |
 | -------------- | --------------------------------------------------------------------------------------------------- |
-| String         | **string_buf_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.                    |
-| String         | **string_buf_new_c**(const char *str)<br>Allocate a new Buffer and copy string.   |
-| String         | **string_buf_dup**(const String buf)<br>Duplicate string.                                           |
-| bool           | **string_buf_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.                       |
-| size_t         | **string_buf_cap**(const String buf)<br>Return capacity.                                            |
-| const char*    | **string_buf_data**(const String buf)<br>Return Data of Buffered string.                            |
-| void           | **string_buf_reset**(String buf)<br>Reset Buffered string content.                                  |
+| String         | **string_new**(const size_t cap)<br>Allocate a new Buffer of capacity `cap`.                    |
+| String         | **string_new_c**(const char *str)<br>Allocate a new Buffer and copy string.   |
+| String         | **string_dup**(const String buf)<br>Duplicate string.                                           |
+| bool           | **string_resize**(String * pbuf, const size_t newcap)<br>Resize capacity.                       |
+| size_t         | **string_cap**(const String buf)<br>Return capacity.                                            |
+| const char*    | **string_data**(const String buf)<br>Return Data of Buffered string.                            |
+| void           | **string_reset**(String buf)<br>Reset Buffered string content.                                  |
 
 ## Functions Documentation
 
-### function string_buf_new
+### function string_new
 
 ```cpp
-String string_buf_new(
+String string_new(
     const size_t cap
 )
 ```
@@ -35,10 +35,10 @@ Allocate a new Buffer of capacity `cap`.
 
 **Return**: Buffered string 
 
-### function string_buf_new_c
+### function string_new_c
 
 ```cpp
-String string_buf_init(
+String string_new_c(
     const char * str
 )
 ```
@@ -51,10 +51,10 @@ Allocate a new Buffer and copy string.
 
 **Return**: Buffered string|NULL 
 
-### function string_buf_dup
+### function string_dup
 
 ```cpp
-String string_buf_dup(
+String string_dup(
     const String buf
 )
 ```
@@ -67,10 +67,10 @@ Duplicate string.
 
 **Return**: Buffer 
 
-### function string_buf_resize
+### function string_resize
 
 ```cpp
-bool string_buf_resize(
+bool string_resize(
     String * pbuf,
     const size_t newcap
 )
@@ -85,10 +85,10 @@ Resize capacity.
 
 **Return**: Boolean 
 
-### function string_buf_cap
+### function string_cap
 
 ```cpp
-size_t string_buf_cap(
+size_t string_cap(
     const String buf
 )
 ```
@@ -101,10 +101,10 @@ Return capacity.
 
 **Return**: Capacity 
 
-### function string_buf_data
+### function string_data
 
 ```cpp
-const char * string_buf_data(
+const char * string_data(
     const String buf
 )
 ```
@@ -117,10 +117,10 @@ Return Data of Buffered string.
 
 **Return**: String 
 
-### function string_buf_reset
+### function string_reset
 
 ```cpp
-void string_buf_reset(
+void string_reset(
     String buf
 )
 ```
