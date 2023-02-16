@@ -77,6 +77,7 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_insert(const String buf, const String str, uint32_t pos);
        String string_delete(const String buf, uint32_t pos1, uint32_t pos2);
        String string_replace(const String buf, const String search, String replace, uint32_t pos);
+       String string_replace_c(const String buf, const char *c_search, const char *c_replace, uint32_t pos);
      uint32_t string_find(const String buf, const String search, uint32_t pos);
      uint32_t string_find_c(const String buf, char c, uint32_t pos);
        String string_toupper(const String buf);

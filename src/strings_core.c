@@ -160,7 +160,6 @@ uint32_t string_move(String *to, String *from) {
             return UINT32_MAX;
 
     memcpy((*to), (*from), BUF_MEM((*from)->len));
-    //memcpy((*to)->data, (*from)->data, (*from)->len);
     (*to)->len = (*from)->len;
     free(*from);
 

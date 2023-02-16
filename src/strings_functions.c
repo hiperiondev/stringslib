@@ -222,6 +222,40 @@ String string_replace(const String buf, const String search, String replace, uin
 }
 
 /**
+ * @fn String string_replace_c(const String buf, const char *search, const char *replace, uint32_t pos)
+ * @brief Replace string
+ *
+ * @param buf Buffered string
+ * @param search string
+ * @param replace string
+ * @param pos Start position
+ * @return Buffered string
+ */
+String string_replace_c(const String buf, const char *c_search, const char *c_replace, uint32_t pos) {
+    if (buf == NULL || c_search == NULL || c_replace == NULL || pos > buf->len)
+        return NULL;
+
+    String search = string_new_c(c_search);
+    String replace = string_new_c(c_replace);
+
+    uint32_t fpos = string_find(buf, search, pos);
+    if (fpos == STR_ERROR)
+        return NULL;
+
+    String new = string_new(buf->len - search->len + replace->len);
+    memcpy(new->data, buf->data, fpos);
+    memcpy(new->data + fpos, replace->data, replace->len);
+    memcpy(new->data + fpos + replace->len, buf->data + search->len + fpos, buf->len - fpos - search->len);
+
+    new->len = buf->len - search->len + replace->len;
+
+    free(search);
+    free(replace);
+
+    return new;
+}
+
+/**
  * @fn uint32_t string_find(const String buf, const String search, uint32_t pos)
  * @brief Find substring.
  *
