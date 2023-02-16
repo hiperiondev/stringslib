@@ -194,6 +194,28 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
 }
 
 /**
+ * @fn String string_delete_c(const String buf, const char *str)
+ * @brief Delete substring str
+ *
+ * @param buf Buffered string
+ * @param str string
+ * @return Buffered string
+ */
+String string_delete_c(const String buf, const char *str) {
+    if (buf == NULL || str == NULL) {
+        return NULL;
+    }
+
+    uint32_t pos1 = string_find_c(buf, str, 0);
+    if (pos1 == STR_ERROR)
+        return NULL;
+
+    uint32_t pos2 = pos1 + strlen(str) - 1;
+
+    return string_delete(buf, pos1, pos2);
+}
+
+/**
  * @fn String string_replace(const String buf, const String search, String replace, uint32_t pos)
  * @brief Replace string
  *
@@ -276,23 +298,23 @@ uint32_t string_find(const String buf, const String search, uint32_t pos) {
 }
 
 /**
- * @fn string_find_c(const String buf, char c, uint32_t pos)
+ * @fn uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos)
  * @brief Find character starting at position.
  *
  * @param buf Buffered string
- * @param c Searched char
+ * @param csearch Searched string
  * @param pos Start position
  * @return Position
  */
-uint32_t string_find_c(const String buf, char c, uint32_t pos) {
-    if (buf == NULL || pos > buf->len)
+uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos) {
+    if (buf == NULL || csearch == NULL || pos > buf->len)
         return false;
-    for (int p = pos; p < buf->len; p++) {
-        if (buf->data[p] == c)
-            return p;
-    }
 
-    return STR_ERROR;
+    String search = string_new_c(csearch);
+    uint32_t p = string_find(buf, search, pos);
+    free(search);
+
+    return p;
 }
 
 /**

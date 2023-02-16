@@ -170,6 +170,13 @@ int main(void) {
     free(buf);
 
     a = string_new_c("es un test");
+    buf = string_delete_c(a, "un ");
+    printf("STR: %s\n", buf->data);
+    assert(string_equals_c(buf, "es test"));
+    free(a);
+    free(buf);
+
+    a = string_new_c("es un test");
     b = string_new_c("un");
     res = string_find(a, b, 0);
     assert(res == 3);
@@ -209,7 +216,7 @@ int main(void) {
     free(buf);
 
     a = string_new_c("es un@test");
-    uint32_t r = string_find_c(a, '@', 0);
+    uint32_t r = string_find_c(a, "@", 0);
     assert(r == 5);
     free(a);
 
