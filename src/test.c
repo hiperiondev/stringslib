@@ -57,11 +57,9 @@ int main(void) {
                 assert (!strcmp(string_data(buf), data)); \
             } while(0)
 
-    // init
     buf = string_new(cap);
     check(buf, cap, "");
 
-    // basic append
     rc = string_append(buf, foo);
     assert(rc == strlen(foo));
     check(buf, cap, foo);
@@ -71,12 +69,10 @@ int main(void) {
     sprintf(cat, "%s%s", foo, bar);
     check(buf, cap, cat);
 
-    // reset
     string_reset(buf);
     check(buf, cap, "");
     free(buf);
 
-    // format append
     buf = string_new(cap);
     rc = string_append(buf, "%s%s%d", foo, bar, i);
     sprintf(cat, "%s%s%d", foo, bar, i);
@@ -84,27 +80,23 @@ int main(void) {
     check(buf, cap, cat);
     free(buf);
 
-    // append too large
     buf = string_new(strlen(big) - 1);
     rc = string_append(buf, big);
     assert(rc == 0);
     assert(string_len(buf) == 0);
     free(buf);
 
-    // write
     buf = string_new(cap);
     rc = string_write(buf, foo);
     assert(rc == strlen(foo));
     check(buf, cap, foo);
 
-    // format write
     rc = string_write(buf, "%s%s%d", foo, bar, i);
     sprintf(cat, "%s%s%d", foo, bar, i);
     assert(rc == strlen(cat));
     check(buf, cap, cat);
     free(buf);
 
-    // write too large
     assert(strlen(foo) + strlen(big) > cap);
     buf = string_new(cap);
     string_write(buf, foo);
@@ -112,7 +104,6 @@ int main(void) {
     check(buf, cap, foo);
     free(buf);
 
-    // dup
     buf = string_new(cap);
     string_append(buf, foo);
     cpy = string_dup(buf);
@@ -120,7 +111,6 @@ int main(void) {
     free(buf);
     free(cpy);
 
-    // resize
     const size_t needsz = strlen(foo) + strlen(big);
     assert(needsz > cap);
     buf = string_new(cap);
@@ -131,7 +121,13 @@ int main(void) {
     check(buf, needsz, cat);
     free(buf);
 
-    printf("string_buf tests OK\n");
+    a = string_new_c("es un test");
+    b = string_new_c(" y mas cosas");
+    res = string_move(&a, &b);
+    assert(string_equals_c(a, " y mas cosas"));
+    free(a);
+
+    printf("string_core tests OK\n");
 
     a = string_new_c("es un test");
     buf = string_left(a, 4);

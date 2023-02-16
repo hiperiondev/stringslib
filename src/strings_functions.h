@@ -86,13 +86,10 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_trim(const String buf);
           int string_append(String buf, const char *fmt, ...);
           int string_write(String buf, const char *fmt, ...);
-
          bool string_equals(const String str1, const String str2);
          bool string_equals_c(const String a, const char *b);
-
          bool string_isinteger(const String buf);
          bool string_isfloat(const String buf);
-
 string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]);
 
 #endif /* STRINGS_FUNCTIONS_H_ */

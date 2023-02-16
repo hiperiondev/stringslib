@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "strings_core.h"
 
@@ -111,7 +112,7 @@ String string_dup(const String buf) {
  * @fn bool string_buf_resize(String *pbuf, const size_t newcap)
  * @brief Resize capacity
  *
- * @param pbuf  Buffered string
+ * @param pbuf Buffered string
  * @param newcap New capacity
  * @return Boolean
  */
@@ -141,6 +142,29 @@ bool string_resize(String *pbuf, const size_t newcap) {
     *pbuf = tmp;
 
     return true;
+}
+
+/**
+ * @fn void string_move(String *to, String *from)
+ * @brief Copy string and free from
+ *
+ * @param to Buffered string
+ * @param from Buffered string
+ */
+uint32_t string_move(String *to, String *from) {
+    if (to == NULL || from == NULL || *to == NULL || *from == NULL)
+        return UINT32_MAX;
+
+    if ((*from)->len > (*to)->len)
+        if (!string_resize(to, (*from)->cap))
+            return UINT32_MAX;
+
+    memcpy((*to), (*from), BUF_MEM((*from)->len));
+    //memcpy((*to)->data, (*from)->data, (*from)->len);
+    (*to)->len = (*from)->len;
+    free(*from);
+
+    return 0;
 }
 
 /**

@@ -50,6 +50,7 @@ typedef string_t *String; /**< Buffered string main type >**/
      String string_new(const size_t cap);
      String string_new_c(const char *str);
      String string_dup(const String buf);
+   uint32_t string_move(String *to, String *from);
        bool string_resize(String *pbuf, const size_t newcap);
        void string_reset(String buf);
 const char* string_data(const String buf);
