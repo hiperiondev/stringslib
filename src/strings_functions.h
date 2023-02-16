@@ -97,61 +97,61 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
          bool string_isfloat(const String buf);
 string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]);
 
-#define string_left_m(buf, pos)                                                      \
-            _str_result_tmp_xxxxxxx_ = string_left(buf, pos);                        \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_left_m(buf, pos)                                                                 \
+            _str_result_tmp_xxxxxxx_ = string_left((buf), (pos));                               \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_right_m(buf,pos)                                                      \
-            _str_result_tmp_xxxxxxx_ = string_right(buf,pos);                        \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_right_m(buf, pos)                                                                \
+            _str_result_tmp_xxxxxxx_ = string_right((buf), (pos));                              \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_mid_m(buf,left,right)                                                 \
-            _str_result_tmp_xxxxxxx_ = string_mid(buf,left,right);                   \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_mid_m(buf,left,right)                                                            \
+            _str_result_tmp_xxxxxxx_ = string_mid((buf), (left), (right));                      \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_concat_m(buf,str2)                                                    \
-            _str_result_tmp_xxxxxxx_ = string_concat(str1,str2);                     \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_concat_m(buf,str2)                                                               \
+            _str_result_tmp_xxxxxxx_ = string_concat((buf), (str2));                            \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_insert_m(buf,str,pos)                                                 \
-            _str_result_tmp_xxxxxxx_ = string_insert(buf,str,pos);                   \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_insert_m(buf,str,pos)                                                            \
+            _str_result_tmp_xxxxxxx_ = string_insert((buf), (str), (pos));                      \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_delete_m(buf,pos1,pos2)                                               \
-            _str_result_tmp_xxxxxxx_ = string_delete(buf,pos1,pos2);                 \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_delete_m(buf,pos1,pos2)                                                          \
+            _str_result_tmp_xxxxxxx_ = string_delete((buf), (pos1), (pos2));                    \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_delete_c_m(buf,str)                                                   \
-            _str_result_tmp_xxxxxxx_ = string_delete_c(buf,str);                     \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_delete_c_m(buf,str)                                                              \
+            _str_result_tmp_xxxxxxx_ = string_delete_c((buf), (str));                           \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_replace_m(buf,search,replace,pos)                                     \
-            _str_result_tmp_xxxxxxx_ = string_replace(buf,search,replace,pos);       \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_replace_m(buf,search,replace,pos)                                                \
+            _str_result_tmp_xxxxxxx_ = string_replace((buf), (search), (replace), (pos));       \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_replace_c_m(buf,c_search,c_replace,pos)                               \
-            _str_result_tmp_xxxxxxx_ = string_replace_c(buf,c_search,c_replace,pos); \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_replace_c_m(buf,c_search,c_replace,pos)                                          \
+            _str_result_tmp_xxxxxxx_ = string_replace_c((buf), (c_search), (c_replace), (pos)); \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_toupper_m(buf)                                                        \
-            _str_result_tmp_xxxxxxx_ = string_toupper(buf);                          \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_toupper_m(buf)                                                                   \
+            _str_result_tmp_xxxxxxx_ = string_toupper((buf));                                   \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_tolower_m(buf)                                                        \
-            _str_result_tmp_xxxxxxx_ = string_tolower(buf);                          \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_tolower_m(buf)                                                                   \
+            _str_result_tmp_xxxxxxx_ = string_tolower((buf));                                   \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_ltrim_m(buf)                                                          \
-            _str_result_tmp_xxxxxxx_ = string_ltrim(buf);                            \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_ltrim_m(buf)                                                                     \
+            _str_result_tmp_xxxxxxx_ = string_ltrim((buf));                                     \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_rtrim_m(buf)                                                          \
-            _str_result_tmp_xxxxxxx_ = string_rtrim(buf);                            \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_rtrim_m(buf)                                                                     \
+            _str_result_tmp_xxxxxxx_ = string_rtrim((buf));                                     \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_trim_m(buf)                                                           \
-            _str_result_tmp_xxxxxxx_ = string_trim(buf);                             \
-            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+#define string_trim_m(buf)                                                                      \
+            _str_result_tmp_xxxxxxx_ = string_trim((buf));                                      \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
 
 #endif /* STRINGS_FUNCTIONS_H_ */

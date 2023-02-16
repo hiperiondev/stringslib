@@ -127,6 +127,12 @@ int main(void) {
     assert(string_equals_c(a, " y mas cosas"));
     free(a);
 
+    a = string_new_c("es un test");
+    res = string_copy(&a, "pruebita");
+    assert(string_equals_c(a, "pruebita"));
+    free(a);
+
+
     printf("string_core tests OK\n");
 
     a = string_new_c("es un test");

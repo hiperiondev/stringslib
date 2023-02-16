@@ -167,6 +167,28 @@ uint32_t string_move(String *to, String *from) {
 }
 
 /**
+ * @fn uint32_t string_copy(String *to, const char *from)
+ * @brief Copy string
+ *
+ * @param to Buffered string
+ * @param from string
+ */
+uint32_t string_copy(String *to, const char *from) {
+    if (to == NULL || *to == NULL || from == NULL)
+        return UINT32_MAX;
+
+    size_t lenf = strlen(from);
+    if (lenf > (*to)->len)
+        if (!string_resize(to, BUF_MEM(lenf)))
+            return UINT32_MAX;
+
+    memcpy((*to)->data, from, lenf + 1);
+    (*to)->len = lenf;
+
+    return 0;
+}
+
+/**
  * @fn const char* string_buf_data(const String buf)
  * @brief Return Data of Buffered string
  *
