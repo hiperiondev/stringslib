@@ -35,6 +35,8 @@
 
 #include "strings_core.h"
 
+extern String _str_result_tmp_xxxxxxx_;
+
 /**
  * @enum STRING_ERROR
  * @brief Strings errors
@@ -68,8 +70,6 @@ struct string_hash_s {
 };
 typedef struct string_hash_s string_hash_t; /**< hash result type >**/
 
-       size_t string_len(const String buf);
-       size_t string_cap(const String buf);
        String string_left(const String buf, uint32_t pos);
        String string_right(const String buf, uint32_t pos);
        String string_mid(const String buf, uint32_t left, uint32_t right);
@@ -79,13 +79,16 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_delete_c(const String buf, const char *str);
        String string_replace(const String buf, const String search, String replace, uint32_t pos);
        String string_replace_c(const String buf, const char *c_search, const char *c_replace, uint32_t pos);
-     uint32_t string_find(const String buf, const String search, uint32_t pos);
-     uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos);
        String string_toupper(const String buf);
        String string_tolower(const String buf);
        String string_ltrim(const String buf);
        String string_rtrim(const String buf);
        String string_trim(const String buf);
+
+       size_t string_len(const String buf);
+       size_t string_cap(const String buf);
+     uint32_t string_find(const String buf, const String search, uint32_t pos);
+     uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos);
           int string_append(String buf, const char *fmt, ...);
           int string_write(String buf, const char *fmt, ...);
          bool string_equals(const String str1, const String str2);
@@ -93,5 +96,62 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
          bool string_isinteger(const String buf);
          bool string_isfloat(const String buf);
 string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]);
+
+#define string_left_m(buf, pos)                                                      \
+            _str_result_tmp_xxxxxxx_ = string_left(buf, pos);                        \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_right_m(buf,pos)                                                      \
+            _str_result_tmp_xxxxxxx_ = string_right(buf,pos);                        \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_mid_m(buf,left,right)                                                 \
+            _str_result_tmp_xxxxxxx_ = string_mid(buf,left,right);                   \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_concat_m(buf,str2)                                                    \
+            _str_result_tmp_xxxxxxx_ = string_concat(str1,str2);                     \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_insert_m(buf,str,pos)                                                 \
+            _str_result_tmp_xxxxxxx_ = string_insert(buf,str,pos);                   \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_delete_m(buf,pos1,pos2)                                               \
+            _str_result_tmp_xxxxxxx_ = string_delete(buf,pos1,pos2);                 \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_delete_c_m(buf,str)                                                   \
+            _str_result_tmp_xxxxxxx_ = string_delete_c(buf,str);                     \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_replace_m(buf,search,replace,pos)                                     \
+            _str_result_tmp_xxxxxxx_ = string_replace(buf,search,replace,pos);       \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_replace_c_m(buf,c_search,c_replace,pos)                               \
+            _str_result_tmp_xxxxxxx_ = string_replace_c(buf,c_search,c_replace,pos); \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_toupper_m(buf)                                                        \
+            _str_result_tmp_xxxxxxx_ = string_toupper(buf);                          \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_tolower_m(buf)                                                        \
+            _str_result_tmp_xxxxxxx_ = string_tolower(buf);                          \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_ltrim_m(buf)                                                          \
+            _str_result_tmp_xxxxxxx_ = string_ltrim(buf);                            \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_rtrim_m(buf)                                                          \
+            _str_result_tmp_xxxxxxx_ = string_rtrim(buf);                            \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
+#define string_trim_m(buf)                                                           \
+            _str_result_tmp_xxxxxxx_ = string_trim(buf);                             \
+            string_move(&buf, &_str_result_tmp_xxxxxxx_);
+
 
 #endif /* STRINGS_FUNCTIONS_H_ */

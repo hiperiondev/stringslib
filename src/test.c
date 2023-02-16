@@ -171,7 +171,6 @@ int main(void) {
 
     a = string_new_c("es un test");
     buf = string_delete_c(a, "un ");
-    printf("STR: %s\n", buf->data);
     assert(string_equals_c(buf, "es test"));
     free(a);
     free(buf);

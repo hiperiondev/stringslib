@@ -41,6 +41,8 @@
 #include "siphash.h"
 #include "halfsiphash.h"
 
+String _str_result_tmp_xxxxxxx_; /**< for move macros >**/
+
 /**
  * @fn size_t string_len(const String buf)
  * @brief Buffered string length
