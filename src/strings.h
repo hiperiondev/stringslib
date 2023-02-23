@@ -109,12 +109,12 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_trim(const String buf);
        String string_split(const String buf, const char *search, String *right);
 
-       size_t string_len(const String buf);
-       size_t string_cap(const String buf);
+     uint32_t string_len(const String buf);
+     uint32_t string_cap(const String buf);
      uint32_t string_find(const String buf, const String search, uint32_t pos);
      uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos);
-          int string_append(String buf, const char *fmt, ...);
-          int string_write(String buf, const char *fmt, ...);
+     uint32_t string_append(String buf, const char *fmt, ...);
+     uint32_t string_write(String buf, const char *fmt, ...);
          bool string_equals(const String str1, const String str2);
          bool string_equals_c(const String a, const char *b);
          bool string_isinteger(const String buf);

@@ -237,7 +237,7 @@ String _str_result_tmp_xxxxxxx_; /**< for move macros >**/
  * @param buf Buffered string
  * @return Size
  */
-size_t string_len(const String buf) {
+uint32_t string_len(const String buf) {
     if (buf == NULL)
         return 0;
 
@@ -251,7 +251,7 @@ size_t string_len(const String buf) {
  * @param buf Buffered string
  * @return Capacity
  */
-size_t string_cap(const String buf) {
+uint32_t string_cap(const String buf) {
     if (buf == NULL)
         return UINT32_MAX;
 
@@ -638,7 +638,7 @@ String string_trim(const String buf) {
  * @param fmt Format
  * @return Change in length.
  */
-int string_append(String buf, const char *fmt, ...) {
+uint32_t string_append(String buf, const char *fmt, ...) {
     if (buf == NULL || fmt == NULL)
         return 0;
 
@@ -688,7 +688,7 @@ int string_append(String buf, const char *fmt, ...) {
  * @param fmt Format
  * @return New length or zero on failure.
  */
-int string_write(String buf, const char *fmt, ...) {
+uint32_t string_write(String buf, const char *fmt, ...) {
     if (buf == NULL || fmt == NULL)
         return 0;
 
