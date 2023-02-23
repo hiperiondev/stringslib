@@ -271,9 +271,16 @@ int main(void) {
     free(buf);
 
     a = string_new_c("String de-Prueba");
-    string_split_m(a, "-", b);
+    string_splitr_m(a, "-", b);
     assert(string_equals_c(b, "String de"));
     assert(string_equals_c(a, "Prueba"));
+    free(a);
+    free(b);
+
+    a = string_new_c("String de-Prueba");
+    string_splitl_m(a, "-", b);
+    assert(string_equals_c(a, "String de"));
+    assert(string_equals_c(b, "Prueba"));
     free(a);
     free(b);
 
