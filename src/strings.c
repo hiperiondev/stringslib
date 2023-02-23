@@ -270,8 +270,9 @@ String string_left(const String buf, uint32_t pos) {
     if (buf == NULL || pos > buf->len)
         return NULL;
 
-    String new = string_new(pos);
+    String new = string_new(pos + 1);
     memcpy(new->data, buf->data, pos + 1);
+    new->data[pos + 1] = '\0';
     new->len = pos + 1;
 
     return new;
@@ -802,6 +803,28 @@ bool string_isfloat(const String buf) {
     }
 
     return true;
+}
+
+/**
+ * @fn String string_split(const String buf, const char *search, const String *right)
+ * @brief Split string and return left and right Strings
+ *
+ * @param buf Buffered string
+ * @param search string to search
+ * @param right Buffered string
+ * @return String Left Buffered string
+ */
+String string_split(const String buf, const char *search, String *right) {
+    if (buf == NULL || search == NULL)
+        return NULL;
+
+    uint32_t pos = string_find_c(buf, search, 0);
+    if(pos == STR_ERROR)
+        return NULL;
+
+    *right = string_right(buf, pos + strlen(search));
+
+    return string_left(buf, pos - 1);
 }
 
 ////////////////////////////////////////////////////////////

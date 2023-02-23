@@ -107,6 +107,7 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_ltrim(const String buf);
        String string_rtrim(const String buf);
        String string_trim(const String buf);
+       String string_split(const String buf, const char *search, String *right);
 
        size_t string_len(const String buf);
        size_t string_cap(const String buf);

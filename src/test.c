@@ -49,10 +49,10 @@ int main(void) {
     string_hash_t hash;
 
 #define string_test_end(str) (str->data[str->len + 1] != '\0') ? 0 : 1;
-#define check(buf, cap, data)                                 \
-            do {                                              \
+#define check(buf, cap, data)                             \
+            do {                                          \
                 assert (string_cap(buf) == cap);          \
-                assert (string_len(buf) == strlen(data));     \
+                assert (string_len(buf) == strlen(data)); \
                 assert (!strcmp(string_data(buf), data)); \
             } while(0)
 
@@ -130,7 +130,6 @@ int main(void) {
     res = string_copy(&a, "pruebita");
     assert(string_equals_c(a, "pruebita"));
     free(a);
-
 
     printf("string_core tests OK\n");
 
@@ -262,6 +261,14 @@ int main(void) {
     assert(bres);
     free(a);
     free(b);
+
+    a = string_new_c("String de-Prueba");
+    buf = string_split(a, "-", &b);
+    assert(string_equals_c(buf, "String de"));
+    assert(string_equals_c(b, "Prueba"));
+    free(a);
+    free(b);
+    free(buf);
 
     uint8_t key[16] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
     a = string_new_c("Esto es un Test para hash");
