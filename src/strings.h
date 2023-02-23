@@ -181,8 +181,8 @@ extern String _str_result_tmp_xxxxxxx_;
             _str_result_tmp_xxxxxxx_ = string_trim((buf));                                      \
             string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
-#define string_split_m(buf, search, right)                                                      \
-		    _str_result_tmp_xxxxxxx_ = string_split((buf), (search), (right));                  \
+#define string_split_m(buf, search, left)                                                       \
+		    (left) = string_split((buf), (search), (&_str_result_tmp_xxxxxxx_));                  \
 		    string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
 #endif /* STRINGS_H_ */
