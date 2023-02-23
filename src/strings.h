@@ -1,5 +1,5 @@
 /**
- * @file strings_functions.h
+ * @file strings.h
  * @brief strings manipulation functions
  * @copyright 2023 Emiliano Augusto Gonzalez (hiperiondev). This project is released under MIT license. Contact: egonzalez.hiperion@gmail.com
  * @see Project Site: https://github.com/hiperiondev/stringslib
@@ -28,14 +28,37 @@
  *
  */
 
-#ifndef STRINGS_FUNCTIONS_H_
-#define STRINGS_FUNCTIONS_H_
+#ifndef STRINGS_H_
+#define STRINGS_H_
 
+#include <stddef.h>
+#include <stdbool.h>
 #include <stdint.h>
 
-#include "strings_core.h"
+///// core /////
 
-extern String _str_result_tmp_xxxxxxx_;
+/**
+ * @struct string_s
+ * @brief Buffered string structure
+ *
+ */
+typedef struct string_s {
+    uint32_t cap;         /**< capacity >**/
+    uint32_t len;         /**< current length >**/
+        char data[];      /**< null-terminated string >**/
+} string_t;               /**< Buffered string internal type >**/
+typedef string_t *String; /**< Buffered string main type >**/
+
+     String string_new(const size_t cap);
+     String string_new_c(const char *str);
+     String string_dup(const String buf);
+   uint32_t string_move(String *to, String *from);
+   uint32_t string_copy(String *to, const char *from);
+       bool string_resize(String *pbuf, const size_t newcap);
+       void string_reset(String buf);
+const char* string_data(const String buf);
+
+////////////////
 
 /**
  * @enum STRING_ERROR
@@ -43,8 +66,8 @@ extern String _str_result_tmp_xxxxxxx_;
  *
  */
 enum STRING_ERROR {
-    STR_OK,                 /**< Ok >**/
-    STR_ERROR = UINT32_MAX, /**< Generic error >**/
+    STR_OK,                 /**< Ok >**/           ///< STR_OK
+    STR_ERROR = UINT32_MAX, /**< Generic error >**////< STR_ERROR
 };
 
 /**
@@ -96,6 +119,10 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
          bool string_isinteger(const String buf);
          bool string_isfloat(const String buf);
 string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]);
+
+////////////////
+
+extern String _str_result_tmp_xxxxxxx_;
 
 #define string_left_m(buf, pos)                                                                 \
             _str_result_tmp_xxxxxxx_ = string_left((buf), (pos));                               \
@@ -154,4 +181,4 @@ string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]);
             string_move(&(buf), &_str_result_tmp_xxxxxxx_);
 
 
-#endif /* STRINGS_FUNCTIONS_H_ */
+#endif /* STRINGS_H_ */

@@ -178,6 +178,9 @@ uint32_t string_copy(String *to, const char *from) {
         return UINT32_MAX;
 
     size_t lenf = strlen(from);
+    if (lenf > UINT32_MAX - 1)
+        return UINT32_MAX;
+
     if (lenf > (*to)->len)
         if (!string_resize(to, BUF_MEM(lenf)))
             return UINT32_MAX;

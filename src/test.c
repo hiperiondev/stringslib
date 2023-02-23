@@ -33,8 +33,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "strings_core.h"
-#include "strings_functions.h"
+#include "strings.h"
 
 int main(void) {
     const char *foo = "foo";
