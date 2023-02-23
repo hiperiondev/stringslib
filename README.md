@@ -39,10 +39,10 @@
 | String         | **string_rtrim**(const String buf)<br>Right trim string                                                                  |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
 | String         | **string_split**(const String buf, const char *search, String *right)<br>Split string and return left and right Strings  |
-| size_t         | **string_len**(const String buf)<br>Buffered string length.                                                              |
-| size_t         | **string_cap**(const String buf)<br>Return capacity.                                                                     |
-| int            | **string_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
-| int            | **string_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
+| uint32_t       | **string_len**(const String buf)<br>Buffered string length.                                                              |
+| uint32_t       | **string_cap**(const String buf)<br>Return capacity.                                                                     |
+| uint32_t       | **string_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
+| uint32_t       | **string_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | bool           | **string_equals**(const String str1, const String str2)<br>Compares two strings.                                         |
 | bool           | **string_equals_c**(const String a, const char *b)<br>Compare strings equality.                                          |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
