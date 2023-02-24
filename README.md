@@ -47,7 +47,10 @@
 | bool           | **string_equals_c**(const String a, const char *b)<br>Compare strings equality.                                          |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
 | bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
-| string_hash_t  | **string_hash**(const String buf, uint8_t version, uint8_t key[16])<br>String hash                                       |
+| uint8_t        | **string_isrealexp**(const String buf)<br>Check if string is a valid scientific notation.                                 |
+| long           | **string_tolong**(const String buf)<br>Convert string to integer. Max value: LONG_MAX_MAX - 1.                           |
+| double         | **string_todouble**(const String buf)<br>Convert string to float. Max value: DBL_MAX - 1.                                |
+| string_hash_t  | **string_hash**(const String buf, uint8_t version, uint8_t key[16])<br>String hash.                                      |
 
 -------------------------------
 
