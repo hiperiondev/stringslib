@@ -848,7 +848,7 @@ uint8_t string_isrealexp(const String buf) {
  */
 long string_tolong(const String buf) {
     if (buf == NULL || !string_isinteger(buf))
-        return INT32_MAX;
+        return LONG_MAX;
 
     char *end;
     errno = 0;
