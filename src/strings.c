@@ -840,7 +840,7 @@ uint8_t string_isrealexp(const String buf) {
 }
 
 /**
- * @fn long string_tointeger(const String buf)
+ * @fn long string_tolong(const String buf)
  * @brief Convert string to integer. Max value: LONG_MAX_MAX - 1.
  *
  * @param buf Buffered string
