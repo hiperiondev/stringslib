@@ -119,6 +119,9 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
          bool string_equals_c(const String a, const char *b);
          bool string_isinteger(const String buf);
          bool string_isfloat(const String buf);
+      uint8_t string_isrealexp(const String buf);
+         long string_tolong(const String buf);
+       double string_todouble(const String buf);
 string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]);
 
 ////////////////

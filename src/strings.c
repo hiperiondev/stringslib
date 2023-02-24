@@ -35,6 +35,8 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <float.h>
+#include <limits.h>
 
 #include "strings.h"
 #include "siphash.h"
@@ -803,6 +805,81 @@ bool string_isfloat(const String buf) {
     }
 
     return true;
+}
+
+/**
+ * @fn bool string_isrealexp(const String buf)
+ * @brief Check if string is a valid scientific notation
+ *
+ * @param buf Buffered string
+ * @return Boolean (0: not valid; 1: is float; 2: is integer)
+ */
+uint8_t string_isrealexp(const String buf) {
+    if (buf == NULL)
+        return 0;
+
+    uint8_t ret;
+    String right = NULL;
+    String left = string_split(buf, "e", &right);
+    if (left == NULL)
+        left = string_split(buf, "E", &right);
+
+    if (left == NULL || !string_isfloat(left) || !string_isinteger(right))
+        ret = 0;
+    else if (string_isfloat(left))
+        ret = 1;
+    else
+        ret = 2;
+
+    if (left != NULL)
+        free(left);
+    if (right != NULL)
+        free(right);
+
+    return ret;
+}
+
+/**
+ * @fn long string_tointeger(const String buf)
+ * @brief Convert string to integer. Max value: LONG_MAX_MAX - 1.
+ *
+ * @param buf Buffered string
+ * @return Integer result (LONG_MAX_MAX: Error in conversion)
+ */
+long string_tolong(const String buf) {
+    if (buf == NULL || !string_isinteger(buf))
+        return INT32_MAX;
+
+    char *end;
+    errno = 0;
+
+    long result = strtol(buf->data, &end, 10);
+    if ((result == LONG_MIN|| result == LONG_MAX) && ERANGE == errno)
+        return LONG_MAX;
+
+    return result;
+}
+
+/**
+ * @fn double string_todouble(const String buf)
+ * Convert string to float. Max value: DBL_MAX - 1;
+ *
+ * @param buf Buffered string
+ * @return Double result (DBL_MAX: Error in conversion)
+ */
+double string_todouble(const String buf) {
+    if (buf == NULL || !(string_isfloat(buf) || string_isinteger(buf) || (string_isrealexp(buf) != 0)))
+        return DBL_MAX;
+
+    char *end;
+    errno = 0;
+
+    double result = strtod(buf->data, &end);
+
+    if ((errno == ERANGE && (result == DBL_MAX || result == -DBL_MAX)) || (errno != 0 && result == 0.0))
+        return DBL_MAX;
+
+    return result;
 }
 
 /**

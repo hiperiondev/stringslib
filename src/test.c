@@ -46,6 +46,8 @@ int main(void) {
     int rc;
     uint32_t res;
     bool bres;
+    double dres;
+    long lres;
     string_hash_t hash;
 
 #define string_test_end(str) (str->data[str->len + 1] != '\0') ? 0 : 1;
@@ -261,6 +263,21 @@ int main(void) {
     assert(bres);
     free(a);
     free(b);
+
+    a = string_new_c("-23.89");
+    dres = string_todouble(a);
+    assert(dres == -23.89);
+    free(a);
+
+    a = string_new_c("-234567");
+    lres = string_tolong(a);
+    assert(lres == -234567);
+    free(a);
+
+    a = string_new_c("-23.89e5");
+    dres = string_todouble(a);
+    assert(dres == -2389000);
+    free(a);
 
     a = string_new_c("String de-Prueba");
     buf = string_split(a, "-", &b);
