@@ -69,8 +69,8 @@ String string_new(const size_t cap) {
     String buf = malloc(BUF_MEM(cap));
 
     if (buf) {
-        buf->cap = cap;
-        buf->len = 0;
+        buf->capacity = cap;
+        buf->length = 0;
         buf->data[0] = 0;
         buf->data[cap] = 0;
     }
@@ -91,7 +91,7 @@ String string_new_c(const char *str) {
 
     String buf = string_new(strlen(str));
     memcpy(buf->data, str, strlen(str));
-    buf->len = strlen(str);
+    buf->length = strlen(str);
 
     return buf;
 }
@@ -107,11 +107,11 @@ String string_dup(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    String ret = string_new(buf->cap);
+    String ret = string_new(buf->capacity);
 
     if (ret) {
         // copies only up to current length
-        memcpy(ret, buf, BUF_MEM(buf->len));
+        memcpy(ret, buf, BUF_MEM(buf->length));
     }
 
     return ret;
@@ -131,10 +131,10 @@ bool string_resize(String *pbuf, const size_t newcap) {
 
     String buf = *pbuf;
 
-    if (newcap == buf->cap)
+    if (newcap == buf->capacity)
         return true;
 
-    uint32_t buflen = buf->len;
+    uint32_t buflen = buf->length;
 
     String tmp = realloc(buf, BUF_MEM(newcap));
 
@@ -144,10 +144,10 @@ bool string_resize(String *pbuf, const size_t newcap) {
     // truncated
     if (newcap < buflen) {
         tmp->data[newcap] = 0;
-        tmp->len = newcap;
+        tmp->length = newcap;
     }
 
-    tmp->cap = newcap;
+    tmp->capacity = newcap;
     *pbuf = tmp;
 
     return true;
@@ -164,12 +164,12 @@ uint32_t string_move(String *to, String *from) {
     if (to == NULL || from == NULL || *to == NULL || *from == NULL)
         return UINT32_MAX;
 
-    if ((*from)->len > (*to)->len)
-        if (!string_resize(to, (*from)->cap))
+    if ((*from)->length > (*to)->length)
+        if (!string_resize(to, (*from)->capacity))
             return UINT32_MAX;
 
-    memcpy((*to), (*from), BUF_MEM((*from)->len));
-    (*to)->len = (*from)->len;
+    memcpy((*to), (*from), BUF_MEM((*from)->length));
+    (*to)->length = (*from)->length;
     free(*from);
 
     return 0;
@@ -190,12 +190,12 @@ uint32_t string_copy(String *to, const char *from) {
     if (lenf > UINT32_MAX - 1)
         return UINT32_MAX;
 
-    if (lenf > (*to)->len)
+    if (lenf > (*to)->length)
         if (!string_resize(to, BUF_MEM(lenf)))
             return UINT32_MAX;
 
     memcpy((*to)->data, from, lenf + 1);
-    (*to)->len = lenf;
+    (*to)->length = lenf;
 
     return 0;
 }
@@ -224,41 +224,13 @@ void string_reset(String buf) {
     if (buf == NULL)
         return;
 
-    buf->len = 0;
+    buf->length = 0;
     buf->data[0] = 0;
 }
 
 ////////////////
 
 String _str_result_tmp_xxxxxxx_; /**< for move macros >**/
-
-/**
- * @fn size_t string_len(const String buf)
- * @brief Buffered string length
- *
- * @param buf Buffered string
- * @return Size
- */
-uint32_t string_len(const String buf) {
-    if (buf == NULL)
-        return 0;
-
-    return buf->len;
-}
-
-/**
- * @fn size_t string_buf_cap(const String buf)
- * @brief Return capacity
- *
- * @param buf Buffered string
- * @return Capacity
- */
-uint32_t string_cap(const String buf) {
-    if (buf == NULL)
-        return UINT32_MAX;
-
-    return buf->cap;
-}
 
 /**
  * @fn String string_left(const String buf, uint32_t pos)
@@ -269,13 +241,13 @@ uint32_t string_cap(const String buf) {
  * @return Buffered string
  */
 String string_left(const String buf, uint32_t pos) {
-    if (buf == NULL || pos > buf->len)
+    if (buf == NULL || pos > buf->length)
         return NULL;
 
     String new = string_new(pos + 1);
     memcpy(new->data, buf->data, pos + 1);
     new->data[pos + 1] = '\0';
-    new->len = pos + 1;
+    new->length = pos + 1;
 
     return new;
 }
@@ -289,12 +261,12 @@ String string_left(const String buf, uint32_t pos) {
  * @return Buffered string
  */
 String string_right(const String buf, uint32_t pos) {
-    if (buf == NULL || pos > buf->len)
+    if (buf == NULL || pos > buf->length)
         return NULL;
 
-    String new = string_new(buf->len - pos);
-    memcpy(new->data, buf->data + pos, buf->len - pos + 1);
-    new->len = buf->len - pos;
+    String new = string_new(buf->length - pos);
+    memcpy(new->data, buf->data + pos, buf->length - pos + 1);
+    new->length = buf->length - pos;
 
     return new;
 }
@@ -309,12 +281,12 @@ String string_right(const String buf, uint32_t pos) {
  * @return Buffered string
  */
 String string_mid(const String buf, uint32_t left, uint32_t right) {
-    if (buf == NULL || right > buf->len || left > buf->len || left > right)
+    if (buf == NULL || right > buf->length || left > buf->length || left > right)
         return NULL;
 
     String new = string_new(right - left);
     memcpy(new->data, buf->data + left - 1, right - left + 1);
-    new->len = right - left + 1;
+    new->length = right - left + 1;
 
     return new;
 }
@@ -331,10 +303,10 @@ String string_concat(const String str1, const String str2) {
     if (str1 == NULL || str2 == NULL)
         return NULL;
 
-    String new = string_new(str1->len + str2->len);
-    memcpy(new->data, str1->data, str1->len);
-    memcpy(new->data + str1->len, str2->data, str2->len + 1);
-    new->len = str1->len + str2->len;
+    String new = string_new(str1->length + str2->length);
+    memcpy(new->data, str1->data, str1->length);
+    memcpy(new->data + str1->length, str2->data, str2->length + 1);
+    new->length = str1->length + str2->length;
 
     return new;
 }
@@ -349,15 +321,15 @@ String string_concat(const String str1, const String str2) {
  * @return Buffered string
  */
 String string_insert(const String buf, const String str, uint32_t pos) {
-    if (buf == NULL || str == NULL || pos > buf->len)
+    if (buf == NULL || str == NULL || pos > buf->length)
         return NULL;
 
-    String new = string_new(buf->len + str->len);
+    String new = string_new(buf->length + str->length);
     memcpy(new->data, buf->data, pos);
-    memcpy(new->data + pos, str->data, str->len);
-    memcpy(new->data + pos + str->len, buf->data + pos, (buf->len - pos) + 1);
+    memcpy(new->data + pos, str->data, str->length);
+    memcpy(new->data + pos + str->length, buf->data + pos, (buf->length - pos) + 1);
 
-    new->len = buf->len + str->len;
+    new->length = buf->length + str->length;
 
     return new;
 }
@@ -372,15 +344,15 @@ String string_insert(const String buf, const String str, uint32_t pos) {
  * @return Buffered string
  */
 String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
-    if (buf == NULL || pos1 > buf->len || pos2 > buf->len || pos1 > pos2) {
+    if (buf == NULL || pos1 > buf->length || pos2 > buf->length || pos1 > pos2) {
         return NULL;
     }
 
-    String new = string_new(buf->len - pos2 + pos1);
+    String new = string_new(buf->length - pos2 + pos1);
     memcpy(new->data, buf->data, pos1);
-    memcpy(new->data + pos1, buf->data + pos2 + 1, buf->len - pos2);
+    memcpy(new->data + pos1, buf->data + pos2 + 1, buf->length - pos2);
 
-    new->len = buf->len - pos2 + pos1 - 1;
+    new->length = buf->length - pos2 + pos1 - 1;
 
     return new;
 }
@@ -418,19 +390,19 @@ String string_delete_c(const String buf, const char *str) {
  * @return Buffered string
  */
 String string_replace(const String buf, const String search, String replace, uint32_t pos) {
-    if (buf == NULL || search == NULL || replace == NULL || pos > buf->len)
+    if (buf == NULL || search == NULL || replace == NULL || pos > buf->length)
         return NULL;
 
     uint32_t fpos = string_find(buf, search, pos);
     if (fpos == STR_ERROR)
         return NULL;
 
-    String new = string_new(buf->len - search->len + replace->len);
+    String new = string_new(buf->length - search->length + replace->length);
     memcpy(new->data, buf->data, fpos);
-    memcpy(new->data + fpos, replace->data, replace->len);
-    memcpy(new->data + fpos + replace->len, buf->data + search->len + fpos, buf->len - fpos - search->len);
+    memcpy(new->data + fpos, replace->data, replace->length);
+    memcpy(new->data + fpos + replace->length, buf->data + search->length + fpos, buf->length - fpos - search->length);
 
-    new->len = buf->len - search->len + replace->len;
+    new->length = buf->length - search->length + replace->length;
 
     return new;
 }
@@ -446,7 +418,7 @@ String string_replace(const String buf, const String search, String replace, uin
  * @return Buffered string
  */
 String string_replace_c(const String buf, const char *c_search, const char *c_replace, uint32_t pos) {
-    if (buf == NULL || c_search == NULL || c_replace == NULL || pos > buf->len)
+    if (buf == NULL || c_search == NULL || c_replace == NULL || pos > buf->length)
         return NULL;
 
     String search = string_new_c(c_search);
@@ -456,12 +428,12 @@ String string_replace_c(const String buf, const char *c_search, const char *c_re
     if (fpos == STR_ERROR)
         return NULL;
 
-    String new = string_new(buf->len - search->len + replace->len);
+    String new = string_new(buf->length - search->length + replace->length);
     memcpy(new->data, buf->data, fpos);
-    memcpy(new->data + fpos, replace->data, replace->len);
-    memcpy(new->data + fpos + replace->len, buf->data + search->len + fpos, buf->len - fpos - search->len);
+    memcpy(new->data + fpos, replace->data, replace->length);
+    memcpy(new->data + fpos + replace->length, buf->data + search->length + fpos, buf->length - fpos - search->length);
 
-    new->len = buf->len - search->len + replace->len;
+    new->length = buf->length - search->length + replace->length;
 
     free(search);
     free(replace);
@@ -479,7 +451,7 @@ String string_replace_c(const String buf, const char *c_search, const char *c_re
  * @return Position
  */
 uint32_t string_find(const String buf, const String search, uint32_t pos) {
-    if (buf == NULL || search == NULL || search->len > buf->len || pos > buf->len)
+    if (buf == NULL || search == NULL || search->length > buf->length || pos > buf->length)
         return STR_ERROR;
 
     char *p;
@@ -499,7 +471,7 @@ uint32_t string_find(const String buf, const String search, uint32_t pos) {
  * @return Position
  */
 uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos) {
-    if (buf == NULL || csearch == NULL || pos > buf->len)
+    if (buf == NULL || csearch == NULL || pos > buf->length)
         return false;
 
     String search = string_new_c(csearch);
@@ -520,15 +492,15 @@ String string_toupper(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    String new = string_new(buf->len);
-    for (int i = 0; i < buf->len; i++) {
+    String new = string_new(buf->length);
+    for (int i = 0; i < buf->length; i++) {
         if (buf->data[i] >= 97 && buf->data[i] <= 122)
             new->data[i] = buf->data[i] - 32;
         else
             new->data[i] = buf->data[i];
     }
 
-    new->len = buf->len;
+    new->length = buf->length;
 
     return new;
 }
@@ -544,15 +516,15 @@ String string_tolower(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    String new = string_new(buf->len);
-    for (int i = 0; i < buf->len; i++) {
+    String new = string_new(buf->length);
+    for (int i = 0; i < buf->length; i++) {
         if (buf->data[i] >= 65 && buf->data[i] <= 90)
             new->data[i] = buf->data[i] + 32;
         else
             new->data[i] = buf->data[i];
     }
 
-    new->len = buf->len;
+    new->length = buf->length;
 
     return new;
 }
@@ -570,13 +542,13 @@ String string_ltrim(const String buf) {
 
     uint32_t pos1 = 0;
 
-    while (pos1 < buf->len && isspace(buf->data[pos1]))
+    while (pos1 < buf->length && isspace(buf->data[pos1]))
         ++pos1;
 
-    String new = string_new(pos1 + (buf->len - 1) + 1);
-    memcpy(new->data, buf->data + pos1, (buf->len - 1) - pos1 + 1);
+    String new = string_new(pos1 + (buf->length - 1) + 1);
+    memcpy(new->data, buf->data + pos1, (buf->length - 1) - pos1 + 1);
 
-    new->len = (buf->len - 1) - pos1 + 1;
+    new->length = (buf->length - 1) - pos1 + 1;
 
     return new;
 }
@@ -592,7 +564,7 @@ String string_rtrim(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    uint32_t pos2 = buf->len - 1;
+    uint32_t pos2 = buf->length - 1;
 
     while (pos2 >= 0 && isspace(buf->data[pos2]))
         --pos2;
@@ -600,7 +572,7 @@ String string_rtrim(const String buf) {
     String new = string_new(pos2 + 1);
     memcpy(new->data, buf->data, pos2 + 1);
 
-    new->len = pos2 + 1;
+    new->length = pos2 + 1;
 
     return new;
 }
@@ -616,9 +588,9 @@ String string_trim(const String buf) {
     if (buf == NULL)
         return NULL;
 
-    uint32_t pos1 = 0, pos2 = buf->len - 1;
+    uint32_t pos1 = 0, pos2 = buf->length - 1;
 
-    while (pos1 < buf->len && isspace(buf->data[pos1]))
+    while (pos1 < buf->length && isspace(buf->data[pos1]))
         ++pos1;
     while (pos2 >= 0 && isspace(buf->data[pos2]))
         --pos2;
@@ -626,7 +598,7 @@ String string_trim(const String buf) {
     String new = string_new(pos1 + pos2 + 1);
     memcpy(new->data, buf->data + pos1, pos2 - pos1 + 1);
 
-    new->len = pos2 - pos1 + 1;
+    new->length = pos2 - pos1 + 1;
 
     return new;
 }
@@ -644,7 +616,7 @@ uint32_t string_append(String buf, const char *fmt, ...) {
     if (buf == NULL || fmt == NULL)
         return 0;
 
-    const size_t spc = buf->cap - buf->len;
+    const size_t spc = buf->capacity - buf->length;
 
     if (!spc)
         return 0;
@@ -658,7 +630,7 @@ uint32_t string_append(String buf, const char *fmt, ...) {
     if (len > spc)
         return 0;
 
-    char *end = buf->data + buf->len;
+    char *end = buf->data + buf->length;
 
     errno = 0;
     va_start(args, fmt);
@@ -676,7 +648,7 @@ uint32_t string_append(String buf, const char *fmt, ...) {
         return 0;
     }
 
-    buf->len += written;
+    buf->length += written;
 
     return written;
 }
@@ -694,7 +666,7 @@ uint32_t string_write(String buf, const char *fmt, ...) {
     if (buf == NULL || fmt == NULL)
         return 0;
 
-    const size_t cap = buf->cap;
+    const size_t cap = buf->capacity;
 
     if (!cap)
         return 0;
@@ -718,7 +690,7 @@ uint32_t string_write(String buf, const char *fmt, ...) {
         return 0;
     }
 
-    buf->len = written;
+    buf->length = written;
 
     return written;
 }
@@ -732,10 +704,10 @@ uint32_t string_write(String buf, const char *fmt, ...) {
  * @return Returns true if the strings are equal, and false if not.
  */
 bool string_equals(const String str1, const String str2) {
-    if (str1 == NULL || str2 == NULL || str1->len != str2->len)
+    if (str1 == NULL || str2 == NULL || str1->length != str2->length)
         return false;
 
-    return !memcmp(str1->data, str2->data, str1->len);
+    return !memcmp(str1->data, str2->data, str1->length);
 }
 
 /**
@@ -747,10 +719,10 @@ bool string_equals(const String str1, const String str2) {
  * @return Boolean
  */
 bool string_equals_c(const String a, const char *b) {
-    if (a == NULL || b == NULL || a->len != strlen(b))
+    if (a == NULL || b == NULL || a->length != strlen(b))
         return false;
 
-    return !memcmp(a->data, b, a->len);
+    return !memcmp(a->data, b, a->length);
 }
 
 ////////////////////////////////////////////////////////////
@@ -771,7 +743,7 @@ bool string_isinteger(const String buf) {
     if (buf->data[0] == '-')
         ++n;
 
-    for (; n < buf->len; n++) {
+    for (; n < buf->length; n++) {
         if (!isdigit(buf->data[n]))
             return false;
     }
@@ -796,7 +768,7 @@ bool string_isfloat(const String buf) {
     if (buf->data[0] == '-')
         ++n;
 
-    for (; n < buf->len; n++) {
+    for (; n < buf->length; n++) {
         if (!isdigit(buf->data[n]) && !((buf->data[n] == '.') && !dot))
             return false;
 
@@ -928,9 +900,9 @@ string_hash_t string_hash(const String buf, uint8_t version, uint8_t key[16]) {
     result.outlen = len;
 
     if (version < 2)
-        siphash(buf->data, buf->len, key, result.out, len);
+        siphash(buf->data, buf->length, key, result.out, len);
     else
-        halfsiphash(buf->data, buf->len, key, result.out, len);
+        halfsiphash(buf->data, buf->length, key, result.out, len);
 
     return result;
 }

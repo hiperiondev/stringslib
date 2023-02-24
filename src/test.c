@@ -53,8 +53,8 @@ int main(void) {
 #define string_test_end(str) (str->data[str->len + 1] != '\0') ? 0 : 1;
 #define check(buf, cap, data)                             \
             do {                                          \
-                assert (string_cap(buf) == cap);          \
-                assert (string_len(buf) == strlen(data)); \
+                assert (buf->capacity == cap);            \
+                assert (buf->length == strlen(data));     \
                 assert (!strcmp(string_data(buf), data)); \
             } while(0)
 
@@ -84,7 +84,7 @@ int main(void) {
     buf = string_new(strlen(big) - 1);
     rc = string_append(buf, big);
     assert(rc == 0);
-    assert(string_len(buf) == 0);
+    assert(buf->length == 0);
     free(buf);
 
     buf = string_new(cap);

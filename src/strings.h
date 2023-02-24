@@ -43,8 +43,8 @@
  *
  */
 typedef struct string_s {
-    uint32_t cap;         /**< capacity >**/
-    uint32_t len;         /**< current length >**/
+    uint32_t capacity;    /**< capacity >**/
+    uint32_t length;      /**< current length >**/
         char data[];      /**< null-terminated string >**/
 } string_t;               /**< Buffered string internal type >**/
 typedef string_t *String; /**< Buffered string main type >**/
@@ -109,8 +109,6 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_trim(const String buf);
        String string_split(const String buf, const char *search, String *right);
 
-     uint32_t string_len(const String buf);
-     uint32_t string_cap(const String buf);
      uint32_t string_find(const String buf, const String search, uint32_t pos);
      uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos);
      uint32_t string_append(String buf, const char *fmt, ...);
