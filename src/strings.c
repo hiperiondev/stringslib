@@ -862,7 +862,7 @@ long string_tolong(const String buf) {
 
 /**
  * @fn double string_todouble(const String buf)
- * Convert string to float. Max value: DBL_MAX - 1;
+ * @brief Convert string to float. Max value: DBL_MAX - 1.
  *
  * @param buf Buffered string
  * @return Double result (DBL_MAX: Error in conversion)
