@@ -208,6 +208,21 @@ int main(void) {
     free(a);
     free(buf);
 
+    a = string_new_c("es un test");
+    const char *str3 = "un ";
+    const char *str4 = "";
+    buf = string_replace_c(a, str3, str4, 2);
+    assert(string_equals_c(buf, "es test"));
+    free(a);
+    free(buf);
+
+    a = string_new_c("es un test");
+    const char *str5 = "un ";
+    const char *str6 = "";
+    string_replace_c_m(a, str5, str6, 2);
+    assert(string_equals_c(a, "es test"));
+    free(a);
+
     a = string_new_c("es Un test");
     buf = string_toupper(a);
     assert(string_equals_c(buf, "ES UN TEST"));

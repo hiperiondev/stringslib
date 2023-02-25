@@ -424,21 +424,12 @@ String string_replace_c(const String buf, const char *c_search, const char *c_re
     String search = string_new_c(c_search);
     String replace = string_new_c(c_replace);
 
-    uint32_t fpos = string_find(buf, search, pos);
-    if (fpos == STR_ERROR)
-        return NULL;
-
-    String new = string_new(buf->length - search->length + replace->length);
-    memcpy(new->data, buf->data, fpos);
-    memcpy(new->data + fpos, replace->data, replace->length);
-    memcpy(new->data + fpos + replace->length, buf->data + search->length + fpos, buf->length - fpos - search->length);
-
-    new->length = buf->length - search->length + replace->length;
+    String newstr = string_replace(buf, search, replace, pos);
 
     free(search);
     free(replace);
 
-    return new;
+    return newstr;
 }
 
 /**
