@@ -463,7 +463,7 @@ uint32_t string_find(const String buf, const String search, uint32_t pos) {
  */
 uint32_t string_find_c(const String buf, const char *csearch, uint32_t pos) {
     if (buf == NULL || csearch == NULL || pos > buf->length)
-        return false;
+        return STR_ERROR;
 
     String search = string_new_c(csearch);
     uint32_t p = string_find(buf, search, pos);
