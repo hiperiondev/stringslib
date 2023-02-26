@@ -30,6 +30,10 @@
 | String         | **string_concat**(const String str1, const String str2)<br>Concatenation of strings.                                     |
 | String         | **string_insert**(const String buf, const String str, uint32_t pos)<br>Insert string on position.                        |
 | String         | **string_delete**(const String buf, uint32_t pos1, uint32_t pos2)<br>Delete substring from pos1 to pos2.                 |
+| String         | **string_delete_prefix**(const String buf, const String pfx)<br>Delete prefix                                            |
+| String         | **string_delete_prefix_c**(const String buf, const char *pfx)<br>Delete prefix from string                               |
+| String         | **string_delete_postfix**(const String buf, const String pfx)<br>Delete postfix                                          |
+| String         | **string_delete_postfix_c**(const String buf, const char *pfx)<br>Delete postfix from string                             |
 | String         | **string_replace**(const String buf, const String search, String replace, uint32_t pos)<br>Replace string.               |
 | uint32_t       | **string_find**(const String buf, const String search, uint32_t pos)<br>Find substring starting at position.             |
 | uint32_t       | **string_find_c**(const String buf, char c, uint32_t pos)<br>Find character starting at position.                        |
