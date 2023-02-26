@@ -182,6 +182,18 @@ int main(void) {
     free(buf);
 
     a = string_new_c("es un test");
+    buf = string_delete_prefix_c(a, "es  ");
+    assert(string_equals_c(buf, "un test"));
+    free(a);
+    free(buf);
+
+    a = string_new_c("es un test");
+    buf = string_delete_postfix_c(a, " test");
+    assert(string_equals_c(buf, "es un"));
+    free(a);
+    free(buf);
+
+    a = string_new_c("es un test");
     b = string_new_c("un");
     res = string_find(a, b, 0);
     assert(res == 3);

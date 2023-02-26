@@ -100,6 +100,10 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
        String string_insert(const String buf, const String str, uint32_t pos);
        String string_delete(const String buf, uint32_t pos1, uint32_t pos2);
        String string_delete_c(const String buf, const char *str);
+       String string_delete_prefix(const String buf, const String pfx);
+       String string_delete_prefix_c(const String buf, const char *pfx);
+       String string_delete_postfix(const String buf, const String pfx);
+       String string_delete_postfix_c(const String buf, const char *pfx);
        String string_replace(const String buf, const String search, String replace, uint32_t pos);
        String string_replace_c(const String buf, const char *c_search, const char *c_replace, uint32_t pos);
        String string_toupper(const String buf);
@@ -187,6 +191,43 @@ extern String _str_result_tmp_xxxxxxx_;
  */
 #define string_delete_c_m(buf,str)                                                              \
             _str_result_tmp_xxxxxxx_ = string_delete_c((buf), (str));                           \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_)
+
+/**
+ * @def string_delete_prefix_m
+ * @brief Return to self
+ *
+ */
+#define string_delete_prefix_m(buf,str)                                                         \
+            _str_result_tmp_xxxxxxx_ = string_delete_prefix((buf), (str));                      \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_)
+
+/**
+ * @def string_delete_prefix_c_m
+ * @brief Return to self
+ *
+ */
+#define string_delete_prefix_c_m(buf,str)                                                       \
+            _str_result_tmp_xxxxxxx_ = string_delete_prefix_c((buf), (str));                    \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_)
+
+
+/**
+ * @def string_delete_postfix_m
+ * @brief Return to self
+ *
+ */
+#define string_delete_postfix_m(buf,str)                                                        \
+            _str_result_tmp_xxxxxxx_ = string_delete_postfix((buf), (str));                     \
+            string_move(&(buf), &_str_result_tmp_xxxxxxx_)
+
+/**
+ * @def string_delete_postfix_c_m
+ * @brief Return to self
+ *
+ */
+#define string_delete_postfix_c_m(buf,str)                                                      \
+            _str_result_tmp_xxxxxxx_ = string_delete_postfix_c((buf), (str));                   \
             string_move(&(buf), &_str_result_tmp_xxxxxxx_)
 
 /**

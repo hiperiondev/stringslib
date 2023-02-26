@@ -66,7 +66,7 @@
  * @return  Buffered string
  */
 String string_new(const size_t cap) {
-    String buf = malloc(BUF_MEM(cap));
+    String buf = calloc(1, BUF_MEM(cap));
 
     if (buf) {
         buf->capacity = cap;
@@ -355,6 +355,100 @@ String string_delete(const String buf, uint32_t pos1, uint32_t pos2) {
     new->length = buf->length - pos2 + pos1 - 1;
 
     return new;
+}
+
+/**
+ * @fn String string_delete_prefix(const String buf, const String pfx)
+ * @brief Delete prefix
+ *
+ * @param buf Buffered string
+ * @param pfx Buffered string
+ * @return Buffered string
+ */
+String string_delete_prefix(const String buf, const String pfx) {
+    if (buf == NULL || pfx == NULL || pfx->length < 1 || pfx->length > buf->length) {
+        return NULL;
+    }
+
+    uint32_t pos = 0;
+    while (pos < pfx->length && buf->data[pos] == pfx->data[pos])
+        ++pos;
+
+    if (pos != pfx->length - 1)
+        return NULL;
+
+    String new = string_new(buf->length - pfx->length + 1);
+    memcpy(new->data, buf->data + pos, buf->length - pfx->length + 1);
+    new->length = buf->length - pfx->length + 1;
+
+    return new;
+}
+
+/**
+ * @fn String string_delete_prefix_c(const String buf, const char *pfx)
+ * @brief Delete prefix const string
+ *
+ * @param buf Buffered string
+ * @param pfx String
+ * @return Buffered string
+ */
+String string_delete_prefix_c(const String buf, const char *pfx) {
+    if (pfx == NULL) {
+        return NULL;
+    }
+
+    String prefix = string_new_c(pfx);
+    String res = string_delete_prefix(buf, prefix);
+    free(prefix);
+
+    return res;
+}
+
+/**
+ * @fn String string_delete_postfix(const String buf, const String pfx)
+ * @brief Delete postfix
+ *
+ * @param buf Buffered string
+ * @param pfx Buffered string
+ * @return Buffered string
+ */
+String string_delete_postfix(const String buf, const String pfx) {
+    if (buf == NULL || pfx == NULL || pfx->length < 1 || pfx->length > buf->length) {
+        return NULL;
+    }
+
+    uint32_t pos = 0;
+    while (pos < pfx->length && buf->data[buf->length - 1 - pos] == pfx->data[pfx->length - 1 - pos])
+        ++pos;
+
+    if (pos != pfx->length)
+        return NULL;
+
+    String new = string_new(buf->length - pfx->length );
+    memcpy(new->data, buf->data, buf->length - pfx->length);
+    new->length = buf->length - pfx->length;
+
+    return new;
+}
+
+/**
+ * @fn String string_delete_postfix_c(const String buf, const char *pfx)
+ * @brief Delete postfix const string
+ *
+ * @param buf Buffered string
+ * @param pfx String
+ * @return Buffered string
+ */
+String string_delete_postfix_c(const String buf, const char *pfx) {
+    if (pfx == NULL) {
+        return NULL;
+    }
+
+    String postfix = string_new_c(pfx);
+    String res = string_delete_postfix(buf, postfix);
+    free(postfix);
+
+    return res;
 }
 
 /**
