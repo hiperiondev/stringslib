@@ -53,6 +53,7 @@ For convenience, for all functions that return a String, a macro (func_m) is def
 | bool           | **string_equals_c**(const String a, const char *b)<br>Compare strings equality.                                          |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
 | bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
+| bool           | **string_isblank**(const String buf)<br>Check if string is a blank line                                                  |
 | uint8_t        | **string_isrealexp**(const String buf)<br>Check if string is a valid scientific notation.                                |
 | long           | **string_tolong**(const String buf)<br>Convert string to integer. Max value: LONG_MAX_MAX - 1.                           |
 | double         | **string_todouble**(const String buf)<br>Convert string to float. Max value: DBL_MAX - 1.                                |
