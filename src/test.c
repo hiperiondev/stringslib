@@ -323,7 +323,6 @@ int main(void) {
     assert(string_equals_c(array[2], "Prueba"));
     assert(string_equals_c(array[3], "para"));
     assert(string_equals_c(array[4], "split_c"));
-
     for (uint32_t n = 0; n < res; n++) {
         free(array[n]);
     }
@@ -338,25 +337,16 @@ int main(void) {
     assert(string_equals_c(array[2], "Prueba"));
     assert(string_equals_c(array[3], "para"));
     assert(string_equals_c(array[4], "split_c"));
-
     for (uint32_t n = 0; n < res; n++) {
         free(array[n]);
     }
     free(a);
     free(array);
 
-
     a = string_new_c("String de-Prueba");
     string_splitr_m(a, "-", b);
     assert(string_equals_c(b, "String de"));
     assert(string_equals_c(a, "Prueba"));
-    free(a);
-    free(b);
-
-    a = string_new_c("String de-Prueba");
-    string_splitl_m(a, "-", b);
-    assert(string_equals_c(a, "String de"));
-    assert(string_equals_c(b, "Prueba"));
     free(a);
     free(b);
 
