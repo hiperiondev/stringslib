@@ -1,6 +1,9 @@
 # stringslib
 ## Memory safe library for manage strings 
 
+### NOTE
+For convenience, for all functions that return a String, a macro (func_m) is defined that moves the return over the input string. See strings.h
+
 -------------------------------
 
 # Strings Core Functions
