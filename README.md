@@ -43,7 +43,7 @@
 | String         | **string_rtrim**(const String buf)<br>Right trim string                                                                  |
 | String         | **string_trim**(const String buf)<br>Trim string.                                                                        |
 | String         | **string_split**(const String buf, const char *search, String *right)<br>Split string and return left and right Strings  |
-| uint32_t       | **string_split_c**(const String buf, const char *search, String **array)<br>Split string in an array of strings          |
+| uint32_t       | **string_split_array**(const String buf, const char *search, String **array)<br>Split string in an array of strings      |
 | uint32_t       | **string_append**(String buf, const char *fmt, ... )<br>Append a formatted c-string to `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | uint32_t       | **string_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | bool           | **string_equals**(const String str1, const String str2)<br>Compares two strings.                                         |
