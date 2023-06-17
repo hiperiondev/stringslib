@@ -865,6 +865,27 @@ bool string_isfloat(const String buf) {
 }
 
 /**
+ * @fn bool string_isBlank(const String buf)
+ * @brief Check if string is  a blank line
+ *
+ * @param buf Buffered string
+ * @return Boolean
+ */
+bool string_isBlank(const String buf) {
+    char *ch;
+    bool is_blank = true;
+
+    for (ch = buf->data; *ch != '\0'; ++ch) {
+        if (!isspace(*ch)) {
+            is_blank = false;
+            break;
+        }
+    }
+
+    return is_blank;
+}
+
+/**
  * @fn bool string_isrealexp(const String buf)
  * @brief Check if string is a valid scientific notation
  *

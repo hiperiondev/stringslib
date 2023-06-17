@@ -66,8 +66,8 @@ const char* string_data(const String buf);
  *
  */
 enum STRING_ERROR {
-    STR_OK,                 /**< Ok >**/           ///< STR_OK
-    STR_ERROR = UINT32_MAX, /**< Generic error >**////< STR_ERROR
+    STR_OK,                 /**< Ok >**/
+    STR_ERROR = UINT32_MAX, /**< Generic error >**/
 };
 
 /**
@@ -122,6 +122,7 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
          bool string_equals_c(const String a, const char *b);
          bool string_isinteger(const String buf);
          bool string_isfloat(const String buf);
+         bool string_isBlank(const String buf);
       uint8_t string_isrealexp(const String buf);
          long string_tolong(const String buf);
        double string_todouble(const String buf);

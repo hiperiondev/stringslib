@@ -350,6 +350,19 @@ int main(void) {
     free(a);
     free(b);
 
+    a = string_new_c("String de-Prueba");
+    b = string_new_c("");
+    c = string_new_c("       ");
+    bres = string_isBlank(a);
+    assert(bres == 0);
+    bres = string_isBlank(b);
+    assert(bres == 1);
+    bres = string_isBlank(c);
+    assert(bres == 1);
+    free(a);
+    free(b);
+    free(c);
+
     uint8_t key[16] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
     a = string_new_c("Esto es un Test para hash");
     b = string_new(32);
