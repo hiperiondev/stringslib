@@ -970,7 +970,7 @@ String string_split(const String buf, const char *search, String *right) {
  * @param array Array of strings
  * @return len Array string
  */
-uint32_t string_split_c(const String buf, const char *search, String **array) {
+uint32_t string_split_array(const String buf, const char *search, String **array) {
     if (buf == NULL || search == NULL)
         return 0;
     uint32_t arr_len = 0;
@@ -981,7 +981,9 @@ uint32_t string_split_c(const String buf, const char *search, String **array) {
     while ((pos = string_find_c(buf, search, pos)) != STR_ERROR) {
         (*array) = realloc((*array), (arr_len + 1) * sizeof(String));
         (*array)[arr_len] = string_mid(buf, pos_ant + 1, pos);
-        pos_ant = ++pos;
+
+        pos += strlen(search);
+        pos_ant = pos;
         arr_len++;
     }
 

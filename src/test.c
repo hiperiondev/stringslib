@@ -49,6 +49,7 @@ int main(void) {
     double dres;
     long lres;
     string_hash_t hash;
+    String *array;
 
 #define string_test_end(str) (str->data[str->len + 1] != '\0') ? 0 : 1;
 #define check(buf, cap, data)                             \
@@ -314,9 +315,23 @@ int main(void) {
     free(b);
     free(buf);
 
-    String *array;
     a = string_new_c("String de Prueba para split_c");
-    res = string_split_c(a, " ", &array);
+    res = string_split_array(a, " ", &array);
+    assert(res == 5);
+    assert(string_equals_c(array[0], "String"));
+    assert(string_equals_c(array[1], "de"));
+    assert(string_equals_c(array[2], "Prueba"));
+    assert(string_equals_c(array[3], "para"));
+    assert(string_equals_c(array[4], "split_c"));
+
+    for (uint32_t n = 0; n < res; n++) {
+        free(array[n]);
+    }
+    free(a);
+    free(array);
+
+    a = string_new_c("String@T0de@T0Prueba@T0para@T0split_c");
+    res = string_split_array(a, "@T0", &array);
     assert(res == 5);
     assert(string_equals_c(array[0], "String"));
     assert(string_equals_c(array[1], "de"));
