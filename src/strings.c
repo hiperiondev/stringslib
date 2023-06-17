@@ -865,13 +865,13 @@ bool string_isfloat(const String buf) {
 }
 
 /**
- * @fn bool string_isBlank(const String buf)
- * @brief Check if string is  a blank line
+ * @fn bool string_isblank(const String buf)
+ * @brief Check if string is a blank line
  *
  * @param buf Buffered string
  * @return Boolean
  */
-bool string_isBlank(const String buf) {
+bool string_isblank(const String buf) {
     char *ch;
     bool is_blank = true;
 

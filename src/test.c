@@ -353,11 +353,11 @@ int main(void) {
     a = string_new_c("String de-Prueba");
     b = string_new_c("");
     c = string_new_c("       ");
-    bres = string_isBlank(a);
+    bres = string_isblank(a);
     assert(bres == 0);
-    bres = string_isBlank(b);
+    bres = string_isblank(b);
     assert(bres == 1);
-    bres = string_isBlank(c);
+    bres = string_isblank(c);
     assert(bres == 1);
     free(a);
     free(b);
