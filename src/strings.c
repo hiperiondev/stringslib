@@ -963,12 +963,12 @@ String string_split(const String buf, const char *search, String *right) {
 
 /**
  * @fn uint32_t string_split_c*(const String buf, const char *search, String **array)
- * @brief
+ * @brief Split string in an array of strings
  *
  * @param buf Buffered string
- * @param search string to search
+ * @param search String to search
  * @param array Array of strings
- * @return len array string
+ * @return len Array string
  */
 uint32_t string_split_c(const String buf, const char *search, String **array) {
     if (buf == NULL || search == NULL)
