@@ -813,6 +813,23 @@ bool string_equals_c(const String a, const char *b) {
 ////////////////////////////////////////////////////////////
 
 /**
+ * @fn bool string_issigned(const String buf)
+ * @brief Check if string is signed
+ *
+ * @param buf Buffered string
+ * @return boolean
+ */
+bool string_issigned(const String buf) {
+    if (buf == NULL)
+        return false;
+
+    if (buf->data[0] == '-')
+        return true;
+    else
+        return false;
+}
+
+/**
  * @fn bool string_isinteger(const String buf)
  * @brief Check if string is a valid integer
  *

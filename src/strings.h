@@ -120,6 +120,7 @@ typedef struct string_hash_s string_hash_t; /**< hash result type >**/
      uint32_t string_write(String buf, const char *fmt, ...);
          bool string_equals(const String str1, const String str2);
          bool string_equals_c(const String a, const char *b);
+         bool string_issigned(const String buf);
          bool string_isinteger(const String buf);
          bool string_isfloat(const String buf);
          bool string_isblank(const String buf);

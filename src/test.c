@@ -282,13 +282,17 @@ int main(void) {
     free(b);
 
     a = string_new_c("-124");
-    b = string_new_c("-23.89");
+    b = string_new_c("23.89");
     bres = string_isinteger(a);
     assert(bres);
     bres = string_isinteger(b);
     assert(!bres);
     bres = string_isfloat(b);
     assert(bres);
+    bres = string_issigned(a);
+    assert(bres);
+    bres = string_issigned(b);
+    assert(!bres);
     free(a);
     free(b);
 
