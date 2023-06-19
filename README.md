@@ -51,6 +51,7 @@ For convenience, for all functions that return a String, a macro (func_m) is def
 | uint32_t       | **string_write**(String buf, const char *fmt, ... )<br>Write a formatted c-string at beginning of `buf`.<br>If new data would exceed capacity, `buf` stays unmodified.  |
 | bool           | **string_equals**(const String str1, const String str2)<br>Compares two strings.                                         |
 | bool           | **string_equals_c**(const String a, const char *b)<br>Compare strings equality.                                          |
+| bool           | **string_issigned**(const String buf)<br>Check if string is signed.                                                      |
 | bool           | **string_isinteger**(const String buf)<br>Check if string is a valid integer.                                            |
 | bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
 | bool           | **string_isblank**(const String buf)<br>Check if string is a blank line                                                  |
