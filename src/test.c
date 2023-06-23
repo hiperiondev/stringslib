@@ -368,11 +368,13 @@ int main(void) {
     free(c);
 
     a = string_new_c("StringdePrueba123");
-    b = string_new_c("Stringde@Prueba_123");
-    bres = string_isalnum(a);
+    b = string_new_c("Stringde@Prueba123");
+    bres = string_isalnum(a, 0);
     assert(bres == 1);
-    bres = string_isalnum(b);
+    bres = string_isalnum(b, 0);
     assert(bres == 0);
+    bres = string_isalnum(b, 9);
+    assert(bres == 1);
     free(a);
     free(b);
 

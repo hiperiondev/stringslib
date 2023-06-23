@@ -903,15 +903,19 @@ bool string_isblank(const String buf) {
 }
 
 /**
- * @fn bool string_isalnum(const String buf)
+ * @fn bool string_isalnum(const String buf, uint32_t pos)
  * @brief Check if string only contain letters and numbers
  *
  * @param buf Buffered string
+ * @param pos starting position
  * @return Boolean
  */
-bool string_isalnum(const String buf) {
+bool string_isalnum(const String buf, uint32_t pos) {
+    if (pos > buf->length)
+        return 0;
+
     unsigned char c;
-    char *b = buf->data;
+    char *b = buf->data + pos;
 
     while ((c = *b) && (isalnum(c)))
         ++b;
