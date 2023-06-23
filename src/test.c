@@ -369,14 +369,20 @@ int main(void) {
 
     a = string_new_c("StringdePrueba123");
     b = string_new_c("Stringde@Prueba123");
-    bres = string_isalnum(a, 0);
+    c = string_new_c("String_de_Prueba_123");
+    bres = string_isalnum(a, 0, false);
     assert(bres == 1);
-    bres = string_isalnum(b, 0);
+    bres = string_isalnum(b, 0, false);
     assert(bres == 0);
-    bres = string_isalnum(b, 9);
+    bres = string_isalnum(b, 9, true);
+    assert(bres == 1);
+    bres = string_isalnum(c, 0, false);
+    assert(bres == 0);
+    bres = string_isalnum(c, 0, true);
     assert(bres == 1);
     free(a);
     free(b);
+    free(c);
 
     uint8_t key[16] = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF };
     a = string_new_c("Esto es un Test para hash");

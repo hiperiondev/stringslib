@@ -903,21 +903,22 @@ bool string_isblank(const String buf) {
 }
 
 /**
- * @fn bool string_isalnum(const String buf, uint32_t pos)
+ * @fn bool string_isalnum(const String buf, uint32_t pos, bool underscore)
  * @brief Check if string only contain letters and numbers
  *
  * @param buf Buffered string
  * @param pos starting position
+ * @param underscore include underscore character
  * @return Boolean
  */
-bool string_isalnum(const String buf, uint32_t pos) {
+bool string_isalnum(const String buf, uint32_t pos, bool underscore) {
     if (pos > buf->length)
         return 0;
 
     unsigned char c;
     char *b = buf->data + pos;
 
-    while ((c = *b) && (isalnum(c)))
+    while ((c = *b) && (isalnum(c) || ((c == '_' && underscore))))
         ++b;
 
     return *b == '\0';
