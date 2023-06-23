@@ -56,7 +56,7 @@ For convenience, for all functions that return a String, a macro (func_m) is def
 | bool           | **string_isfloat**(const String buf)<br>Check if string is a valid float.                                                |
 | bool           | **string_isblank**(const String buf)<br>Check if string is a blank line                                                  |
 | uint8_t        | **string_isrealexp**(const String buf)<br>Check if string is a valid scientific notation.                                |
-| long           | **string_tolong**(const String buf)<br>Convert string to integer. Max value: LONG_MAX_MAX - 1.                           |
+| long           | **string_tolong**(const String buf, uint8_t base)<br>Convert string to integer. Max value: LONG_MAX_MAX - 1.             |
 | double         | **string_todouble**(const String buf)<br>Convert string to float. Max value: DBL_MAX - 1.                                |
 | string_hash_t  | **string_hash**(const String buf, uint8_t version, uint8_t key[16])<br>String hash.                                      |
 
