@@ -302,7 +302,7 @@ int main(void) {
     free(a);
 
     a = string_new_c("-234567");
-    lres = string_tolong(a);
+    lres = string_tolong(a, 10);
     assert(lres == -234567);
     free(a);
 

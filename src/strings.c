@@ -276,7 +276,7 @@ String string_right(const String buf, uint32_t pos) {
  * @brief Substring left from position left to position right
  *
  * @param buf Buffered string
- * @param left Position
+ * @param left Position (start in 1)
  * @param right Position
  * @return Buffered string
  */
@@ -941,14 +941,14 @@ uint8_t string_isrealexp(const String buf) {
  * @param buf Buffered string
  * @return Integer result (LONG_MAX_MAX: Error in conversion)
  */
-long string_tolong(const String buf) {
+long string_tolong(const String buf, uint8_t base) {
     if (buf == NULL || !string_isinteger(buf))
         return LONG_MAX;
 
     char *end;
     errno = 0;
 
-    long result = strtol(buf->data, &end, 10);
+    long result = strtol(buf->data, &end, base);
     if ((result == LONG_MIN|| result == LONG_MAX) && ERANGE == errno)
         return LONG_MAX;
 
