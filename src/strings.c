@@ -942,7 +942,7 @@ uint8_t string_isrealexp(const String buf) {
  * @return Integer result (LONG_MAX_MAX: Error in conversion)
  */
 long string_tolong(const String buf, uint8_t base) {
-    if (buf == NULL || !string_isinteger(buf))
+    if (buf == NULL)
         return LONG_MAX;
 
     char *end;
