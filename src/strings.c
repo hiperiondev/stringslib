@@ -903,6 +903,25 @@ bool string_isblank(const String buf) {
 }
 
 /**
+ * @fn bool string_isalnum(const String buf)
+ * @brief Check if string only contain letters and numbers
+ *
+ * @param buf Buffered string
+ * @return Boolean
+ */
+bool string_isalnum(const String buf) {
+    unsigned char c;
+    char *b = buf->data;
+
+    while ((c = *b) && (isalnum(c)))
+        ++b;
+
+    return *b == '\0';
+}
+
+
+
+/**
  * @fn bool string_isrealexp(const String buf)
  * @brief Check if string is a valid scientific notation
  *
